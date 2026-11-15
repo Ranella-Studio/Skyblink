@@ -74,10 +74,6 @@ The site is hosted on Firebase Hosting; `firebase.json` points it at `web/dist`.
 
 A static site in plain JavaScript with Vite, no framework, and no server needed except the optional 2MASS relay. `web/src/fits` reads FITS files over HTTP range requests; `web/src/engine` groups frames into visits, weights them through a filter and stacks them; `web/src/engine/legacy` reads WISE and 2MASS; `web/src/ui` is the screen. The design is written down in [docs/DESIGN.md](docs/DESIGN.md).
 
-## What we reused
-
-The FITS reader, sky maths and pointing index come from our own first attempt at this challenge, [Ranella-Studio/Nasa-Challenge](https://github.com/Ranella-Studio/Nasa-Challenge). Each of those files says so on its first line and is listed in [REFERENCES.md](REFERENCES.md). Everything that makes this tool what it is (matched filters, visits, the long timeline, WISE and 2MASS readers, the screen, the tests on the five targets) was written during the hackathon.
-
 ## Licence
 
 MIT. Data belongs to its providers: NASA/JPL-Caltech (SPHEREx, WISE), UMass/IPAC (2MASS), ESA (Gaia).

@@ -72,7 +72,7 @@ export function renderClicked(app, st) {
         let dra = p.ra - first.ra;
         if (dra > 180) dra -= 360;
         if (dra < -180) dra += 360;
-        tr.append(el('td', null, signed(dra * cosd * 3600)), el('td', null, signed((p.dec - first.dec) * 3600)), el('td', null, Number.isFinite(p.value) ? `${p.value.toPrecision(3)}\u00a0${p.unit}` : 'no clean sky ring'));
+        tr.append(el('td', null, signed(dra * cosd * 3600)), el('td', null, signed((p.dec - first.dec) * 3600)), el('td', null, Number.isFinite(p.value) ? `${p.value.toPrecision(3)}\u00a0${p.unit}` : 'flagged pixels in aperture'));
       }
       return tr;
     }),

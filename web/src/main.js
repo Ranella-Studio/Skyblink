@@ -453,6 +453,9 @@ function markTarget() {
   $('mission-text').textContent = on >= 0 ? TARGETS[on].brief : NO_MISSION;
   $('briefing').classList.toggle('none', on < 0);
 }
+// The stage takes the height the briefing leaves; the briefing wraps to the column, not the stage.
+const sizeToBriefing = () => document.documentElement.style.setProperty('--brief-h', `${$('briefing').offsetHeight}px`);
+new ResizeObserver(sizeToBriefing).observe($('briefing'));
 
 // ---------- dialog ----------
 $('about-open').onclick = () => $('about').showModal();

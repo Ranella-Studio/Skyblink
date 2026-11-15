@@ -75,7 +75,11 @@ function notText(slot) {
 /** Header strip pieces: survey name in its colour, date, filter, frames. */
 function captionLines(slot) {
   const f = slot.frame;
-  const out = [el('span', `survey s-${slot.source}`, SURVEY[slot.source]), el('span', null, dateText(f)), el('span', null, bandText(slot))];
+  const b = getBand(f.band);
+  // ISO 8601 shortened interval: 2026-08-17/20, 2026-08-28/09-02, 2010-01-07/2010-12-31.
+  const [d0, d1] = f.mjdRange && f.mjdRange[1] - f.mjdRange[0] >= 1 ? [iso(f.mjdRange[0]), iso(f.mjdRange[1])] : [iso(f.mjd), null];
+  const date = !d1 ? d0 : d1.slice(0, 7) === d0.slice(0, 7) ? `${d0}/${d1.slice(8)}` : d1.slice(0, 4) === d0.slice(0, 4) ? `${d0}/${d1.slice(5)}` : `${d0}/${d1}`;
+  const out = [el('span', `survey s-${slot.source}`, SURVEY[slot.source]), el('span', null, date), el('span', null, b?.id ?? f.band)];
   if (slot.source === 'spherex' && f.n) out.push(el('span', null, `${f.n}\u00a0frame${f.n === 1 ? '' : 's'}`));
   return out;
 }
@@ -138,6 +142,7 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, a
   files.replaceChildren();
   facts.replaceChildren();
   footNote.textContent = '';
+  footNote.removeAttribute('title');
   canvasA.classList.remove('dim');
   drawAxes(axes, grid);
   const ready = view.filter((s) => s.status === 'ready');
@@ -237,6 +242,7 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, a
 
   overlay.setAttribute('viewBox', `0 0 ${viewN} ${viewN}`);
   for (const p of panels) drawMarks(overlay, p, app, st);
+  if (footNote.textContent) footNote.title = footNote.textContent; // full text when two lines clip it
   return { files: files.children.length > 0 };
 }
 
@@ -298,7 +304,7 @@ function drawAxes(svg, grid) {
     t('text', { x: p, y: W + 17, 'text-anchor': 'middle' }, lab);
     t('text', { x: -8, y: p + 4, 'text-anchor': 'end' }, lab);
   }
-  t('text', { x: -8, y: W + 17, 'text-anchor': 'end', class: 'dir' }, 'E');
+  t('text', { x: -20, y: W + 17, 'text-anchor': 'end', class: 'dir' }, 'E');
   t('text', { x: -8, y: -6, 'text-anchor': 'end', class: 'dir' }, 'N');
   svg.replaceChildren(...nodes);
 }

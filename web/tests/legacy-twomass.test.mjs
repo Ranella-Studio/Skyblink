@@ -43,7 +43,7 @@ test('readImage decodes 16-bit integers with BSCALE, BZERO and BLANK', () => {
   assert.ok(Number.isNaN(img.pix[1]));
 });
 
-test("real data: Barnard's Star in a 2MASS J cutout from IRSA sits where its proper motion puts it on that night", async () => {
+test("real data: Barnard's Star in a 2MASS J cutout from IRSA sits where its proper motion puts it on that night", { skip: process.env.SKYBLINK_LIVE !== '1' && 'needs the network: set SKYBLINK_LIVE=1' }, async () => {
   // J2000 269.45208 +4.69339, proper motion -801.6, +10362.4 mas/yr; 2MASS saw it near 2000.4, ~4 arcsec north of J2000.
   const grid = makeGrid({ ra: 269.45208, dec: 4.69339, fovArcmin: 2, scale: 1 });
   const f = await loadTwomassIrsa(grid, 'J');

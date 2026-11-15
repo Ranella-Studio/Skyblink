@@ -66,12 +66,32 @@ export function addFrames(frames) {
   return sum;
 }
 
-/** Bytes + mask -> ImageData-ready RGBA. No-data pixels are a dim blue-grey, distinct from black sky. */
-export function toRgba({ bytes, mask }) {
+// Heat: false colour for brightness only. Black, red, yellow, white, with stops
+// spaced so lightness rises steadily (close to matplotlib's "inferno" endpoints).
+const HEAT_STOPS = [[0, 0, 0, 0], [0.3, 120, 16, 12], [0.55, 215, 60, 8], [0.8, 250, 190, 40], [1, 255, 255, 255]];
+export const HEAT = (() => {
+  const lut = new Uint8ClampedArray(256 * 3);
+  for (let i = 0; i < 256; i++) {
+    const t = i / 255;
+    const k = HEAT_STOPS.findIndex((s) => s[0] >= t);
+    const [a, b] = [HEAT_STOPS[Math.max(0, k - 1)], HEAT_STOPS[k]];
+    const f = b[0] === a[0] ? 0 : (t - a[0]) / (b[0] - a[0]);
+    for (let c = 1; c < 4; c++) lut[i * 3 + c - 1] = a[c] + f * (b[c] - a[c]);
+  }
+  return lut;
+})();
+
+/** Bytes + mask -> ImageData-ready RGBA (grey, or the heat ramp). No-data pixels are a dim blue-grey, distinct from black sky. */
+export function toRgba({ bytes, mask }, heat = false) {
   const rgba = new Uint8ClampedArray(bytes.length * 4);
   for (let i = 0; i < bytes.length; i++) {
     const j = i * 4;
-    if (mask[i]) rgba[j] = rgba[j + 1] = rgba[j + 2] = bytes[i];
+    if (mask[i] && heat) {
+      const v = bytes[i] * 3;
+      rgba[j] = HEAT[v];
+      rgba[j + 1] = HEAT[v + 1];
+      rgba[j + 2] = HEAT[v + 2];
+    } else if (mask[i]) rgba[j] = rgba[j + 1] = rgba[j + 2] = bytes[i];
     else {
       rgba[j] = 34;
       rgba[j + 1] = 37;

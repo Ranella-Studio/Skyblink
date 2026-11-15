@@ -43,12 +43,13 @@ export function findVisits(pointings, ra, dec, { fovArcmin = 6, track = null } =
 
 /**
  * Group visits into passes. Default: a new pass when SPHEREx was away for more
- * than `gap` days or a new six-month survey began. With `binDays`, fixed bins
- * of that many days from the first visit instead (for light curves of spots
- * seen continuously); empty bins are skipped.
+ * than `gap` days; a pass longer than `maxLength` days (spots near the ecliptic
+ * poles, seen continuously) is then cut into equal chunks of at most `chunk`
+ * days. With `binDays`, fixed bins of that many days from the first visit
+ * instead (for light curves); empty bins are skipped.
  * Returns [{ id, label, start, end, mjdMean, survey, visits }].
  */
-export function groupPasses(visits, { gap = 12, binDays = null } = {}) {
+export function groupPasses(visits, { gap = 30, maxLength = 75, chunk = 60, binDays = null } = {}) {
   const sorted = [...visits].sort((a, b) => a.mjd - b.mjd);
   const groups = [];
   if (binDays) {
@@ -62,9 +63,22 @@ export function groupPasses(visits, { gap = 12, binDays = null } = {}) {
     groups.push(...bins.values());
   } else {
     let last = null;
+    const runs = [];
     for (const v of sorted) {
-      if (!last || v.mjd - last.at(-1).mjd > gap || surveyNumber(v.mjd) !== surveyNumber(last[0].mjd)) groups.push((last = []));
+      if (!last || v.mjd - last.at(-1).mjd > gap) runs.push((last = []));
       last.push(v);
+    }
+    for (const r of runs) {
+      const span = r.at(-1).mjd - r[0].mjd;
+      if (span <= maxLength) {
+        groups.push(r);
+        continue;
+      }
+      const parts = Math.ceil(span / chunk);
+      const len = span / parts;
+      const out = Array.from({ length: parts }, () => []);
+      for (const v of r) out[Math.min(parts - 1, Math.floor((v.mjd - r[0].mjd) / len))].push(v);
+      groups.push(...out.filter((g) => g.length));
     }
   }
   return groups.map((g, id) => {
@@ -82,6 +96,6 @@ export function groupPasses(visits, { gap = 12, binDays = null } = {}) {
 }
 
 /** Visits grouped into passes in one call: findVisits + groupPasses. */
-export function findPasses(pointings, ra, dec, { fovArcmin = 6, track = null, gap, binDays } = {}) {
-  return groupPasses(findVisits(pointings, ra, dec, { fovArcmin, track }), { gap, binDays });
+export function findPasses(pointings, ra, dec, { fovArcmin = 6, track = null, ...group } = {}) {
+  return groupPasses(findVisits(pointings, ra, dec, { fovArcmin, track }), group);
 }

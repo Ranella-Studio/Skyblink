@@ -1,0 +1,82 @@
+# Ported from Ranella-Studio/Nasa-Challenge (first version): .github/workflows/deploy.yml
+name: Build and deploy Skyblink
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Daily: NASA posts a new SPHEREx week on no fixed day, so a daily check
+    # puts it on the site within a day.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+# Least privilege: only the deploy job may publish to Pages.
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  # Never cancel a Pages deploy halfway; superseded PR builds can stop early.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Add new SPHEREx pointings to the index (reads FITS headers from S3)
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        timeout-minutes: 25
+        run: python3 pipeline/build_index.py
+
+      - name: Check the pointing index, or fall back to the committed one
+        run: |
+          python3 -c "import gzip,json,os; m=json.load(open('web/public/data/pointings.json')); assert m['count'] > 0 and os.path.getsize('web/public/data/pointings.bin') == 25 * m['count'] == len(gzip.decompress(open('web/public/data/pointings.pack','rb').read()))" \
+            || git checkout -- web/public/data
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install
+        working-directory: web
+        run: npm ci
+
+      - name: Test
+        working-directory: web
+        run: npm test
+
+      - name: Build
+        working-directory: web
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        with:
+          path: web/dist
+
+  deploy:
+    # Only main is ever published, including manual runs.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -10,7 +10,11 @@
   <body>
     <a class="skip" href="#stage">Skip to the image</a>
     <header class="top">
-      <a class="wordmark" href="./">Skyblink</a>
+      <a class="brand" href="./">
+        <span class="mark" aria-hidden="true"><i></i><i></i></span>
+        <span class="wordmark">Skyblink</span>
+        <span class="tagline">SPHEREx time-domain viewer</span>
+      </a>
       <form class="coord-form" id="coord-form" novalidate>
         <div class="field">
           <label class="vh" for="coords">Sky position</label>
@@ -19,34 +23,18 @@
         </div>
         <button class="btn-primary" type="submit">Blink</button>
       </form>
-      <nav class="targets" id="targets" aria-label="Test targets"></nav>
+      <button class="quiet missions-btn" type="button" id="missions-btn" popovertarget="missions" aria-haspopup="true">Missions</button>
+      <div class="missions" id="missions" popover>
+        <nav id="targets" aria-label="Missions"></nav>
+      </div>
       <button class="quiet about-btn" type="button" id="about-open">How it works</button>
     </header>
 
     <main class="app" id="app">
-      <section class="stage-col" aria-label="Sky image">
-        <h1 class="title" id="title" hidden>See the sky change over 27 years</h1>
-        <div class="stage" id="stage" tabindex="0" aria-describedby="caption">
-          <div class="canvases" id="canvases">
-            <canvas id="canvas-a" aria-hidden="true"></canvas>
-            <canvas id="canvas-b" aria-hidden="true" hidden></canvas>
-          </div>
-          <svg class="overlay" id="overlay" aria-hidden="true"></svg>
-          <div class="caption" id="caption" aria-live="polite"></div>
-          <div class="scalebar" id="scalebar" aria-hidden="true"></div>
-          <div class="stage-msg" id="stage-msg" role="status"></div>
-        </div>
-        <details class="files" id="files">
-          <summary>Files behind this frame</summary>
-          <ul id="files-list"></ul>
-        </details>
-        <p class="embed-link" id="embed-link" hidden><a target="_blank" rel="noopener">Open in Skyblink</a></p>
-      </section>
-
-      <aside class="rail" id="rail" aria-label="Controls">
+      <aside class="controls" id="controls" aria-label="Controls">
         <section class="group" aria-labelledby="g-look">
           <h2 id="g-look">Look through</h2>
-          <div class="seg" role="radiogroup" aria-label="Matched filter" id="bands-matched"></div>
+          <div class="seg seg-keys" role="radiogroup" aria-label="Matched filter" id="bands-matched"></div>
           <p class="hint" id="band-hint"></p>
           <div class="seg seg-small" role="radiogroup" aria-label="SPHEREx detector" id="bands-det"></div>
           <p class="hint" id="pass-note"></p>
@@ -54,12 +42,17 @@
 
         <section class="group" aria-labelledby="g-compare">
           <h2 id="g-compare">Compare</h2>
-          <div class="seg" role="radiogroup" aria-label="Compare mode" id="modes"></div>
+          <div class="seg seg-wrap" role="radiogroup" aria-label="Compare mode" id="modes"></div>
           <div class="pair" id="pair" hidden>
             <label>From <select id="pick-a"></select></label>
             <label>To <select id="pick-b"></select></label>
           </div>
           <p class="hint" id="mode-hint"></p>
+        </section>
+
+        <section class="group" aria-labelledby="g-display">
+          <h2 id="g-display">Display</h2>
+          <div class="seg" role="radiogroup" aria-label="Palette" id="palette"></div>
           <label class="range">
             <span>Field of view <output id="fov-out" class="num"></output></span>
             <input type="range" id="fov" min="2" max="20" step="1" />
@@ -69,27 +62,71 @@
             <span>Speed <output id="speed-out" class="num"></output></span>
             <input type="range" id="speed" min="0.5" max="4" step="0.5" value="1.5" />
           </label>
-          <label class="check"><input type="checkbox" id="invert" /> Invert (dark stars on white)</label>
-          <label class="check"><input type="checkbox" id="gaia" /> Gaia rings <span class="hint-inline" id="gaia-state"></span></label>
+          <label class="switch"><input type="checkbox" role="switch" id="hud-toggle" /><span class="track" aria-hidden="true"></span> HUD <kbd>H</kbd></label>
+          <label class="switch"><input type="checkbox" role="switch" id="gaia" /><span class="track" aria-hidden="true"></span> Gaia rings <kbd>G</kbd> <span class="hint-inline" id="gaia-state"></span></label>
         </section>
+      </aside>
 
+      <section class="stage-col" aria-label="Sky image">
+        <p class="briefing" id="briefing"><span class="mname" id="mission-name"></span> <span id="mission-text"></span></p>
+        <div class="stage-head data" id="caption" aria-live="polite"></div>
+        <div class="stage-frame">
+          <svg class="axes" id="axes" aria-hidden="true"></svg>
+          <div class="stage" id="stage" tabindex="0" aria-describedby="caption">
+            <div class="canvases" id="canvases">
+              <canvas id="canvas-a" aria-hidden="true"></canvas>
+              <canvas id="canvas-b" aria-hidden="true" hidden></canvas>
+            </div>
+            <svg class="overlay" id="overlay" aria-hidden="true"></svg>
+            <div class="hud data" id="hud" aria-hidden="true" hidden>
+              <span class="reticle"></span>
+              <span class="hud-tr" id="hud-frame"></span>
+              <span class="hud-bl" id="hud-pointer"></span>
+            </div>
+            <div class="stage-msg" id="stage-msg" role="status"></div>
+          </div>
+        </div>
+        <div class="stage-foot" id="stage-foot"><span class="data" id="foot-coords"></span><span class="foot-note" id="foot-note"></span></div>
+        <p class="embed-link" id="embed-link" hidden><a target="_blank" rel="noopener">Open in Skyblink</a></p>
+      </section>
+
+      <aside class="readout" id="readout" aria-label="Readout">
+        <section class="group" aria-labelledby="g-frame">
+          <h2 id="g-frame">Frame on screen</h2>
+          <dl class="facts" id="facts"></dl>
+          <details class="files" id="files">
+            <summary>Source files</summary>
+            <ul id="files-list"></ul>
+          </details>
+        </section>
         <section class="group" aria-labelledby="g-click" id="clicked" hidden>
           <h2 id="g-click">What you clicked</h2>
           <p class="sentence" id="motion"></p>
           <p class="gaia-line" id="gaia-match"></p>
+          <p class="bright-line" id="bright"></p>
           <table class="pos" id="pos-table">
-            <caption>Position on each date, arcsec from the first</caption>
-            <thead><tr><th scope="col">Date</th><th scope="col">East</th><th scope="col">North</th></tr></thead>
+            <caption>On each date: position in arcsec from the first, and brightness in a 9″ aperture</caption>
+            <thead><tr><th scope="col">Date</th><th scope="col">East</th><th scope="col">North</th><th scope="col">Brightness</th></tr></thead>
             <tbody></tbody>
           </table>
           <div class="spectrum" id="spectrum"></div>
           <button class="quiet" type="button" id="clear-click">Clear</button>
         </section>
-        <p class="hint click-hint" id="click-hint">Click a star in the image to measure how it moved.</p>
+        <p class="hint click-hint" id="click-hint">Click a star to measure it.</p>
       </aside>
 
       <section class="strip" id="strip" aria-label="Film strip">
-        <button class="play" type="button" id="play" aria-pressed="false">Play</button>
+        <div class="transport">
+          <button class="play" type="button" id="play" aria-pressed="false">
+            <svg class="ic-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" /></svg>
+            <svg class="ic-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z" /></svg>
+            <span class="lab" id="play-label">Play</span>
+          </button>
+          <div class="steps">
+            <button class="quiet step" type="button" id="step-back" aria-label="Previous frame"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11 3v10L4 8z" /></svg></button>
+            <button class="quiet step" type="button" id="step-fwd" aria-label="Next frame"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10l7-5z" /></svg></button>
+          </div>
+        </div>
         <div class="strip-scroll" id="strip-scroll">
           <div class="strip-inner" id="strip-inner">
             <ol class="thumbs" id="thumbs"></ol>
@@ -98,6 +135,11 @@
         </div>
       </section>
     </main>
+
+    <footer class="foot">
+      <span>Data: NASA/JPL-Caltech SPHEREx and WISE, 2MASS (UMass/IPAC), ESA Gaia. Built for NASA Space Apps 2026. Not an official NASA product.</span>
+      <a href="https://github.com/Ranella-Studio/Skyblink" rel="noopener">Source code</a>
+    </footer>
 
     <dialog id="about" aria-labelledby="about-title">
       <form method="dialog" class="dialog-close"><button class="quiet" type="submit">Close</button></form>
@@ -111,11 +153,16 @@
       </ul>
       <h3>What “matched filter” means</h3>
       <p>Each telescope sees through its own filter, so a star can look brighter in one simply because of the filter. SPHEREx sees many narrow colours, so Skyblink adds up the SPHEREx frames that fall inside the older filter’s range. All three telescopes then see the same light, and a difference between frames is a real change in the sky. For now the older filters are stood in for by a flat range (a “top-hat”) rather than their exact response curves.</p>
+      <h3>Palette</h3>
+      <p>Grey shows brightness as astronomers usually do; Inverted shows dark stars on white. Heat is false colour for brightness only: black, red, yellow, white from faint to bright. It does not show the star’s real colour or temperature.</p>
+      <h3>Brightness</h3>
+      <p>“What you clicked” sums the same 9″ circle around the star in every frame and subtracts the sky measured in a ring around it. Percent changes are only given between frames from the same telescope and filter, because different telescopes are calibrated differently.</p>
       <h3>Keys</h3>
       <dl class="keys">
+        <dt><kbd>1</kbd> to <kbd>5</kbd></dt><dd>Look through J, H, Ks, W1, W2</dd>
         <dt><kbd>Space</kbd></dt><dd>Play or pause</dd>
         <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Step one frame</dd>
-        <dt><kbd>1</kbd> to <kbd>9</kbd></dt><dd>Jump to a frame</dd>
+        <dt><kbd>H</kbd></dt><dd>HUD on or off: reticle, position and pixel value under the pointer, frame number, years elapsed</dd>
         <dt><kbd>S</kbd></dt><dd>Subtract (frame B minus frame A)</dd>
         <dt><kbd>G</kbd></dt><dd>Gaia rings on or off</dd>
       </dl>
@@ -124,9 +171,9 @@
         <li>SPHEREx: NASA/JPL-Caltech, Level 2 images from the NASA/IPAC Infrared Science Archive (IRSA) on AWS.</li>
         <li>AllWISE: NASA/JPL-Caltech/UCLA, Wide-field Infrared Survey Explorer, via IRSA.</li>
         <li>2MASS: University of Massachusetts and IPAC/Caltech, funded by NASA and the NSF; Atlas images from IRSA, or the CDS hips2fits service when IRSA cannot be reached.</li>
-        <li>Gaia DR3: ESA/Gaia/DPAC, read from the copy MAST hosts on AWS Open Data.</li>
+        <li>Gaia DR3: ESA/Gaia/DPAC, read from the copy MAST hosts on AWS Open Data. Each ring is moved from Gaia’s 2016 position to the frame’s date by the star’s proper motion.</li>
       </ul>
-      <p>Made for the NASA Space Apps Challenge 2026, “Planet X and SPHEREx”.</p>
+      <p>Made for the NASA Space Apps Challenge 2026, “Planet X and SPHEREx”. Not an official NASA product.</p>
     </dialog>
 
     <script type="module" src="/src/main.js"></script>

@@ -1,0 +1,15 @@
+# Skyblink as one free Render web service: the built site plus the 2MASS relay.
+# IRSA sends no CORS headers, so 2MASS for any coordinate needs server/server.mjs
+# in front of it. GitHub Pages serves the same site without the relay; there,
+# 2MASS is available for the five test targets, which ship with real cutouts.
+services:
+  - type: web
+    name: skyblink
+    runtime: node
+    plan: free
+    buildCommand: cd web && npm ci && VITE_IRSA_PROXY=/irsa npm run build
+    startCommand: node server/server.mjs
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

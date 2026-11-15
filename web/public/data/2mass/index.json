@@ -1,0 +1,483 @@
+{
+ "about": "Real 2MASS All-Sky Atlas cutouts from IRSA (SIA + IBE), baked by tools/bake-2mass.mjs",
+ "built": "2026-11-14",
+ "entries": [
+  {
+   "id": "barnards-star",
+   "ra": 269.45208,
+   "dec": 4.69339,
+   "band": "J",
+   "sizeArcmin": 8,
+   "mjd": 51692.42835740741,
+   "label": "2MASS J, 28 May 2000",
+   "files": [
+    {
+     "file": "barnards-star-J-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s101/image/ji1010209.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:16:50.08",
+     "mjd": 51692.42835740741,
+     "magzp": 20.8408
+    },
+    {
+     "file": "barnards-star-J-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s108/image/ji1080056.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:29:30.34",
+     "mjd": 51692.437156712964,
+     "magzp": 20.8398
+    },
+    {
+     "file": "barnards-star-J-2.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s101/image/ji1010220.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:17:06.44",
+     "mjd": 51692.428546759256,
+     "magzp": 20.8411
+    }
+   ]
+  },
+  {
+   "id": "barnards-star",
+   "ra": 269.45208,
+   "dec": 4.69339,
+   "band": "H",
+   "sizeArcmin": 8,
+   "mjd": 51692.42835740741,
+   "label": "2MASS H, 28 May 2000",
+   "files": [
+    {
+     "file": "barnards-star-H-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s101/image/hi1010209.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:16:50.08",
+     "mjd": 51692.42835740741,
+     "magzp": 20.3111
+    },
+    {
+     "file": "barnards-star-H-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s108/image/hi1080056.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:29:30.34",
+     "mjd": 51692.437156712964,
+     "magzp": 20.3104
+    },
+    {
+     "file": "barnards-star-H-2.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s101/image/hi1010220.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:17:06.44",
+     "mjd": 51692.428546759256,
+     "magzp": 20.3111
+    }
+   ]
+  },
+  {
+   "id": "barnards-star",
+   "ra": 269.45208,
+   "dec": 4.69339,
+   "band": "Ks",
+   "sizeArcmin": 8,
+   "mjd": 51692.42835740741,
+   "label": "2MASS Ks, 28 May 2000",
+   "files": [
+    {
+     "file": "barnards-star-Ks-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s101/image/ki1010209.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:16:50.08",
+     "mjd": 51692.42835740741,
+     "magzp": 20.0464
+    },
+    {
+     "file": "barnards-star-Ks-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s108/image/ki1080056.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:29:30.34",
+     "mjd": 51692.437156712964,
+     "magzp": 20.0455
+    },
+    {
+     "file": "barnards-star-Ks-2.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000528n/s101/image/ki1010220.fits.gz?center=269.452080,4.693390&size=8arcmin&gzip=false",
+     "date": "000528",
+     "ut": "10:17:06.44",
+     "mjd": 51692.428546759256,
+     "magzp": 20.0466
+    }
+   ]
+  },
+  {
+   "id": "eps-indi-b",
+   "ra": 331.04383,
+   "dec": -56.78269,
+   "band": "J",
+   "sizeArcmin": 8,
+   "mjd": 51490.11286724537,
+   "label": "2MASS J, 8 Nov 1999",
+   "files": [
+    {
+     "file": "eps-indi-b-J-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991108s/s044/image/ji0440139.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "991108",
+     "ut": "02:42:31.73",
+     "mjd": 51490.11286724537,
+     "magzp": 20.8219
+    },
+    {
+     "file": "eps-indi-b-J-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000717s/s086/image/ji0860139.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "000717",
+     "ut": "04:55:20.73",
+     "mjd": 51742.20510104167,
+     "magzp": 20.9592
+    },
+    {
+     "file": "eps-indi-b-J-2.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991108s/s044/image/ji0440151.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "991108",
+     "ut": "02:42:49.55",
+     "mjd": 51490.11307349537,
+     "magzp": 20.822
+    },
+    {
+     "file": "eps-indi-b-J-3.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000717s/s086/image/ji0860151.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "000717",
+     "ut": "04:55:38.55",
+     "mjd": 51742.20530729167,
+     "magzp": 20.9595
+    }
+   ]
+  },
+  {
+   "id": "eps-indi-b",
+   "ra": 331.04383,
+   "dec": -56.78269,
+   "band": "H",
+   "sizeArcmin": 8,
+   "mjd": 51490.11286724537,
+   "label": "2MASS H, 8 Nov 1999",
+   "files": [
+    {
+     "file": "eps-indi-b-H-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991108s/s044/image/hi0440139.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "991108",
+     "ut": "02:42:31.73",
+     "mjd": 51490.11286724537,
+     "magzp": 20.4365
+    },
+    {
+     "file": "eps-indi-b-H-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000717s/s086/image/hi0860139.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "000717",
+     "ut": "04:55:20.73",
+     "mjd": 51742.20510104167,
+     "magzp": 20.4894
+    },
+    {
+     "file": "eps-indi-b-H-2.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991108s/s044/image/hi0440151.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "991108",
+     "ut": "02:42:49.55",
+     "mjd": 51490.11307349537,
+     "magzp": 20.4365
+    },
+    {
+     "file": "eps-indi-b-H-3.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000717s/s086/image/hi0860151.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "000717",
+     "ut": "04:55:38.55",
+     "mjd": 51742.20530729167,
+     "magzp": 20.4895
+    }
+   ]
+  },
+  {
+   "id": "eps-indi-b",
+   "ra": 331.04383,
+   "dec": -56.78269,
+   "band": "Ks",
+   "sizeArcmin": 8,
+   "mjd": 51490.11286724537,
+   "label": "2MASS Ks, 8 Nov 1999",
+   "files": [
+    {
+     "file": "eps-indi-b-Ks-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991108s/s044/image/ki0440139.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "991108",
+     "ut": "02:42:31.73",
+     "mjd": 51490.11286724537,
+     "magzp": 19.9129
+    },
+    {
+     "file": "eps-indi-b-Ks-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000717s/s086/image/ki0860139.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "000717",
+     "ut": "04:55:20.73",
+     "mjd": 51742.20510104167,
+     "magzp": 19.9692
+    },
+    {
+     "file": "eps-indi-b-Ks-2.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991108s/s044/image/ki0440151.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "991108",
+     "ut": "02:42:49.55",
+     "mjd": 51490.11307349537,
+     "magzp": 19.913
+    },
+    {
+     "file": "eps-indi-b-Ks-3.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/000717s/s086/image/ki0860151.fits.gz?center=331.043830,-56.782690&size=8arcmin&gzip=false",
+     "date": "000717",
+     "ut": "04:55:38.55",
+     "mjd": 51742.20530729167,
+     "magzp": 19.9694
+    }
+   ]
+  },
+  {
+   "id": "wise-0855",
+   "ra": 133.795129,
+   "dec": -7.245147,
+   "band": "J",
+   "sizeArcmin": 8,
+   "mjd": 51175.33302627315,
+   "label": "2MASS J, 28 Dec 1998",
+   "files": [
+    {
+     "file": "wise-0855-J-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/981228s/s094/image/ji0940209.fits.gz?center=133.795129,-7.245147&size=8arcmin&gzip=false",
+     "date": "981228",
+     "ut": "07:59:33.47",
+     "mjd": 51175.33302627315,
+     "magzp": 20.8754
+    },
+    {
+     "file": "wise-0855-J-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/981228s/s093/image/ji0930068.fits.gz?center=133.795129,-7.245147&size=8arcmin&gzip=false",
+     "date": "981228",
+     "ut": "07:49:04.51",
+     "mjd": 51175.32574664352,
+     "magzp": 20.8768
+    }
+   ]
+  },
+  {
+   "id": "wise-0855",
+   "ra": 133.795129,
+   "dec": -7.245147,
+   "band": "H",
+   "sizeArcmin": 8,
+   "mjd": 51175.33302627315,
+   "label": "2MASS H, 28 Dec 1998",
+   "files": [
+    {
+     "file": "wise-0855-H-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/981228s/s094/image/hi0940209.fits.gz?center=133.795129,-7.245147&size=8arcmin&gzip=false",
+     "date": "981228",
+     "ut": "07:59:33.47",
+     "mjd": 51175.33302627315,
+     "magzp": 20.4013
+    },
+    {
+     "file": "wise-0855-H-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/981228s/s093/image/hi0930068.fits.gz?center=133.795129,-7.245147&size=8arcmin&gzip=false",
+     "date": "981228",
+     "ut": "07:49:04.51",
+     "mjd": 51175.32574664352,
+     "magzp": 20.4015
+    }
+   ]
+  },
+  {
+   "id": "wise-0855",
+   "ra": 133.795129,
+   "dec": -7.245147,
+   "band": "Ks",
+   "sizeArcmin": 8,
+   "mjd": 51175.33302627315,
+   "label": "2MASS Ks, 28 Dec 1998",
+   "files": [
+    {
+     "file": "wise-0855-Ks-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/981228s/s094/image/ki0940209.fits.gz?center=133.795129,-7.245147&size=8arcmin&gzip=false",
+     "date": "981228",
+     "ut": "07:59:33.47",
+     "mjd": 51175.33302627315,
+     "magzp": 19.8756
+    },
+    {
+     "file": "wise-0855-Ks-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/981228s/s093/image/ki0930068.fits.gz?center=133.795129,-7.245147&size=8arcmin&gzip=false",
+     "date": "981228",
+     "ut": "07:49:04.51",
+     "mjd": 51175.32574664352,
+     "magzp": 19.8763
+    }
+   ]
+  },
+  {
+   "id": "rw-aur",
+   "ra": 76.95642,
+   "dec": 30.40136,
+   "band": "J",
+   "sizeArcmin": 8,
+   "mjd": 51509.2915431713,
+   "label": "2MASS J, 27 Nov 1999",
+   "files": [
+    {
+     "file": "rw-aur-J-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991127n/s086/image/ji0860033.fits.gz?center=76.956420,30.401360&size=8arcmin&gzip=false",
+     "date": "991127",
+     "ut": "06:59:49.33",
+     "mjd": 51509.2915431713,
+     "magzp": 20.991
+    },
+    {
+     "file": "rw-aur-J-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991127n/s086/image/ji0860021.fits.gz?center=76.956420,30.401360&size=8arcmin&gzip=false",
+     "date": "991127",
+     "ut": "06:59:31.49",
+     "mjd": 51509.291336689814,
+     "magzp": 20.991
+    }
+   ]
+  },
+  {
+   "id": "rw-aur",
+   "ra": 76.95642,
+   "dec": 30.40136,
+   "band": "H",
+   "sizeArcmin": 8,
+   "mjd": 51509.2915431713,
+   "label": "2MASS H, 27 Nov 1999",
+   "files": [
+    {
+     "file": "rw-aur-H-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991127n/s086/image/hi0860033.fits.gz?center=76.956420,30.401360&size=8arcmin&gzip=false",
+     "date": "991127",
+     "ut": "06:59:49.33",
+     "mjd": 51509.2915431713,
+     "magzp": 20.3689
+    },
+    {
+     "file": "rw-aur-H-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991127n/s086/image/hi0860021.fits.gz?center=76.956420,30.401360&size=8arcmin&gzip=false",
+     "date": "991127",
+     "ut": "06:59:31.49",
+     "mjd": 51509.291336689814,
+     "magzp": 20.3689
+    }
+   ]
+  },
+  {
+   "id": "rw-aur",
+   "ra": 76.95642,
+   "dec": 30.40136,
+   "band": "Ks",
+   "sizeArcmin": 8,
+   "mjd": 51509.2915431713,
+   "label": "2MASS Ks, 27 Nov 1999",
+   "files": [
+    {
+     "file": "rw-aur-Ks-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991127n/s086/image/ki0860033.fits.gz?center=76.956420,30.401360&size=8arcmin&gzip=false",
+     "date": "991127",
+     "ut": "06:59:49.33",
+     "mjd": 51509.2915431713,
+     "magzp": 20.1
+    },
+    {
+     "file": "rw-aur-Ks-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/991127n/s086/image/ki0860021.fits.gz?center=76.956420,30.401360&size=8arcmin&gzip=false",
+     "date": "991127",
+     "ut": "06:59:31.49",
+     "mjd": 51509.291336689814,
+     "magzp": 20.1
+    }
+   ]
+  },
+  {
+   "id": "r-dra",
+   "ra": 248.1675,
+   "dec": 66.755,
+   "band": "J",
+   "sizeArcmin": 8,
+   "mjd": 51324.33785520833,
+   "label": "2MASS J, 26 May 1999",
+   "files": [
+    {
+     "file": "r-dra-J-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s073/image/ji0730044.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+     "date": "990526",
+     "ut": "08:06:30.69",
+     "mjd": 51324.33785520833,
+     "magzp": 20.8168
+    },
+    {
+     "file": "r-dra-J-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s072/image/ji0720232.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+     "date": "990526",
+     "ut": "08:04:12.28",
+     "mjd": 51324.33625324074,
+     "magzp": 20.8177
+    }
+   ]
+  },
+  {
+   "id": "r-dra",
+   "ra": 248.1675,
+   "dec": 66.755,
+   "band": "H",
+   "sizeArcmin": 8,
+   "mjd": 51324.33785520833,
+   "label": "2MASS H, 26 May 1999",
+   "files": [
+    {
+     "file": "r-dra-H-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s073/image/hi0730044.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+     "date": "990526",
+     "ut": "08:06:30.69",
+     "mjd": 51324.33785520833,
+     "magzp": 20.6649
+    },
+    {
+     "file": "r-dra-H-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s072/image/hi0720232.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+     "date": "990526",
+     "ut": "08:04:12.28",
+     "mjd": 51324.33625324074,
+     "magzp": 20.6651
+    }
+   ]
+  },
+  {
+   "id": "r-dra",
+   "ra": 248.1675,
+   "dec": 66.755,
+   "band": "Ks",
+   "sizeArcmin": 8,
+   "mjd": 51324.33785520833,
+   "label": "2MASS Ks, 26 May 1999",
+   "files": [
+    {
+     "file": "r-dra-Ks-0.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s073/image/ki0730044.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+     "date": "990526",
+     "ut": "08:06:30.69",
+     "mjd": 51324.33785520833,
+     "magzp": 20.0298
+    },
+    {
+     "file": "r-dra-Ks-1.fits",
+     "source": "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s072/image/ki0720232.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+     "date": "990526",
+     "ut": "08:04:12.28",
+     "mjd": 51324.33625324074,
+     "magzp": 20.03
+    }
+   ]
+  }
+ ]
+}

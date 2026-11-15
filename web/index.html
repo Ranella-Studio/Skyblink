@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Enter a spot on the sky and watch real images from 2MASS, WISE and SPHEREx, 1999 to today, play as a movie through one matched filter." />
+    <title>Skyblink: see the sky change over 27 years</title>
+  </head>
+  <body>
+    <a class="skip" href="#stage">Skip to the image</a>
+    <header class="top">
+      <a class="wordmark" href="./">Skyblink</a>
+      <form class="coord-form" id="coord-form" novalidate>
+        <div class="field">
+          <label class="vh" for="coords">Sky position</label>
+          <input id="coords" name="coords" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="RA, Dec in degrees or 17h57m48s +04d41m36s" aria-describedby="coords-error" />
+          <p class="field-error" id="coords-error" hidden></p>
+        </div>
+        <button class="btn-primary" type="submit">Blink</button>
+      </form>
+      <nav class="targets" id="targets" aria-label="Test targets"></nav>
+      <button class="quiet about-btn" type="button" id="about-open">How it works</button>
+    </header>
+
+    <main class="app" id="app">
+      <section class="stage-col" aria-label="Sky image">
+        <h1 class="title" id="title" hidden>See the sky change over 27 years</h1>
+        <div class="stage" id="stage" tabindex="0" aria-describedby="caption">
+          <div class="canvases" id="canvases">
+            <canvas id="canvas-a" aria-hidden="true"></canvas>
+            <canvas id="canvas-b" aria-hidden="true" hidden></canvas>
+          </div>
+          <svg class="overlay" id="overlay" aria-hidden="true"></svg>
+          <div class="caption" id="caption" aria-live="polite"></div>
+          <div class="scalebar" id="scalebar" aria-hidden="true"></div>
+          <div class="stage-msg" id="stage-msg" role="status"></div>
+        </div>
+        <details class="files" id="files">
+          <summary>Files behind this frame</summary>
+          <ul id="files-list"></ul>
+        </details>
+        <p class="embed-link" id="embed-link" hidden><a target="_blank" rel="noopener">Open in Skyblink</a></p>
+      </section>
+
+      <aside class="rail" id="rail" aria-label="Controls">
+        <section class="group" aria-labelledby="g-look">
+          <h2 id="g-look">Look through</h2>
+          <div class="seg" role="radiogroup" aria-label="Matched filter" id="bands-matched"></div>
+          <p class="hint" id="band-hint"></p>
+          <div class="seg seg-small" role="radiogroup" aria-label="SPHEREx detector" id="bands-det"></div>
+          <p class="hint" id="pass-note"></p>
+        </section>
+
+        <section class="group" aria-labelledby="g-compare">
+          <h2 id="g-compare">Compare</h2>
+          <div class="seg" role="radiogroup" aria-label="Compare mode" id="modes"></div>
+          <div class="pair" id="pair" hidden>
+            <label>From <select id="pick-a"></select></label>
+            <label>To <select id="pick-b"></select></label>
+          </div>
+          <p class="hint" id="mode-hint"></p>
+          <label class="range">
+            <span>Field of view <output id="fov-out" class="num"></output></span>
+            <input type="range" id="fov" min="2" max="20" step="1" />
+          </label>
+          <p class="hint" id="fov-hint">Wider fields take longer to download.</p>
+          <label class="range">
+            <span>Speed <output id="speed-out" class="num"></output></span>
+            <input type="range" id="speed" min="0.5" max="4" step="0.5" value="1.5" />
+          </label>
+          <label class="check"><input type="checkbox" id="invert" /> Invert (dark stars on white)</label>
+          <label class="check"><input type="checkbox" id="gaia" /> Gaia rings <span class="hint-inline" id="gaia-state"></span></label>
+        </section>
+
+        <section class="group" aria-labelledby="g-click" id="clicked" hidden>
+          <h2 id="g-click">What you clicked</h2>
+          <p class="sentence" id="motion"></p>
+          <p class="gaia-line" id="gaia-match"></p>
+          <table class="pos" id="pos-table">
+            <caption>Position on each date, arcsec from the first</caption>
+            <thead><tr><th scope="col">Date</th><th scope="col">East</th><th scope="col">North</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <div class="spectrum" id="spectrum"></div>
+          <button class="quiet" type="button" id="clear-click">Clear</button>
+        </section>
+        <p class="hint click-hint" id="click-hint">Click a star in the image to measure how it moved.</p>
+      </aside>
+
+      <section class="strip" id="strip" aria-label="Film strip">
+        <button class="play" type="button" id="play" aria-pressed="false">Play</button>
+        <div class="strip-scroll" id="strip-scroll">
+          <div class="strip-inner" id="strip-inner">
+            <ol class="thumbs" id="thumbs"></ol>
+            <svg class="ruler" id="ruler" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="about" aria-labelledby="about-title">
+      <form method="dialog" class="dialog-close"><button class="quiet" type="submit">Close</button></form>
+      <h2 id="about-title">How it works</h2>
+      <p>Skyblink shows one small patch of sky as seen by three infrared telescopes over 27 years, and plays the pictures as a movie. Anything that moved or changed brightness jumps out when the frames cut from one to the next.</p>
+      <h3>The three telescopes</h3>
+      <ul>
+        <li><strong>2MASS</strong> (Two Micron All Sky Survey) mapped the whole sky from two ground telescopes between 1997 and 2001, in three colours: J, H and Ks.</li>
+        <li><strong>WISE</strong> (Wide-field Infrared Survey Explorer) mapped the sky from space in 2010. Skyblink uses the AllWISE atlas in W1 (3.4 µm) and W2 (4.6 µm).</li>
+        <li><strong>SPHEREx</strong> has mapped the whole sky every six months since May 2025, in 102 colours from 0.75 to 5 µm.</li>
+      </ul>
+      <h3>What “matched filter” means</h3>
+      <p>Each telescope sees through its own filter, so a star can look brighter in one simply because of the filter. SPHEREx sees many narrow colours, so Skyblink adds up the SPHEREx frames that fall inside the older filter’s range. All three telescopes then see the same light, and a difference between frames is a real change in the sky. For now the older filters are stood in for by a flat range (a “top-hat”) rather than their exact response curves.</p>
+      <h3>Keys</h3>
+      <dl class="keys">
+        <dt><kbd>Space</kbd></dt><dd>Play or pause</dd>
+        <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Step one frame</dd>
+        <dt><kbd>1</kbd> to <kbd>9</kbd></dt><dd>Jump to a frame</dd>
+        <dt><kbd>S</kbd></dt><dd>Subtract (frame B minus frame A)</dd>
+        <dt><kbd>G</kbd></dt><dd>Gaia rings on or off</dd>
+      </dl>
+      <h3>Data credits</h3>
+      <ul class="credits">
+        <li>SPHEREx: NASA/JPL-Caltech, Level 2 images from the NASA/IPAC Infrared Science Archive (IRSA) on AWS.</li>
+        <li>AllWISE: NASA/JPL-Caltech/UCLA, Wide-field Infrared Survey Explorer, via IRSA.</li>
+        <li>2MASS: University of Massachusetts and IPAC/Caltech, funded by NASA and the NSF; Atlas images from IRSA, or the CDS hips2fits service when IRSA cannot be reached.</li>
+        <li>Gaia DR3: ESA/Gaia/DPAC, read from the copy MAST hosts on AWS Open Data.</li>
+      </ul>
+      <p>Made for the NASA Space Apps Challenge 2026, “Planet X and SPHEREx”.</p>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

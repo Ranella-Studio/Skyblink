@@ -4,7 +4,7 @@
 
 Built for the NASA Space Apps Challenge 2026, "Planet X and SPHEREx". Not an official NASA product.
 
-- Live site: hosted on Firebase Hosting (see [Publishing](#publishing))
+- Live site: https://ranella-studio.github.io/Skyblink/
 - Results on the challenge's five test targets: [docs/TARGETS.md](docs/TARGETS.md)
 - Everything we reused or cite: [REFERENCES.md](REFERENCES.md)
 
@@ -48,7 +48,7 @@ When a source does not answer, its frame is shown as missing, with the reason. E
 
 ## New data arrives by itself
 
-SPHEREx releases new weeks of data all the time. A GitHub Action runs every day, reads the headers of any new files in NASA's bucket, adds them to a compact index of where SPHEREx was pointing (101,123 pointings as of 14 November 2026) and republishes the site to Firebase Hosting. Nobody has to touch anything when a new release lands.
+SPHEREx releases new weeks of data all the time. A GitHub Action runs every day, reads the headers of any new files in NASA's bucket, adds them to a compact index of where SPHEREx was pointing (101,123 pointings as of 14 November 2026) and redeploys the site. Nobody has to touch anything when a new release lands.
 
 ## Run it yourself
 
@@ -65,10 +65,12 @@ To run the site with live 2MASS for any position: `cd web && VITE_IRSA_PROXY=/ir
 
 ## Publishing
 
-The site is hosted on Firebase Hosting; `firebase.json` points it at `web/dist`.
+Every push to main and every daily index refresh publishes `web/dist` to GitHub Pages through `.github/workflows/deploy.yml`.
+
+The same build can also go to Firebase Hosting; `firebase.json` points it at `web/dist`.
 
 - By hand: `cd web && npm ci && npm run build && cd .. && npx firebase-tools deploy --only hosting --project <project id>`.
-- Automatically: set the repository variable `FIREBASE_PROJECT_ID` and the secret `FIREBASE_SERVICE_ACCOUNT` (a service account key with the Firebase Hosting Admin role). The workflow in `.github/workflows/deploy.yml` then publishes every push to main and every daily index refresh.
+- Automatically: set the repository variable `FIREBASE_PROJECT_ID` and the secret `FIREBASE_SERVICE_ACCOUNT` (a service account key with the Firebase Hosting Admin role), and the workflow publishes there too.
 
 ## How it is built
 

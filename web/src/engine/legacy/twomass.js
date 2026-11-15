@@ -1,5 +1,5 @@
 // 2MASS (1997-2001) frames on the shared grid. IRSA sends no CORS headers, so the browser tries:
-//   1. a baked real cutout in public/data/2mass/ (tools/bake-2mass.mjs) if the grid centre is within 1 arcmin of one,
+//   1. the nearest baked real cutout in public/data/2mass/ (tools/bake-2mass.mjs) whose footprint holds the whole grid,
 //   2. IRSA through a proxy prefix (VITE_IRSA_PROXY), the same SIA + IBE calls Node makes directly,
 //   3. CDS hips2fits (unverified: CDS answered 404 to this build machine).
 import { angularDistance } from '../../data/sky-math.js';
@@ -147,7 +147,14 @@ async function baked(grid, band, signal, base) {
     p.catch(() => bakedIndex.delete(base)); // a network failure is retried next time
     bakedIndex.set(base, p);
   }
-  const hit = (await bakedIndex.get(base)).entries.find((e) => e.band === band && angularDistance(e.ra, e.dec, grid.ra0, grid.dec0) < 1 / 60);
+  const halfDiag = (grid.n * grid.scale * Math.SQRT2) / 2 / 3600; // degrees
+  let hit = null;
+  let best = Infinity;
+  for (const e of (await bakedIndex.get(base)).entries) {
+    const d = angularDistance(e.ra, e.dec, grid.ra0, grid.dec0);
+    // The whole grid must lie inside the baked cutout: centre offset plus half-diagonal within half its size.
+    if (e.band === band && d + halfDiag <= e.sizeArcmin / 120 && d < best) [hit, best] = [e, d];
+  }
   if (!hit) return null;
   const cutouts = await Promise.all(hit.files.map(async (f) => ({ url: f.source, bytes: assertFits(await get(`${base}data/2mass/${f.file}`, signal), 'baked 2MASS') })));
   return twomassFrame(grid, band, cutouts);

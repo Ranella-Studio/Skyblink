@@ -99,7 +99,7 @@ export function fitMotion(points, { floor = 1 } = {}) {
     const m = pts.reduce((s, p) => s + p[key], 0) / k;
     const slope = pts.reduce((s, p) => s + (p.t - tm) * (p[key] - m), 0) / stt;
     const res = pts.reduce((s, p) => s + (p[key] - m - slope * (p.t - tm)) ** 2, 0);
-    return { slope, res };
+    return { slope, res, mean: m };
   };
   const fx = fit('x');
   const fy = fit('y');
@@ -108,12 +108,37 @@ export function fitMotion(points, { floor = 1 } = {}) {
   const speed = Math.hypot(fx.slope, fy.slope);
   const pa = ((Math.atan2(fx.slope, fy.slope) * 180) / Math.PI + 360) % 360;
   const t = pts.map((p) => p.t);
-  return { speed, pa, sigma, years: Math.max(...t) - Math.min(...t), n: k, vEast: fx.slope, vNorth: fy.slope };
+  /** The fitted line's [ra, dec] at `mjd`. */
+  const at = (mjd) => {
+    const dt = (mjd - ref.mjd) / 365.25 - tm;
+    return [ref.ra + (fx.mean + fx.slope * dt) / 3600 / cosd, ref.dec + (fy.mean + fy.slope * dt) / 3600];
+  };
+  return { speed, pa, sigma, years: Math.max(...t) - Math.min(...t), n: k, vEast: fx.slope, vNorth: fy.slope, at };
+}
+
+/** Robust per-pixel noise of a frame: 1.4826 x the median absolute deviation of its finite pixels. */
+export function frameNoise(data) {
+  const v = Array.from(data).filter(Number.isFinite);
+  const m = median(v);
+  return 1.4826 * median(v.map((x) => Math.abs(x - m)));
+}
+
+/** A source found on the predicted track counts only if its aperture sum is at least `k` times the aperture's noise. */
+export const accepted = (flux, pixNoise, npix, k = 5) => Number.isFinite(flux) && flux >= k * pixNoise * Math.sqrt(npix);
+
+/** RMS distance in arcsec of points [{ ra, dec }] from their mean position. */
+export function scatterArcsec(points) {
+  const cosd = Math.cos((points[0].dec * Math.PI) / 180);
+  const xs = points.map((p) => (((p.ra - points[0].ra + 540) % 360) - 180) * cosd * 3600);
+  const ys = points.map((p) => (p.dec - points[0].dec) * 3600);
+  const mx = xs.reduce((a, b) => a + b, 0) / xs.length;
+  const my = ys.reduce((a, b) => a + b, 0) / ys.length;
+  return Math.sqrt(xs.reduce((s, x, i) => s + (x - mx) ** 2 + (ys[i] - my) ** 2, 0) / xs.length);
 }
 
 /** The plain sentence for a fit. */
 export function motionSentence(fit) {
   if (!fit) return 'Not enough dates to measure motion.';
   if (fit.speed < 3 * fit.sigma) return `No clear motion: less than ${(3 * fit.sigma).toFixed(1)} arcsec a year over ${fit.years.toFixed(0)} years.`;
-  return `Moved ${fit.speed.toFixed(1)} arcsec a year, toward ${direction(fit.pa)}.`;
+  return `Moved ${fit.speed.toFixed(2)} ± ${fit.sigma.toFixed(2)} arcsec a year, toward ${direction(fit.pa)}.`;
 }

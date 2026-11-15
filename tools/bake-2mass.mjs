@@ -4,21 +4,15 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { makeGrid } from '../web/src/engine/grid.js';
 import { irsaTwomassImages, twomassFrame, twomassMjd } from '../web/src/engine/legacy/twomass.js';
 import { readImage } from '../web/src/engine/legacy/fitsimage.js';
+import { TARGETS } from '../web/src/app/state.js'; // the same field centres the missions open on
 
-const TARGETS = [
-  { id: 'barnards-star', ra: 269.45208, dec: 4.69339 },
-  { id: 'eps-indi-b', ra: 331.04383, dec: -56.78269 },
-  { id: 'wise-0855', ra: 133.795129, dec: -7.245147 },
-  { id: 'rw-aur', ra: 76.95642, dec: 30.40136 },
-  { id: 'r-dra', ra: 248.1675, dec: 66.755 },
-];
-const SIZE = 8; // arcmin, so a 6 arcmin view at any position angle is covered
+const SIZE = 10; // arcmin: a 6 arcmin view (half-diagonal 4.24') fits with 0.76' to spare for small pans
 
 const dir = new URL('../web/public/data/2mass/', import.meta.url);
 mkdirSync(dir, { recursive: true });
 const entries = [];
 for (const t of TARGETS) {
-  const grid = makeGrid({ ra: t.ra, dec: t.dec, fovArcmin: 6, scale: 3 });
+  const grid = makeGrid({ ra: t.ra, dec: t.dec, fovArcmin: t.fov, scale: 3 });
   for (const band of ['J', 'H', 'Ks']) {
     const images = await irsaTwomassImages(t.ra, t.dec, band);
     const cutouts = [];
@@ -44,7 +38,7 @@ for (const t of TARGETS) {
     });
     const f = twomassFrame(grid, band, cutouts);
     entries.push({ id: t.id, ra: t.ra, dec: t.dec, band, sizeArcmin: SIZE, mjd: f.mjd, label: f.label, files });
-    console.log(`${t.id} ${band}: ${f.label}, ${files.length} file(s), ${holes} empty pixels on the 6' grid`);
+    console.log(`${t.id} ${band}: ${f.label}, ${files.length} file(s), ${holes} empty pixels on the ${t.fov}' grid`);
   }
 }
 writeFileSync(

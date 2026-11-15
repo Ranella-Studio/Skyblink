@@ -2,7 +2,7 @@
 // the common grid. Frame images are Float32Array(n*n), NaN = no data.
 
 import { loadFrame } from './cutout.js';
-import { getBand, bandWeight, visitsForBand } from './bands.js';
+import { getBand, synthWeights, visitsForBand, estimateLambda } from './bands.js';
 
 const median = (sorted) => {
   const m = sorted.length >> 1;
@@ -117,13 +117,40 @@ export function add(frames) {
 }
 
 /**
- * Load the frames of `pass` that band `bandId` needs onto `grid` and stack them.
- * opts: { signal, onProgress(done, total), loader } (loader defaults to loadFrame).
- * Frames that fail to load are skipped and listed in `errors`.
+ * At most `max` items, spread as evenly as possible in key(item): for each of
+ * `max` evenly spaced targets across the key range, the nearest unused item.
  */
-export async function passStack(pass, bandId, grid, { signal, onProgress, loader = loadFrame } = {}) {
+export function spreadPick(items, key, max) {
+  if (items.length <= max) return items;
+  const keyed = items.map((it) => ({ it, k: key(it) })).sort((a, b) => a.k - b.k);
+  const lo = keyed[0].k;
+  const step = (keyed.at(-1).k - lo) / Math.max(1, max - 1);
+  const used = new Set();
+  for (let t = 0; t < max; t++) {
+    const target = lo + t * step;
+    let best = -1;
+    for (let j = 0; j < keyed.length; j++) {
+      if (used.has(j)) continue;
+      if (best < 0 || Math.abs(keyed[j].k - target) < Math.abs(keyed[best].k - target)) best = j;
+    }
+    used.add(best);
+  }
+  return keyed.filter((x, j) => used.has(j)).map((x) => x.it);
+}
+
+/**
+ * Load the frames of `pass` that band `bandId` needs onto `grid` and stack them.
+ * opts: { signal, onProgress(done, total), loader, maxFrames } (loader defaults to loadFrame).
+ * At most maxFrames visits are downloaded: spread in wavelength for matched
+ * bands, in time for detector bands. Frames that fail to load are skipped and
+ * listed in `errors`. Matched bands are a synthetic-photometry integral
+ * (synthWeights); detector bands are inverse-variance weighted.
+ */
+export async function passStack(pass, bandId, grid, { signal, onProgress, loader = loadFrame, maxFrames = 48 } = {}) {
   const band = getBand(bandId);
-  const visits = visitsForBand(band, pass.visits);
+  const detector = band.kind === 'detector';
+  const all = visitsForBand(band, pass.visits);
+  const visits = spreadPick(all, detector ? (v) => v.mjd : (v) => estimateLambda(v.det, v.y), maxFrames);
   let done = 0;
   const errors = [];
   const loaded = await Promise.all(
@@ -138,7 +165,9 @@ export async function passStack(pass, bandId, grid, { signal, onProgress, loader
     ),
   );
   const frames = loaded.filter((f) => f && f.noise > 0);
-  const weights = frames.map((f) => bandWeight(band, f.lambda, f.bandwidth) / f.noise ** 2);
+  let weights = frames.map((f) => 1 / f.noise ** 2);
+  let bandCoverage = 1;
+  if (!detector) ({ weights, coverage: bandCoverage } = synthWeights(band, frames));
   const used = frames.filter((f, k) => weights[k] > 0);
   const s = stackFrames(frames.map((f) => f.data), weights);
   const lambdas = used.map((f) => f.lambda);
@@ -159,7 +188,9 @@ export async function passStack(pass, bandId, grid, { signal, onProgress, loader
     lambdaRange: lambdas.length ? [Math.min(...lambdas), Math.max(...lambdas)] : null,
     files: used.map((f) => f.url),
     flagCounts,
+    bandCoverage,
     requested: visits.length,
+    available: all.length,
     errors,
   };
 }

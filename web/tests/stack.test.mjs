@@ -1,7 +1,7 @@
 // Stacking maths on hand-worked numbers (no sky images).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { stackFrames, subtract, add, skyStats } from '../src/engine/stack.js';
+import { stackFrames, subtract, add, skyStats, spreadPick } from '../src/engine/stack.js';
 
 const F = (...v) => Float32Array.from(v);
 
@@ -50,4 +50,11 @@ test('skyStats: sigma-clipped median and MAD noise', () => {
   const s = skyStats(F(1, 2, 3, 4, 5, 6, 7, 8, 9, 1000, NaN));
   assert.equal(s.median, 5);
   assert.ok(Math.abs(s.sigma - 2 * 1.4826) < 1e-9, String(s.sigma));
+});
+
+test('spreadPick keeps the subset spread most evenly in its key', () => {
+  // 30 values crowded in 0..0.29 plus 10 at 1..10: 4 picks near 0, 3.3, 6.7 and 10.
+  const xs = [...Array.from({ length: 30 }, (_, k) => k / 100), 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  assert.deepEqual(spreadPick(xs, (x) => x, 4), [0, 3, 7, 10]);
+  assert.equal(spreadPick(xs, (x) => x, 100), xs);
 });

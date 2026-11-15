@@ -3,13 +3,13 @@ import '@fontsource-variable/atkinson-hyperlegible-next';
 import '@fontsource/overpass-mono/400.css';
 import './styles/app.css';
 
-import { readState, writeState, findTarget, TARGETS, MATCHED, DETECTORS, MODES } from './app/state.js';
-import { parseCoords } from './data/sky-math.js';
+import { readState, writeState, findTarget, TARGETS, MATCHED, DETECTORS, MODES, NO_MISSION } from './app/state.js';
+import { parseCoords, formatRa, formatDec } from './data/sky-math.js';
 import { openTimeline, sortSlots } from './app/timeline.js';
 import { getBand, visitsForBand, BANDS as BAND_DEFS } from './engine/bands.js';
 import { loadGaia } from './app/gaia.js';
 import { renderStrip, drawRuler, slotStatusText, slotYear } from './ui/strip.js';
-import { drawStage, stagePanels, clearRenderCache, GAIA_RING_G } from './ui/stage.js';
+import { drawStage, stagePanels, clearRenderCache, GAIA_RING_G, centreText } from './ui/stage.js';
 import { measureClick, measure, renderClicked } from './ui/clicked.js';
 
 const $ = (id) => document.getElementById(id);
@@ -21,14 +21,11 @@ const el = (tag, cls, text) => {
 };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const st = { ...readState(location.search), invert: false, gaia: false, speed: 1.5, playing: false, curId: null, userHeld: false };
+const phone = matchMedia('(max-width: 719px)').matches;
+const st = { ...readState(location.search), palette: 'grey', hud: !phone, gaia: false, speed: 1.5, playing: false, curId: null, userHeld: false };
 const app = { tl: null, ctrl: null, view: [], passes: null, passError: null, gaia: null, gaiaState: 'off', click: null, gaiaCtrl: null };
 
 if (st.embed) document.body.classList.add('embed');
-if (!st.given && !st.embed) {
-  $('title').hidden = false;
-  $('app').classList.add('has-title');
-}
 
 // ---------- URL ----------
 const syncUrl = () => history.replaceState(null, '', writeState(st));
@@ -53,6 +50,7 @@ function load() {
     (err) => !signal.aborted && ((app.passError = err?.message || String(err)), schedule()),
   );
   $('coords').value = `${+st.ra.toFixed(5)} ${+st.dec.toFixed(5)}`;
+  $('foot-coords').textContent = centreText(st.ra, st.dec);
   markTarget();
   if (st.gaia) ensureGaia();
   syncUrl();
@@ -82,7 +80,7 @@ function render() {
     if (!reduced && !st.playing && !st.pausedByUser && ready.length >= 2) play();
   }
   if (st.curId == null && app.view.length) st.curId = app.view[0].id;
-  for (const s of app.view) s.drawKey = `${s.status}|${st.invert}`;
+  for (const s of app.view) s.drawKey = `${s.status}|${st.palette}`;
   renderStrip({
     thumbs: $('thumbs'), ruler: $('ruler'), view: app.view, cur: curIndex(),
     onPick: (i) => hold(i),
@@ -97,7 +95,7 @@ function render() {
 }
 
 function drawThumb(slot, canvas) {
-  const { rgba, n } = drawStage.rgbaFor(slot, st.invert);
+  const { rgba, n } = drawStage.rgbaFor(slot, st.palette);
   canvas.width = canvas.height = n;
   canvas.getContext('2d').putImageData(new ImageData(rgba, n, n), 0, 0);
 }
@@ -105,9 +103,10 @@ function drawThumb(slot, canvas) {
 function renderStage() {
   const msg = $('stage-msg');
   msg.replaceChildren();
-  const res = drawStage({ app, st, canvasA: $('canvas-a'), canvasB: $('canvas-b'), wrap: $('canvases'), caption: $('caption'), overlay: $('overlay'), scalebar: $('scalebar'), files: $('files-list') });
+  const res = drawStage({ app, st, canvasA: $('canvas-a'), canvasB: $('canvas-b'), wrap: $('canvases'), caption: $('caption'), overlay: $('overlay'), axes: $('axes'), files: $('files-list'), facts: $('facts'), footNote: $('foot-note') });
+  renderHud();
   if (res.message) {
-    msg.append(el('p', null, res.message));
+    msg.append(el('p', res.data ? 'data' : null, res.message));
     if (res.retry) {
       const b = el('button', 'retry', 'Retry');
       b.type = 'button';
@@ -189,9 +188,8 @@ function stop(byUser = false) {
   playButton();
 }
 function playButton() {
-  const b = $('play');
-  b.textContent = st.playing ? 'Pause' : 'Play';
-  b.setAttribute('aria-pressed', String(st.playing));
+  $('play-label').textContent = st.playing ? 'Pause' : 'Play';
+  $('play').setAttribute('aria-pressed', String(st.playing));
 }
 function hold(i) {
   stop(true);
@@ -201,11 +199,18 @@ function hold(i) {
   render();
 }
 $('play').onclick = () => (st.playing ? stop(true) : (step(1), play()));
+const userStep = (dir) => {
+  stop(true);
+  st.userHeld = true;
+  step(dir);
+};
+$('step-back').onclick = () => userStep(-1);
+$('step-fwd').onclick = () => userStep(1);
 
 // ---------- controls ----------
-function radios(container, name, values, label, onChange) {
+function radios(container, name, values, label, onChange, keys = false) {
   container.replaceChildren(
-    ...values.map((v) => {
+    ...values.map((v, k) => {
       const l = el('label');
       const i = el('input');
       i.type = 'radio';
@@ -213,12 +218,21 @@ function radios(container, name, values, label, onChange) {
       i.value = v;
       i.onchange = () => onChange(v);
       l.append(i, el('span', null, label(v)));
+      if (keys) {
+        i.setAttribute('aria-keyshortcuts', String(k + 1));
+        l.append(el('kbd', 'kc', String(k + 1)));
+      }
       return l;
     }),
   );
 }
 const MODE_NAMES = { blink: 'Blink', subtract: 'Subtract', add: 'Add', side: 'Side by side' };
-radios($('bands-matched'), 'band', MATCHED, (v) => v, setBand);
+radios($('bands-matched'), 'band', MATCHED, (v) => v, setBand, true);
+const PALETTE_NAMES = { grey: 'Grey', inverted: 'Inverted', heat: 'Heat' };
+radios($('palette'), 'palette', Object.keys(PALETTE_NAMES), (v) => PALETTE_NAMES[v], (v) => {
+  st.palette = v;
+  render();
+});
 radios($('bands-det'), 'band', DETECTORS, (v) => v, setBand);
 radios($('modes'), 'mode', MODES, (v) => MODE_NAMES[v], setMode);
 
@@ -256,8 +270,9 @@ function syncControls() {
   $('fov-out').textContent = `${st.fov} arcmin`;
   $('speed').value = st.speed;
   $('speed-out').textContent = `${st.speed} frames/s`;
-  $('invert').checked = st.invert;
+  for (const i of document.querySelectorAll('input[name=palette]')) i.checked = i.value === st.palette;
   $('gaia').checked = st.gaia;
+  $('hud-toggle').checked = st.hud;
 }
 
 function renderPickers() {
@@ -294,11 +309,12 @@ $('speed').oninput = () => {
   st.speed = Number($('speed').value);
   $('speed-out').textContent = `${st.speed} frames/s`;
 };
-$('invert').onchange = () => {
-  st.invert = $('invert').checked;
-  clearRenderCache();
-  render();
-};
+$('hud-toggle').onchange = () => setHud($('hud-toggle').checked);
+function setHud(on) {
+  st.hud = on;
+  $('hud-toggle').checked = on;
+  renderHud();
+}
 $('gaia').onchange = () => setGaia($('gaia').checked);
 function setGaia(on) {
   st.gaia = on;
@@ -307,6 +323,34 @@ function setGaia(on) {
   gaiaStateText();
   render();
 }
+
+// ---------- HUD: reticle, pointer readout, frame number, years elapsed ----------
+let pointer = null;
+function renderHud() {
+  const hud = $('hud');
+  hud.hidden = !st.hud;
+  if (!st.hud) return;
+  const ready = app.view.filter((s) => s.status === 'ready');
+  const cur = ready.find((s) => s.id === st.curId);
+  const first = ready[0];
+  $('hud-frame').textContent = cur && st.mode === 'blink'
+    ? `frame ${ready.indexOf(cur) + 1} of ${ready.length}   +${((cur.frame.mjd - first.frame.mjd) / 365.25).toFixed(1)} yr`
+    : '';
+  const p = pointer && stagePanels.hit(pointer, $('stage'));
+  if (!p) return void ($('hud-pointer').textContent = '');
+  const n = p.grid.n;
+  const [c, r] = [Math.round(p.col), Math.round(p.row)];
+  const v = c >= 0 && r >= 0 && c < n && r < n ? p.slot.frame.data[r * n + c] : NaN;
+  $('hud-pointer').textContent = `${formatRa(p.ra)}  ${formatDec(p.dec)}\n${Number.isFinite(v) ? `${v.toPrecision(4)}\u00a0${p.slot.frame.unit || ''}` : 'no data'}`;
+}
+$('stage').addEventListener('pointermove', (e) => {
+  pointer = { clientX: e.clientX, clientY: e.clientY };
+  if (st.hud) renderHud();
+});
+$('stage').addEventListener('pointerleave', () => {
+  pointer = null;
+  if (st.hud) renderHud();
+});
 
 // ---------- Gaia ----------
 function ensureGaia() {
@@ -386,21 +430,32 @@ function goTo(ra, dec, band) {
   st.dec = dec;
   if (band) st.band = band;
   st.a = st.b = null;
-  $('title').hidden = true;
-  $('app').classList.remove('has-title');
   syncControls();
   load();
 }
 const targetButtons = TARGETS.map((t) => {
-  const b = el('button', 'quiet', t.name);
+  const b = el('button', 'mission');
   b.type = 'button';
-  b.onclick = () => goTo(t.ra, t.dec, t.band);
+  b.dataset.id = t.id;
+  b.append(el('span', 'm-name', t.name), el('span', 'm-brief', t.brief));
+  b.onclick = () => {
+    $('missions').hidePopover?.();
+    st.fov = t.fov;
+    goTo(t.ra, t.dec, t.band);
+  };
   return b;
 });
 $('targets').replaceChildren(...targetButtons);
 function markTarget() {
-  TARGETS.forEach((t, i) => targetButtons[i].setAttribute('aria-current', String(Math.abs(t.ra - st.ra) < 1e-4 && Math.abs(t.dec - st.dec) < 1e-4)));
+  const on = TARGETS.findIndex((t) => Math.abs(t.ra - st.ra) < 1e-4 && Math.abs(t.dec - st.dec) < 1e-4);
+  targetButtons.forEach((b, i) => b.setAttribute('aria-current', String(i === on)));
+  $('mission-name').textContent = on >= 0 ? TARGETS[on].name : '';
+  $('mission-text').textContent = on >= 0 ? TARGETS[on].brief : NO_MISSION;
+  $('briefing').classList.toggle('none', on < 0);
 }
+// The stage takes the height the briefing leaves; the briefing wraps to the column, not the stage.
+const sizeToBriefing = () => document.documentElement.style.setProperty('--brief-h', `${$('briefing').offsetHeight}px`);
+new ResizeObserver(sizeToBriefing).observe($('briefing'));
 
 // ---------- dialog ----------
 $('about-open').onclick = () => $('about').showModal();
@@ -417,12 +472,11 @@ document.addEventListener('keydown', (e) => {
     st.playing ? stop(true) : play();
   } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
     e.preventDefault();
-    stop(true);
-    st.userHeld = true;
-    step(e.key === 'ArrowRight' ? 1 : -1);
-  } else if (/^[1-9]$/.test(e.key)) {
-    if (app.view[+e.key - 1]) hold(+e.key - 1);
-  } else if (e.key === 's' || e.key === 'S') setMode(st.mode === 'subtract' ? 'blink' : 'subtract');
+    userStep(e.key === 'ArrowRight' ? 1 : -1);
+  } else if (/^[1-5]$/.test(e.key)) {
+    // Like sensor modes: 1 to 5 look through J, H, Ks, W1, W2.
+    if (st.band !== MATCHED[+e.key - 1]) setBand(MATCHED[+e.key - 1]);
+  } else if (e.key === 'h' || e.key === 'H') setHud(!st.hud); else if (e.key === 's' || e.key === 'S') setMode(st.mode === 'subtract' ? 'blink' : 'subtract');
   else if (e.key === 'g' || e.key === 'G') setGaia(!st.gaia);
 });
 
@@ -433,7 +487,7 @@ if (st.embed) {
   $('embed-link').hidden = false;
 }
 
-addEventListener('resize', () => drawRuler($('ruler'), $('thumbs'), app.view, curIndex()));
+addEventListener('resize', schedule);
 
 syncControls();
 load();

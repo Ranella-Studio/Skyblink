@@ -56,7 +56,7 @@ test('DN to MJy/sr: W1 MAGZP 20.5 (0015m016 header), 309.54 Jy zero point, 1.375
   assert.ok(Math.abs(dnToMJySr('W2', 19.5, 1.375) - 0.061269) < 2e-6);
 });
 
-test("real data: Barnard's Star in AllWISE W1 lands within 2 arcsec of its epoch-2010 position", async () => {
+test("real data: Barnard's Star in AllWISE W1 lands within 2 arcsec of its epoch-2010 position", { skip: process.env.SKYBLINK_LIVE !== '1' && 'needs the network: set SKYBLINK_LIVE=1' }, async () => {
   // Hipparcos/Gaia-independent: J2000 position 269.45208 +4.69339, proper motion -801.6, +10362.4 mas/yr.
   // It moves 104 arcsec north in ten years, so centre the 3 arcmin field on roughly 2010.
   const grid = makeGrid({ ra: 269.4502, dec: 4.7226, fovArcmin: 3, scale: 1 });

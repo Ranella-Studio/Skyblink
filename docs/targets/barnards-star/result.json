@@ -14,7 +14,7 @@
   "n": 121,
   "scale": 3
  },
- "generatedAt": "2026-11-14T20:17:16.544Z",
+ "generatedAt": "2026-11-15T01:08:51.370Z",
  "notes": "Fluxes are 12-arcsec-radius aperture sums minus an 18-30 arcsec annulus median, with no aperture correction: compare them between passes, not with catalogues. noise is the robust spread of the same aperture placed on empty sky across the field.",
  "offsetSign": "offsetArcsec = measured centroid minus predicted position, [east, north] in arcsec",
  "passes": [
@@ -22,46 +22,50 @@
    "id": 0,
    "label": "Aug 2025",
    "start": "2025-08-15",
-   "end": "2025-09-05",
-   "visits": 106,
+   "end": "2025-10-01",
+   "visits": 116,
    "bands": {
     "D1": {
-     "frames": 18,
-     "requested": 18,
+     "frames": 23,
+     "requested": 23,
+     "available": 23,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-27",
-      "2025-09-05"
+      "2025-10-01"
      ],
      "lambdaRange": [
-      0.7502,
+      0.7501,
       1.0817
      ],
      "predicted": [
-      269.446346,
-      4.767256
+      269.446342,
+      4.76731
      ],
-     "seconds": 1.7,
-     "megabytes": 16.4,
+     "seconds": 1.9,
+     "megabytes": 20.9,
      "ok": true,
-     "fluxMilliJy": 4338,
-     "noiseMilliJy": 0.659,
-     "snr": 6577.7,
+     "fluxMilliJy": 4044.7,
+     "noiseMilliJy": 0.613,
+     "snr": 6595.8,
      "emptyApertures": 162,
-     "peakMJySr": 1081,
+     "peakMJySr": 1078,
      "apertureCovered": 1,
      "centroid": [
-      269.446476,
-      4.767386
+      269.446415,
+      4.767402
      ],
      "offsetArcsec": [
-      0.47,
-      0.47
+      0.26,
+      0.33
      ]
     },
     "D2": {
      "frames": 18,
      "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-21",
@@ -75,27 +79,29 @@
       269.446349,
       4.767227
      ],
-     "seconds": 1.1,
+     "seconds": 1.3,
      "megabytes": 14.4,
      "ok": true,
-     "fluxMilliJy": 6149.1,
-     "noiseMilliJy": 0.871,
-     "snr": 7058.9,
+     "fluxMilliJy": 6085.5,
+     "noiseMilliJy": 0.873,
+     "snr": 6967.6,
      "emptyApertures": 162,
      "peakMJySr": 1604,
      "apertureCovered": 0.98,
      "centroid": [
-      269.446683,
-      4.767245
+      269.446672,
+      4.767231
      ],
      "offsetArcsec": [
-      1.2,
-      0.06
+      1.16,
+      0.01
      ]
     },
     "D3": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-15",
@@ -112,53 +118,55 @@
      "seconds": 0.9,
      "megabytes": 14.7,
      "ok": true,
-     "fluxMilliJy": 6119.3,
-     "noiseMilliJy": 0.723,
-     "snr": 8460.5,
+     "fluxMilliJy": 6155.5,
+     "noiseMilliJy": 0.739,
+     "snr": 8332.6,
      "emptyApertures": 162,
-     "peakMJySr": 1927,
+     "peakMJySr": 1926,
      "apertureCovered": 0.98,
      "centroid": [
-      269.44654,
+      269.446549,
       4.767267
      ],
      "offsetArcsec": [
-      0.67,
+      0.7,
       0.3
      ]
     },
     "D4": {
-     "frames": 17,
-     "requested": 18,
+     "frames": 22,
+     "requested": 23,
+     "available": 23,
+     "bandCoverage": 1,
      "failed": 1,
      "dates": [
       "2025-08-27",
-      "2025-09-05"
+      "2025-10-01"
      ],
      "lambdaRange": [
-      2.4411,
+      2.441,
       3.7005
      ],
      "predicted": [
-      269.446346,
-      4.767256
+      269.446342,
+      4.767312
      ],
-     "seconds": 1,
-     "megabytes": 13.9,
+     "seconds": 1.3,
+     "megabytes": 18,
      "ok": true,
-     "fluxMilliJy": 5050.1,
-     "noiseMilliJy": 0.377,
-     "snr": 13403.1,
+     "fluxMilliJy": 4876.2,
+     "noiseMilliJy": 0.413,
+     "snr": 11812.9,
      "emptyApertures": 162,
-     "peakMJySr": 992.6,
+     "peakMJySr": 992,
      "apertureCovered": 1,
      "centroid": [
-      269.44642,
-      4.767218
+      269.446303,
+      4.767296
      ],
      "offsetArcsec": [
-      0.26,
-      -0.14
+      -0.14,
+      -0.06
      ],
      "errors": [
       {
@@ -170,6 +178,8 @@
     "D5": {
      "frames": 18,
      "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-21",
@@ -183,27 +193,29 @@
       269.446349,
       4.767227
      ],
-     "seconds": 1.2,
+     "seconds": 1,
      "megabytes": 15.7,
      "ok": true,
-     "fluxMilliJy": 4842.9,
-     "noiseMilliJy": 0.259,
-     "snr": 18681.5,
+     "fluxMilliJy": 4846.7,
+     "noiseMilliJy": 0.26,
+     "snr": 18611.9,
      "emptyApertures": 162,
-     "peakMJySr": 1543,
+     "peakMJySr": 1547,
      "apertureCovered": 1,
      "centroid": [
-      269.446559,
+      269.44656,
       4.767193
      ],
      "offsetArcsec": [
-      0.75,
+      0.76,
       -0.12
      ]
     },
     "D6": {
-     "frames": 16,
+     "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-15",
@@ -211,33 +223,35 @@
      ],
      "lambdaRange": [
       4.4501,
-      4.9649
+      5.001
      ],
      "predicted": [
       269.446352,
-      4.767186
+      4.767184
      ],
      "seconds": 1.1,
      "megabytes": 16.6,
      "ok": true,
-     "fluxMilliJy": 3715.3,
-     "noiseMilliJy": 0.189,
-     "snr": 19659,
+     "fluxMilliJy": 3669.6,
+     "noiseMilliJy": 0.182,
+     "snr": 20141,
      "emptyApertures": 162,
-     "peakMJySr": 1189,
+     "peakMJySr": 1164,
      "apertureCovered": 1,
      "centroid": [
-      269.446449,
-      4.767172
+      269.446441,
+      4.767169
      ],
      "offsetArcsec": [
-      0.35,
+      0.32,
       -0.05
      ]
     },
     "J": {
      "frames": 13,
-     "requested": 16,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-21",
@@ -254,24 +268,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 6133.6,
-     "noiseMilliJy": 0.877,
-     "snr": 6992.1,
+     "fluxMilliJy": 6366.4,
+     "noiseMilliJy": 0.906,
+     "snr": 7028.7,
      "emptyApertures": 162,
-     "peakMJySr": 1925,
+     "peakMJySr": 1929,
      "apertureCovered": 0.98,
      "centroid": [
-      269.446648,
-      4.767083
+      269.446665,
+      4.767073
      ],
      "offsetArcsec": [
-      1.08,
-      -0.52
+      1.13,
+      -0.55
      ]
     },
     "H": {
      "frames": 12,
      "requested": 20,
+     "available": 20,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-16",
@@ -288,24 +304,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 7035,
-     "noiseMilliJy": 0.898,
-     "snr": 7830,
+     "fluxMilliJy": 7242.6,
+     "noiseMilliJy": 0.909,
+     "snr": 7969.6,
      "emptyApertures": 162,
-     "peakMJySr": 1914,
+     "peakMJySr": 1913,
      "apertureCovered": 0.96,
      "centroid": [
-      269.446707,
-      4.76735
+      269.44674,
+      4.767363
      ],
      "offsetArcsec": [
-      1.28,
-      0.52
+      1.4,
+      0.57
      ]
     },
     "Ks": {
      "frames": 9,
-     "requested": 13,
+     "requested": 14,
+     "available": 14,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-08-15",
@@ -322,53 +340,55 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 6353.9,
-     "noiseMilliJy": 0.659,
-     "snr": 9639.2,
+     "fluxMilliJy": 6387.9,
+     "noiseMilliJy": 0.679,
+     "snr": 9403.8,
      "emptyApertures": 162,
      "peakMJySr": 1934,
      "apertureCovered": 0.96,
      "centroid": [
-      269.446365,
-      4.767272
+      269.446391,
+      4.767252
      ],
      "offsetArcsec": [
-      0.05,
-      0.27
+      0.14,
+      0.19
      ]
     },
     "W1": {
-     "frames": 20,
-     "requested": 25,
+     "frames": 23,
+     "requested": 28,
+     "available": 28,
+     "bandCoverage": 0.976,
      "failed": 1,
      "dates": [
       "2025-08-21",
-      "2025-09-05"
+      "2025-10-01"
      ],
      "lambdaRange": [
       2.6361,
       3.9903
      ],
      "predicted": [
-      269.446347,
-      4.767245
+      269.446345,
+      4.767279
      ],
-     "seconds": 0.2,
+     "seconds": 0.3,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 5078.6,
-     "noiseMilliJy": 0.349,
-     "snr": 14571.7,
+     "fluxMilliJy": 5050,
+     "noiseMilliJy": 0.355,
+     "snr": 14227.5,
      "emptyApertures": 162,
-     "peakMJySr": 1020,
+     "peakMJySr": 1096,
      "apertureCovered": 1,
      "centroid": [
-      269.446406,
-      4.767207
+      269.446386,
+      4.767262
      ],
      "offsetArcsec": [
-      0.21,
-      -0.14
+      0.15,
+      -0.06
      ],
      "errors": [
       {
@@ -380,6 +400,8 @@
     "W2": {
      "frames": 32,
      "requested": 35,
+     "available": 35,
+     "bandCoverage": 0.855,
      "failed": 0,
      "dates": [
       "2025-08-15",
@@ -396,18 +418,1495 @@
      "seconds": 0.1,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4066.4,
-     "noiseMilliJy": 0.196,
-     "snr": 20731.2,
+     "fluxMilliJy": 3930.4,
+     "noiseMilliJy": 0.183,
+     "snr": 21494.5,
      "emptyApertures": 162,
-     "peakMJySr": 1263,
+     "peakMJySr": 1206,
      "apertureCovered": 1,
      "centroid": [
-      269.446485,
+      269.446478,
       4.767172
      ],
      "offsetArcsec": [
-      0.48,
+      0.46,
+      -0.12
+     ]
+    }
+   }
+  },
+  {
+   "id": 1,
+   "label": "Mar 2026",
+   "start": "2026-03-11",
+   "end": "2026-05-05",
+   "visits": 114,
+   "bands": {
+    "D1": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-11",
+      "2026-03-11"
+     ],
+     "lambdaRange": [
+      0.7624,
+      1.0919
+     ],
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 0.9,
+     "megabytes": 14.9,
+     "ok": true,
+     "fluxMilliJy": 4082.4,
+     "noiseMilliJy": 0.632,
+     "snr": 6463.3,
+     "emptyApertures": 162,
+     "peakMJySr": 1236,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446214,
+      4.768678
+     ],
+     "offsetArcsec": [
+      -0.05,
+      -0.36
+     ]
+    },
+    "D2": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-15",
+      "2026-03-22"
+     ],
+     "lambdaRange": [
+      1.1183,
+      1.6292
+     ],
+     "predicted": [
+      269.446225,
+      4.768822
+     ],
+     "seconds": 1.1,
+     "megabytes": 15.1,
+     "ok": true,
+     "fluxMilliJy": 7655.5,
+     "noiseMilliJy": 0.845,
+     "snr": 9063,
+     "emptyApertures": 162,
+     "peakMJySr": 2060,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446268,
+      4.768867
+     ],
+     "offsetArcsec": [
+      0.15,
+      0.16
+     ]
+    },
+    "D3": {
+     "frames": 22,
+     "requested": 22,
+     "available": 22,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-19",
+      "2026-05-05"
+     ],
+     "lambdaRange": [
+      1.6624,
+      2.3616
+     ],
+     "predicted": [
+      269.446217,
+      4.768925
+     ],
+     "seconds": 1.3,
+     "megabytes": 19.6,
+     "ok": true,
+     "fluxMilliJy": 7344.4,
+     "noiseMilliJy": 0.716,
+     "snr": 10251.9,
+     "emptyApertures": 162,
+     "peakMJySr": 1627,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446256,
+      4.76895
+     ],
+     "offsetArcsec": [
+      0.14,
+      0.09
+     ]
+    },
+    "D4": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-11",
+      "2026-03-11"
+     ],
+     "lambdaRange": [
+      2.4798,
+      3.7387
+     ],
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 1.1,
+     "megabytes": 13.4,
+     "ok": true,
+     "fluxMilliJy": 5350.6,
+     "noiseMilliJy": 0.407,
+     "snr": 13132.8,
+     "emptyApertures": 162,
+     "peakMJySr": 1229,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446264,
+      4.768702
+     ],
+     "offsetArcsec": [
+      0.13,
+      -0.27
+     ]
+    },
+    "D5": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-15",
+      "2026-03-22"
+     ],
+     "lambdaRange": [
+      3.8436,
+      4.4075
+     ],
+     "predicted": [
+      269.446225,
+      4.768822
+     ],
+     "seconds": 1.2,
+     "megabytes": 15.9,
+     "ok": true,
+     "fluxMilliJy": 4894.6,
+     "noiseMilliJy": 0.258,
+     "snr": 18958.7,
+     "emptyApertures": 162,
+     "peakMJySr": 1530,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446336,
+      4.768879
+     ],
+     "offsetArcsec": [
+      0.4,
+      0.21
+     ]
+    },
+    "D6": {
+     "frames": 22,
+     "requested": 22,
+     "available": 22,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-19",
+      "2026-05-05"
+     ],
+     "lambdaRange": [
+      4.4436,
+      4.9661
+     ],
+     "predicted": [
+      269.446217,
+      4.768925
+     ],
+     "seconds": 1.5,
+     "megabytes": 20.5,
+     "ok": true,
+     "fluxMilliJy": 3665.6,
+     "noiseMilliJy": 0.168,
+     "snr": 21797,
+     "emptyApertures": 162,
+     "peakMJySr": 1079,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446313,
+      4.768972
+     ],
+     "offsetArcsec": [
+      0.35,
+      0.17
+     ]
+    },
+    "J": {
+     "frames": 15,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-11",
+      "2026-03-22"
+     ],
+     "lambdaRange": [
+      1.0664,
+      1.4453
+     ],
+     "predicted": [
+      269.446225,
+      4.768821
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7936.9,
+     "noiseMilliJy": 0.829,
+     "snr": 9573.5,
+     "emptyApertures": 162,
+     "peakMJySr": 2060,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446287,
+      4.768861
+     ],
+     "offsetArcsec": [
+      0.22,
+      0.14
+     ]
+    },
+    "H": {
+     "frames": 13,
+     "requested": 20,
+     "available": 20,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-15",
+      "2026-04-10"
+     ],
+     "lambdaRange": [
+      1.4453,
+      1.836
+     ],
+     "predicted": [
+      269.446223,
+      4.768849
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7863,
+     "noiseMilliJy": 0.953,
+     "snr": 8253.2,
+     "emptyApertures": 162,
+     "peakMJySr": 1973,
+     "apertureCovered": 0.9,
+     "centroid": [
+      269.446412,
+      4.768911
+     ],
+     "offsetArcsec": [
+      0.68,
+      0.22
+     ]
+    },
+    "Ks": {
+     "frames": 13,
+     "requested": 15,
+     "available": 15,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-19",
+      "2026-05-05"
+     ],
+     "lambdaRange": [
+      1.9667,
+      2.3616
+     ],
+     "predicted": [
+      269.446214,
+      4.76896
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7568,
+     "noiseMilliJy": 0.703,
+     "snr": 10772.8,
+     "emptyApertures": 162,
+     "peakMJySr": 1626,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446245,
+      4.769001
+     ],
+     "offsetArcsec": [
+      0.11,
+      0.15
+     ]
+    },
+    "W1": {
+     "frames": 21,
+     "requested": 25,
+     "available": 25,
+     "bandCoverage": 0.993,
+     "failed": 0,
+     "dates": [
+      "2026-03-11",
+      "2026-03-22"
+     ],
+     "lambdaRange": [
+      2.6162,
+      3.975
+     ],
+     "predicted": [
+      269.446227,
+      4.768796
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 5371.2,
+     "noiseMilliJy": 0.371,
+     "snr": 14495.9,
+     "emptyApertures": 162,
+     "peakMJySr": 1394,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446322,
+      4.768768
+     ],
+     "offsetArcsec": [
+      0.34,
+      -0.1
+     ]
+    },
+    "W2": {
+     "frames": 38,
+     "requested": 40,
+     "available": 40,
+     "bandCoverage": 0.823,
+     "failed": 0,
+     "dates": [
+      "2026-03-15",
+      "2026-05-05"
+     ],
+     "lambdaRange": [
+      3.9101,
+      4.9661
+     ],
+     "predicted": [
+      269.44622,
+      4.76888
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 4035.8,
+     "noiseMilliJy": 0.2,
+     "snr": 20158.4,
+     "emptyApertures": 162,
+     "peakMJySr": 1275,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446335,
+      4.768922
+     ],
+     "offsetArcsec": [
+      0.41,
+      0.15
+     ]
+    }
+   }
+  },
+  {
+   "id": 2,
+   "label": "Aug 2026",
+   "start": "2026-08-16",
+   "end": "2026-09-22",
+   "visits": 112,
+   "bands": {
+    "D1": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-23",
+      "2026-09-02"
+     ],
+     "lambdaRange": [
+      0.7585,
+      1.0969
+     ],
+     "predicted": [
+      269.446126,
+      4.7701
+     ],
+     "seconds": 1.1,
+     "megabytes": 15.4,
+     "ok": true,
+     "fluxMilliJy": 4656.1,
+     "noiseMilliJy": 0.663,
+     "snr": 7018.6,
+     "emptyApertures": 162,
+     "peakMJySr": 1176,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446018,
+      4.770108
+     ],
+     "offsetArcsec": [
+      -0.39,
+      0.03
+     ]
+    },
+    "D2": {
+     "frames": 22,
+     "requested": 22,
+     "available": 22,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-18",
+      "2026-09-22"
+     ],
+     "lambdaRange": [
+      1.1133,
+      1.6224
+     ],
+     "predicted": [
+      269.446128,
+      4.770072
+     ],
+     "seconds": 1.4,
+     "megabytes": 17.8,
+     "ok": true,
+     "fluxMilliJy": 8530.1,
+     "noiseMilliJy": 0.933,
+     "snr": 9146,
+     "emptyApertures": 162,
+     "peakMJySr": 1746,
+     "apertureCovered": 0.94,
+     "centroid": [
+      269.446089,
+      4.770114
+     ],
+     "offsetArcsec": [
+      -0.14,
+      0.15
+     ]
+    },
+    "D3": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-16",
+      "2026-08-20"
+     ],
+     "lambdaRange": [
+      1.6501,
+      2.3786
+     ],
+     "predicted": [
+      269.446131,
+      4.770036
+     ],
+     "seconds": 1.3,
+     "megabytes": 14.6,
+     "ok": true,
+     "fluxMilliJy": 7370.4,
+     "noiseMilliJy": 0.777,
+     "snr": 9488.6,
+     "emptyApertures": 162,
+     "peakMJySr": 1720,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446079,
+      4.769963
+     ],
+     "offsetArcsec": [
+      -0.19,
+      -0.27
+     ]
+    },
+    "D4": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-23",
+      "2026-09-02"
+     ],
+     "lambdaRange": [
+      2.4648,
+      3.7614
+     ],
+     "predicted": [
+      269.446126,
+      4.7701
+     ],
+     "seconds": 1.3,
+     "megabytes": 13.9,
+     "ok": true,
+     "fluxMilliJy": 4848.5,
+     "noiseMilliJy": 0.414,
+     "snr": 11715.3,
+     "emptyApertures": 162,
+     "peakMJySr": 1062,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446042,
+      4.770092
+     ],
+     "offsetArcsec": [
+      -0.3,
+      -0.03
+     ]
+    },
+    "D5": {
+     "frames": 22,
+     "requested": 22,
+     "available": 22,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-18",
+      "2026-09-22"
+     ],
+     "lambdaRange": [
+      3.8372,
+      4.3984
+     ],
+     "predicted": [
+      269.446128,
+      4.770072
+     ],
+     "seconds": 1.7,
+     "megabytes": 19.5,
+     "ok": true,
+     "fluxMilliJy": 4851.8,
+     "noiseMilliJy": 0.233,
+     "snr": 20852.4,
+     "emptyApertures": 162,
+     "peakMJySr": 1410,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446007,
+      4.770033
+     ],
+     "offsetArcsec": [
+      -0.43,
+      -0.14
+     ]
+    },
+    "D6": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-16",
+      "2026-08-20"
+     ],
+     "lambdaRange": [
+      4.4337,
+      4.9771
+     ],
+     "predicted": [
+      269.446131,
+      4.770036
+     ],
+     "seconds": 1.2,
+     "megabytes": 16.4,
+     "ok": true,
+     "fluxMilliJy": 3734.1,
+     "noiseMilliJy": 0.204,
+     "snr": 18263.6,
+     "emptyApertures": 162,
+     "peakMJySr": 1151,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446013,
+      4.770007
+     ],
+     "offsetArcsec": [
+      -0.42,
+      -0.11
+     ]
+    },
+    "J": {
+     "frames": 14,
+     "requested": 16,
+     "available": 16,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-21",
+      "2026-08-25"
+     ],
+     "lambdaRange": [
+      1.0712,
+      1.4424
+     ],
+     "predicted": [
+      269.446128,
+      4.770067
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7668.6,
+     "noiseMilliJy": 0.915,
+     "snr": 8380.3,
+     "emptyApertures": 162,
+     "peakMJySr": 1763,
+     "apertureCovered": 0.92,
+     "centroid": [
+      269.446104,
+      4.770286
+     ],
+     "offsetArcsec": [
+      -0.09,
+      0.79
+     ]
+    },
+    "H": {
+     "frames": 17,
+     "requested": 24,
+     "available": 24,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-16",
+      "2026-09-22"
+     ],
+     "lambdaRange": [
+      1.4424,
+      1.8504
+     ],
+     "predicted": [
+      269.446129,
+      4.770063
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 9314.8,
+     "noiseMilliJy": 0.913,
+     "snr": 10201.3,
+     "emptyApertures": 162,
+     "peakMJySr": 2005,
+     "apertureCovered": 0.94,
+     "centroid": [
+      269.446093,
+      4.770089
+     ],
+     "offsetArcsec": [
+      -0.13,
+      0.09
+     ]
+    },
+    "Ks": {
+     "frames": 10,
+     "requested": 11,
+     "available": 11,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-08-17",
+      "2026-08-20"
+     ],
+     "lambdaRange": [
+      1.9376,
+      2.3786
+     ],
+     "predicted": [
+      269.44613,
+      4.770041
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 6544.6,
+     "noiseMilliJy": 0.706,
+     "snr": 9264,
+     "emptyApertures": 162,
+     "peakMJySr": 1729,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446158,
+      4.769824
+     ],
+     "offsetArcsec": [
+      0.1,
+      -0.78
+     ]
+    },
+    "W1": {
+     "frames": 19,
+     "requested": 25,
+     "available": 25,
+     "bandCoverage": 0.999,
+     "failed": 0,
+     "dates": [
+      "2026-08-21",
+      "2026-08-29"
+     ],
+     "lambdaRange": [
+      2.6704,
+      3.972
+     ],
+     "predicted": [
+      269.446127,
+      4.770089
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 5196.8,
+     "noiseMilliJy": 0.38,
+     "snr": 13683.1,
+     "emptyApertures": 162,
+     "peakMJySr": 1954,
+     "apertureCovered": 1,
+     "centroid": [
+      269.44601,
+      4.770065
+     ],
+     "offsetArcsec": [
+      -0.42,
+      -0.09
+     ]
+    },
+    "W2": {
+     "frames": 37,
+     "requested": 39,
+     "available": 39,
+     "bandCoverage": 0.833,
+     "failed": 0,
+     "dates": [
+      "2026-08-16",
+      "2026-09-22"
+     ],
+     "lambdaRange": [
+      3.9038,
+      4.9771
+     ],
+     "predicted": [
+      269.446129,
+      4.770056
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 4058.5,
+     "noiseMilliJy": 0.189,
+     "snr": 21517.7,
+     "emptyApertures": 162,
+     "peakMJySr": 1186,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446015,
+      4.770023
+     ],
+     "offsetArcsec": [
+      -0.41,
+      -0.12
+     ]
+    }
+   }
+  },
+  {
+   "id": "all",
+   "label": "all passes",
+   "bands": {
+    "D1": {
+     "frames": 57,
+     "predicted": [
+      269.446244,
+      4.76858
+     ],
+     "ok": true,
+     "fluxMilliJy": 3657.7,
+     "noiseMilliJy": 0.611,
+     "snr": 5984.8,
+     "emptyApertures": 161,
+     "peakMJySr": 857.8,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446253,
+      4.768518
+     ],
+     "offsetArcsec": [
+      0.03,
+      -0.22
+     ]
+    },
+    "D2": {
+     "frames": 58,
+     "predicted": [
+      269.446227,
+      4.768801
+     ],
+     "ok": true,
+     "fluxMilliJy": 5940.9,
+     "noiseMilliJy": 0.904,
+     "snr": 6572.5,
+     "emptyApertures": 162,
+     "peakMJySr": 1331,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446298,
+      4.76888
+     ],
+     "offsetArcsec": [
+      0.26,
+      0.28
+     ]
+    },
+    "D3": {
+     "frames": 56,
+     "predicted": [
+      269.446232,
+      4.768734
+     ],
+     "ok": true,
+     "fluxMilliJy": 5591.7,
+     "noiseMilliJy": 0.741,
+     "snr": 7541.5,
+     "emptyApertures": 162,
+     "peakMJySr": 1143,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446203,
+      4.768848
+     ],
+     "offsetArcsec": [
+      -0.1,
+      0.41
+     ]
+    },
+    "D4": {
+     "frames": 56,
+     "predicted": [
+      269.446242,
+      4.768603
+     ],
+     "ok": true,
+     "fluxMilliJy": 4036.1,
+     "noiseMilliJy": 0.387,
+     "snr": 10433.8,
+     "emptyApertures": 161,
+     "peakMJySr": 738.8,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446193,
+      4.768541
+     ],
+     "offsetArcsec": [
+      -0.18,
+      -0.23
+     ]
+    },
+    "D5": {
+     "frames": 58,
+     "predicted": [
+      269.446227,
+      4.768801
+     ],
+     "ok": true,
+     "fluxMilliJy": 4598.1,
+     "noiseMilliJy": 0.235,
+     "snr": 19564.9,
+     "emptyApertures": 162,
+     "peakMJySr": 1010,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446252,
+      4.768813
+     ],
+     "offsetArcsec": [
+      0.09,
+      0.04
+     ]
+    },
+    "D6": {
+     "frames": 56,
+     "predicted": [
+      269.446232,
+      4.768734
+     ],
+     "ok": true,
+     "fluxMilliJy": 3501.5,
+     "noiseMilliJy": 0.177,
+     "snr": 19807.2,
+     "emptyApertures": 162,
+     "peakMJySr": 769.3,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446212,
+      4.768795
+     ],
+     "offsetArcsec": [
+      -0.07,
+      0.22
+     ]
+    },
+    "J": {
+     "frames": 42,
+     "predicted": [
+      269.446231,
+      4.768743
+     ],
+     "ok": true,
+     "fluxMilliJy": 5613,
+     "noiseMilliJy": 0.89,
+     "snr": 6306.9,
+     "emptyApertures": 162,
+     "peakMJySr": 1303,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446285,
+      4.768796
+     ],
+     "offsetArcsec": [
+      0.19,
+      0.19
+     ]
+    },
+    "H": {
+     "frames": 42,
+     "predicted": [
+      269.446221,
+      4.768871
+     ],
+     "ok": true,
+     "fluxMilliJy": 6511.6,
+     "noiseMilliJy": 0.955,
+     "snr": 6820.9,
+     "emptyApertures": 162,
+     "peakMJySr": 1399,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446395,
+      4.768865
+     ],
+     "offsetArcsec": [
+      0.62,
+      -0.02
+     ]
+    },
+    "Ks": {
+     "frames": 32,
+     "predicted": [
+      269.446226,
+      4.768802
+     ],
+     "ok": true,
+     "fluxMilliJy": 5350.2,
+     "noiseMilliJy": 0.686,
+     "snr": 7794,
+     "emptyApertures": 162,
+     "peakMJySr": 1281,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446182,
+      4.768765
+     ],
+     "offsetArcsec": [
+      -0.16,
+      -0.14
+     ]
+    },
+    "W1": {
+     "frames": 63,
+     "predicted": [
+      269.44624,
+      4.768632
+     ],
+     "ok": true,
+     "fluxMilliJy": 4053.6,
+     "noiseMilliJy": 0.361,
+     "snr": 11244,
+     "emptyApertures": 161,
+     "peakMJySr": 713.1,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446215,
+      4.768635
+     ],
+     "offsetArcsec": [
+      -0.09,
+      0.01
+     ]
+    },
+    "W2": {
+     "frames": 107,
+     "predicted": [
+      269.446228,
+      4.768786
+     ],
+     "ok": true,
+     "fluxMilliJy": 3788.3,
+     "noiseMilliJy": 0.193,
+     "snr": 19586.4,
+     "emptyApertures": 162,
+     "peakMJySr": 850.5,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446246,
+      4.768773
+     ],
+     "offsetArcsec": [
+      0.06,
+      -0.05
+     ]
+    }
+   }
+  }
+ ],
+ "bins30d": [
+  {
+   "id": 0,
+   "label": "Aug 2025",
+   "start": "2025-08-15",
+   "end": "2025-09-05",
+   "visits": 106,
+   "bands": {
+    "D1": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-27",
+      "2025-09-05"
+     ],
+     "lambdaRange": [
+      0.7502,
+      1.0817
+     ],
+     "predicted": [
+      269.446346,
+      4.767256
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 4226.1,
+     "noiseMilliJy": 0.646,
+     "snr": 6539.5,
+     "emptyApertures": 162,
+     "peakMJySr": 1085,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446497,
+      4.767386
+     ],
+     "offsetArcsec": [
+      0.54,
+      0.47
+     ]
+    },
+    "D2": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-21",
+      "2025-08-30"
+     ],
+     "lambdaRange": [
+      1.1012,
+      1.6291
+     ],
+     "predicted": [
+      269.446349,
+      4.767227
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 6085.5,
+     "noiseMilliJy": 0.873,
+     "snr": 6967.6,
+     "emptyApertures": 162,
+     "peakMJySr": 1604,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446672,
+      4.767231
+     ],
+     "offsetArcsec": [
+      1.16,
+      0.01
+     ]
+    },
+    "D3": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-15",
+      "2025-08-27"
+     ],
+     "lambdaRange": [
+      1.6699,
+      2.4109
+     ],
+     "predicted": [
+      269.446352,
+      4.767184
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 6155.5,
+     "noiseMilliJy": 0.739,
+     "snr": 8332.6,
+     "emptyApertures": 162,
+     "peakMJySr": 1926,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446549,
+      4.767267
+     ],
+     "offsetArcsec": [
+      0.7,
+      0.3
+     ]
+    },
+    "D4": {
+     "frames": 17,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 1,
+     "dates": [
+      "2025-08-27",
+      "2025-09-05"
+     ],
+     "lambdaRange": [
+      2.4411,
+      3.7005
+     ],
+     "predicted": [
+      269.446346,
+      4.767256
+     ],
+     "seconds": 0.3,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 5039,
+     "noiseMilliJy": 0.398,
+     "snr": 12660.3,
+     "emptyApertures": 162,
+     "peakMJySr": 991.9,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446425,
+      4.767218
+     ],
+     "offsetArcsec": [
+      0.28,
+      -0.14
+     ],
+     "errors": [
+      {
+       "url": "https://nasa-irsa-spherex.s3.amazonaws.com/dr1/level2/2025W35_2A/l2b-v27-2026-231/4/level2_2025W35_2A_0474_4D4_spx_l2b-v27-2026-231.fits",
+       "error": "not found"
+      }
+     ]
+    },
+    "D5": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-21",
+      "2025-08-30"
+     ],
+     "lambdaRange": [
+      3.8216,
+      4.4071
+     ],
+     "predicted": [
+      269.446349,
+      4.767227
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 4846.7,
+     "noiseMilliJy": 0.26,
+     "snr": 18611.9,
+     "emptyApertures": 162,
+     "peakMJySr": 1547,
+     "apertureCovered": 1,
+     "centroid": [
+      269.44656,
+      4.767193
+     ],
+     "offsetArcsec": [
+      0.76,
+      -0.12
+     ]
+    },
+    "D6": {
+     "frames": 17,
+     "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-15",
+      "2025-08-27"
+     ],
+     "lambdaRange": [
+      4.4501,
+      5.001
+     ],
+     "predicted": [
+      269.446352,
+      4.767184
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 3669.6,
+     "noiseMilliJy": 0.182,
+     "snr": 20141,
+     "emptyApertures": 162,
+     "peakMJySr": 1164,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446441,
+      4.767169
+     ],
+     "offsetArcsec": [
+      0.32,
+      -0.05
+     ]
+    },
+    "J": {
+     "frames": 13,
+     "requested": 16,
+     "available": 16,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-21",
+      "2025-08-29"
+     ],
+     "lambdaRange": [
+      1.0817,
+      1.4266
+     ],
+     "predicted": [
+      269.446349,
+      4.767227
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 6366.4,
+     "noiseMilliJy": 0.906,
+     "snr": 7028.7,
+     "emptyApertures": 162,
+     "peakMJySr": 1929,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446665,
+      4.767073
+     ],
+     "offsetArcsec": [
+      1.13,
+      -0.55
+     ]
+    },
+    "H": {
+     "frames": 12,
+     "requested": 20,
+     "available": 20,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-16",
+      "2025-08-30"
+     ],
+     "lambdaRange": [
+      1.4266,
+      1.8305
+     ],
+     "predicted": [
+      269.44635,
+      4.767205
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7242.6,
+     "noiseMilliJy": 0.909,
+     "snr": 7969.6,
+     "emptyApertures": 162,
+     "peakMJySr": 1913,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.44674,
+      4.767363
+     ],
+     "offsetArcsec": [
+      1.4,
+      0.57
+     ]
+    },
+    "Ks": {
+     "frames": 9,
+     "requested": 13,
+     "available": 13,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2025-08-15",
+      "2025-08-27"
+     ],
+     "lambdaRange": [
+      1.9609,
+      2.3602
+     ],
+     "predicted": [
+      269.446351,
+      4.767198
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 6387.9,
+     "noiseMilliJy": 0.679,
+     "snr": 9403.8,
+     "emptyApertures": 162,
+     "peakMJySr": 1934,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446391,
+      4.767252
+     ],
+     "offsetArcsec": [
+      0.14,
+      0.19
+     ]
+    },
+    "W1": {
+     "frames": 20,
+     "requested": 25,
+     "available": 25,
+     "bandCoverage": 0.976,
+     "failed": 1,
+     "dates": [
+      "2025-08-21",
+      "2025-09-05"
+     ],
+     "lambdaRange": [
+      2.6361,
+      3.9903
+     ],
+     "predicted": [
+      269.446347,
+      4.767245
+     ],
+     "seconds": 0.3,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 5111.1,
+     "noiseMilliJy": 0.356,
+     "snr": 14352.5,
+     "emptyApertures": 162,
+     "peakMJySr": 1032,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446441,
+      4.767216
+     ],
+     "offsetArcsec": [
+      0.34,
+      -0.1
+     ],
+     "errors": [
+      {
+       "url": "https://nasa-irsa-spherex.s3.amazonaws.com/dr1/level2/2025W35_2A/l2b-v27-2026-231/4/level2_2025W35_2A_0474_4D4_spx_l2b-v27-2026-231.fits",
+       "error": "not found"
+      }
+     ]
+    },
+    "W2": {
+     "frames": 32,
+     "requested": 35,
+     "available": 35,
+     "bandCoverage": 0.855,
+     "failed": 0,
+     "dates": [
+      "2025-08-15",
+      "2025-08-30"
+     ],
+     "lambdaRange": [
+      3.9217,
+      5.001
+     ],
+     "predicted": [
+      269.44635,
+      4.767206
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 3930.4,
+     "noiseMilliJy": 0.183,
+     "snr": 21494.5,
+     "emptyApertures": 162,
+     "peakMJySr": 1206,
+     "apertureCovered": 1,
+     "centroid": [
+      269.446478,
+      4.767172
+     ],
+     "offsetArcsec": [
+      0.46,
       -0.12
      ]
     }
@@ -423,6 +1922,8 @@
     "D1": {
      "frames": 5,
      "requested": 5,
+     "available": 5,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-09-30",
@@ -436,27 +1937,29 @@
       269.446327,
       4.767504
      ],
-     "seconds": 0.3,
-     "megabytes": 4.5,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 3727.6,
-     "noiseMilliJy": 0.577,
-     "snr": 6455.6,
+     "fluxMilliJy": 3521.4,
+     "noiseMilliJy": 0.551,
+     "snr": 6386.1,
      "emptyApertures": 162,
-     "peakMJySr": 1079,
+     "peakMJySr": 1069,
      "apertureCovered": 1,
      "centroid": [
-      269.446141,
-      4.767427
+      269.446154,
+      4.767407
      ],
      "offsetArcsec": [
-      -0.67,
-      -0.28
+      -0.62,
+      -0.35
      ]
     },
     "D2": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -472,6 +1975,8 @@
     "D3": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -487,6 +1992,8 @@
     "D4": {
      "frames": 5,
      "requested": 5,
+     "available": 5,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2025-09-30",
@@ -500,27 +2007,29 @@
       269.446327,
       4.767504
      ],
-     "seconds": 0.3,
-     "megabytes": 4.1,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4281.2,
-     "noiseMilliJy": 0.417,
-     "snr": 10277.9,
+     "fluxMilliJy": 4348.3,
+     "noiseMilliJy": 0.418,
+     "snr": 10409.5,
      "emptyApertures": 162,
-     "peakMJySr": 950.9,
+     "peakMJySr": 967,
      "apertureCovered": 0.88,
      "centroid": [
-      269.445876,
-      4.767466
+      269.445895,
+      4.767479
      ],
      "offsetArcsec": [
-      -1.62,
-      -0.14
+      -1.55,
+      -0.09
      ]
     },
     "D5": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -536,6 +2045,8 @@
     "D6": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -551,6 +2062,8 @@
     "J": {
      "frames": 0,
      "requested": 2,
+     "available": 2,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -566,6 +2079,8 @@
     "H": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -581,6 +2096,8 @@
     "Ks": {
      "frames": 0,
      "requested": 1,
+     "available": 1,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -596,6 +2113,8 @@
     "W1": {
      "frames": 3,
      "requested": 3,
+     "available": 3,
+     "bandCoverage": 0.447,
      "failed": 0,
      "dates": [
       "2025-09-30",
@@ -612,24 +2131,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4114.6,
-     "noiseMilliJy": 0.4,
-     "snr": 10296.3,
+     "fluxMilliJy": 4127,
+     "noiseMilliJy": 0.399,
+     "snr": 10352,
      "emptyApertures": 162,
-     "peakMJySr": 953.4,
+     "peakMJySr": 961.8,
      "apertureCovered": 0.88,
      "centroid": [
-      269.445768,
-      4.767436
+      269.445766,
+      4.767433
      ],
      "offsetArcsec": [
       -2.01,
-      -0.25
+      -0.26
      ]
     },
     "W2": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -648,12 +2169,14 @@
    "id": 2,
    "label": "Mar 2026",
    "start": "2026-03-11",
-   "end": "2026-03-25",
-   "visits": 104,
+   "end": "2026-03-11",
+   "visits": 34,
    "bands": {
     "D1": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-03-11",
@@ -667,95 +2190,63 @@
       269.446228,
       4.768777
      ],
-     "seconds": 1.1,
-     "megabytes": 14.9,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4198.8,
-     "noiseMilliJy": 0.647,
-     "snr": 6484.7,
+     "fluxMilliJy": 4082.4,
+     "noiseMilliJy": 0.632,
+     "snr": 6463.3,
      "emptyApertures": 162,
-     "peakMJySr": 1247,
+     "peakMJySr": 1236,
      "apertureCovered": 1,
      "centroid": [
-      269.446215,
-      4.76868
+      269.446214,
+      4.768678
      ],
      "offsetArcsec": [
       -0.05,
-      -0.35
+      -0.36
      ]
     },
     "D2": {
-     "frames": 18,
-     "requested": 18,
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
-     "dates": [
-      "2026-03-15",
-      "2026-03-22"
-     ],
-     "lambdaRange": [
-      1.1183,
-      1.6292
-     ],
+     "dates": null,
+     "lambdaRange": null,
      "predicted": [
-      269.446225,
-      4.768822
+      269.446228,
+      4.768777
      ],
-     "seconds": 1.1,
-     "megabytes": 15.1,
-     "ok": true,
-     "fluxMilliJy": 7646.5,
-     "noiseMilliJy": 0.85,
-     "snr": 8992.7,
-     "emptyApertures": 162,
-     "peakMJySr": 2060,
-     "apertureCovered": 0.96,
-     "centroid": [
-      269.446273,
-      4.768868
-     ],
-     "offsetArcsec": [
-      0.17,
-      0.17
-     ]
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
     },
     "D3": {
-     "frames": 17,
-     "requested": 17,
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
-     "dates": [
-      "2026-03-19",
-      "2026-03-25"
-     ],
-     "lambdaRange": [
-      1.6624,
-      2.3616
-     ],
+     "dates": null,
+     "lambdaRange": null,
      "predicted": [
-      269.446222,
-      4.768855
+      269.446228,
+      4.768777
      ],
-     "seconds": 1,
-     "megabytes": 15.3,
-     "ok": true,
-     "fluxMilliJy": 7268.2,
-     "noiseMilliJy": 0.723,
-     "snr": 10052.8,
-     "emptyApertures": 162,
-     "peakMJySr": 1627,
-     "apertureCovered": 0.96,
-     "centroid": [
-      269.446251,
-      4.768958
-     ],
-     "offsetArcsec": [
-      0.1,
-      0.37
-     ]
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
     },
     "D4": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-03-11",
@@ -769,27 +2260,301 @@
       269.446228,
       4.768777
      ],
-     "seconds": 1,
-     "megabytes": 13.4,
+     "seconds": 0.1,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 5325.5,
-     "noiseMilliJy": 0.402,
-     "snr": 13248.6,
+     "fluxMilliJy": 5350.6,
+     "noiseMilliJy": 0.407,
+     "snr": 13132.8,
      "emptyApertures": 162,
-     "peakMJySr": 1227,
+     "peakMJySr": 1229,
      "apertureCovered": 0.98,
      "centroid": [
-      269.446272,
-      4.768709
+      269.446264,
+      4.768702
      ],
      "offsetArcsec": [
-      0.16,
-      -0.25
+      0.13,
+      -0.27
      ]
+    },
+    "D5": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
+    },
+    "D6": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
+    },
+    "J": {
+     "frames": 2,
+     "requested": 3,
+     "available": 3,
+     "bandCoverage": 0.041,
+     "failed": 0,
+     "dates": [
+      "2026-03-11",
+      "2026-03-11"
+     ],
+     "lambdaRange": [
+      1.0664,
+      1.0919
+     ],
+     "predicted": [
+      269.446228,
+      4.768779
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 4947.9,
+     "noiseMilliJy": 0.978,
+     "snr": 5060.4,
+     "emptyApertures": 162,
+     "peakMJySr": 1518,
+     "apertureCovered": 0.88,
+     "centroid": [
+      269.446789,
+      4.768864
+     ],
+     "offsetArcsec": [
+      2.01,
+      0.31
+     ]
+    },
+    "H": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
+    },
+    "Ks": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
+    },
+    "W1": {
+     "frames": 15,
+     "requested": 16,
+     "available": 16,
+     "bandCoverage": 0.998,
+     "failed": 0,
+     "dates": [
+      "2026-03-11",
+      "2026-03-11"
+     ],
+     "lambdaRange": [
+      2.6162,
+      3.7387
+     ],
+     "predicted": [
+      269.446228,
+      4.768778
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 5215.9,
+     "noiseMilliJy": 0.368,
+     "snr": 14191,
+     "emptyApertures": 162,
+     "peakMJySr": 1203,
+     "apertureCovered": 0.98,
+     "centroid": [
+      269.446325,
+      4.768762
+     ],
+     "offsetArcsec": [
+      0.35,
+      -0.06
+     ]
+    },
+    "W2": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446228,
+      4.768777
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
+    }
+   }
+  },
+  {
+   "id": 3,
+   "label": "Mar 2026",
+   "start": "2026-03-15",
+   "end": "2026-04-10",
+   "visits": 72,
+   "bands": {
+    "D1": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446223,
+      4.768843
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
+    },
+    "D2": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-15",
+      "2026-03-22"
+     ],
+     "lambdaRange": [
+      1.1183,
+      1.6292
+     ],
+     "predicted": [
+      269.446225,
+      4.768822
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7655.5,
+     "noiseMilliJy": 0.845,
+     "snr": 9063,
+     "emptyApertures": 162,
+     "peakMJySr": 2060,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446268,
+      4.768867
+     ],
+     "offsetArcsec": [
+      0.15,
+      0.16
+     ]
+    },
+    "D3": {
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-19",
+      "2026-04-10"
+     ],
+     "lambdaRange": [
+      1.6624,
+      2.3616
+     ],
+     "predicted": [
+      269.446222,
+      4.768863
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7157.5,
+     "noiseMilliJy": 0.727,
+     "snr": 9840.1,
+     "emptyApertures": 162,
+     "peakMJySr": 1627,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446248,
+      4.768962
+     ],
+     "offsetArcsec": [
+      0.09,
+      0.35
+     ]
+    },
+    "D4": {
+     "frames": 0,
+     "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": null,
+     "lambdaRange": null,
+     "predicted": [
+      269.446223,
+      4.768843
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": false,
+     "reason": "no frames"
     },
     "D5": {
      "frames": 18,
      "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-03-15",
@@ -803,31 +2568,33 @@
       269.446225,
       4.768822
      ],
-     "seconds": 1.1,
-     "megabytes": 15.9,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4889.8,
-     "noiseMilliJy": 0.257,
-     "snr": 19056.8,
+     "fluxMilliJy": 4894.6,
+     "noiseMilliJy": 0.258,
+     "snr": 18958.7,
      "emptyApertures": 162,
-     "peakMJySr": 1528,
+     "peakMJySr": 1530,
      "apertureCovered": 1,
      "centroid": [
       269.446336,
-      4.768878
+      4.768879
      ],
      "offsetArcsec": [
       0.4,
-      0.2
+      0.21
      ]
     },
     "D6": {
-     "frames": 17,
-     "requested": 17,
+     "frames": 18,
+     "requested": 18,
+     "available": 18,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-03-19",
-      "2026-03-25"
+      "2026-04-10"
      ],
      "lambdaRange": [
       4.4436,
@@ -835,97 +2602,103 @@
      ],
      "predicted": [
       269.446222,
-      4.768855
-     ],
-     "seconds": 1,
-     "megabytes": 15.8,
-     "ok": true,
-     "fluxMilliJy": 3740,
-     "noiseMilliJy": 0.181,
-     "snr": 20610.1,
-     "emptyApertures": 162,
-     "peakMJySr": 1146,
-     "apertureCovered": 1,
-     "centroid": [
-      269.446345,
-      4.768914
-     ],
-     "offsetArcsec": [
-      0.44,
-      0.21
-     ]
-    },
-    "J": {
-     "frames": 15,
-     "requested": 17,
-     "failed": 0,
-     "dates": [
-      "2026-03-11",
-      "2026-03-22"
-     ],
-     "lambdaRange": [
-      1.0664,
-      1.4453
-     ],
-     "predicted": [
-      269.446225,
-      4.768821
+      4.768863
      ],
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 7934.4,
-     "noiseMilliJy": 0.825,
-     "snr": 9613.7,
+     "fluxMilliJy": 3730,
+     "noiseMilliJy": 0.178,
+     "snr": 20957.3,
      "emptyApertures": 162,
-     "peakMJySr": 2060,
-     "apertureCovered": 0.98,
+     "peakMJySr": 1083,
+     "apertureCovered": 1,
      "centroid": [
-      269.446288,
-      4.768889
+      269.44634,
+      4.768917
      ],
      "offsetArcsec": [
-      0.23,
-      0.25
+      0.42,
+      0.2
      ]
     },
-    "H": {
-     "frames": 12,
-     "requested": 19,
+    "J": {
+     "frames": 13,
+     "requested": 14,
+     "available": 14,
+     "bandCoverage": 0.998,
      "failed": 0,
      "dates": [
       "2026-03-15",
-      "2026-03-25"
+      "2026-03-22"
+     ],
+     "lambdaRange": [
+      1.1183,
+      1.4453
+     ],
+     "predicted": [
+      269.446224,
+      4.768828
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 7798.6,
+     "noiseMilliJy": 0.828,
+     "snr": 9414,
+     "emptyApertures": 162,
+     "peakMJySr": 2060,
+     "apertureCovered": 0.96,
+     "centroid": [
+      269.446246,
+      4.768855
+     ],
+     "offsetArcsec": [
+      0.08,
+      0.1
+     ]
+    },
+    "H": {
+     "frames": 13,
+     "requested": 20,
+     "available": 20,
+     "bandCoverage": 1,
+     "failed": 0,
+     "dates": [
+      "2026-03-15",
+      "2026-04-10"
      ],
      "lambdaRange": [
       1.4453,
       1.836
      ],
      "predicted": [
-      269.446224,
-      4.768835
+      269.446223,
+      4.768849
      ],
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 7287.1,
-     "noiseMilliJy": 0.911,
-     "snr": 8000.5,
+     "fluxMilliJy": 7863,
+     "noiseMilliJy": 0.953,
+     "snr": 8253.2,
      "emptyApertures": 162,
-     "peakMJySr": 1616,
+     "peakMJySr": 1973,
      "apertureCovered": 0.9,
      "centroid": [
-      269.446399,
-      4.768962
+      269.446412,
+      4.768911
      ],
      "offsetArcsec": [
-      0.63,
-      0.46
+      0.68,
+      0.22
      ]
     },
     "Ks": {
      "frames": 9,
      "requested": 11,
+     "available": 11,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-03-19",
@@ -942,337 +2715,91 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 7656.9,
-     "noiseMilliJy": 0.682,
-     "snr": 11222.3,
+     "fluxMilliJy": 7548.8,
+     "noiseMilliJy": 0.704,
+     "snr": 10722.7,
      "emptyApertures": 162,
      "peakMJySr": 1626,
      "apertureCovered": 0.96,
      "centroid": [
-      269.446243,
-      4.76897
+      269.446245,
+      4.768986
      ],
      "offsetArcsec": [
-      0.07,
-      0.43
+      0.08,
+      0.48
      ]
     },
     "W1": {
-     "frames": 21,
-     "requested": 25,
+     "frames": 6,
+     "requested": 9,
+     "available": 9,
+     "bandCoverage": 0.007,
      "failed": 0,
      "dates": [
-      "2026-03-11",
+      "2026-03-15",
       "2026-03-22"
      ],
      "lambdaRange": [
-      2.6162,
+      3.8436,
       3.975
      ],
      "predicted": [
-      269.446227,
-      4.768796
+      269.446223,
+      4.76884
      ],
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 5355.5,
-     "noiseMilliJy": 0.369,
-     "snr": 14512.5,
+     "fluxMilliJy": 5389.8,
+     "noiseMilliJy": 0.318,
+     "snr": 16965.3,
      "emptyApertures": 162,
-     "peakMJySr": 1393,
+     "peakMJySr": 1617,
      "apertureCovered": 1,
      "centroid": [
-      269.446323,
-      4.76877
+      269.446328,
+      4.768885
      ],
      "offsetArcsec": [
-      0.34,
-      -0.09
+      0.38,
+      0.16
      ]
     },
     "W2": {
-     "frames": 33,
-     "requested": 35,
+     "frames": 34,
+     "requested": 36,
+     "available": 36,
+     "bandCoverage": 0.823,
      "failed": 0,
      "dates": [
       "2026-03-15",
-      "2026-03-25"
+      "2026-04-10"
      ],
      "lambdaRange": [
       3.9101,
       4.9661
      ],
      "predicted": [
-      269.446224,
-      4.768837
+      269.446223,
+      4.768842
      ],
      "seconds": 0.1,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4168.1,
-     "noiseMilliJy": 0.184,
-     "snr": 22647.7,
+     "fluxMilliJy": 4043.1,
+     "noiseMilliJy": 0.188,
+     "snr": 21536.9,
      "emptyApertures": 162,
-     "peakMJySr": 1324,
+     "peakMJySr": 1264,
      "apertureCovered": 1,
      "centroid": [
-      269.446341,
-      4.768896
+      269.446342,
+      4.768903
      ],
      "offsetArcsec": [
       0.42,
-      0.21
-     ]
-    }
-   }
-  },
-  {
-   "id": 3,
-   "label": "Apr 2026",
-   "start": "2026-04-10",
-   "end": "2026-04-10",
-   "visits": 2,
-   "bands": {
-    "D1": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "D2": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "D3": {
-     "frames": 1,
-     "requested": 1,
-     "failed": 0,
-     "dates": [
-      "2026-04-10",
-      "2026-04-10"
-     ],
-     "lambdaRange": [
-      1.7934,
-      1.7934
-     ],
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0.2,
-     "megabytes": 0.9,
-     "ok": true,
-     "fluxMilliJy": 4957.7,
-     "noiseMilliJy": 0.757,
-     "snr": 6548.3,
-     "emptyApertures": 157,
-     "peakMJySr": 1570,
-     "apertureCovered": 0.77,
-     "centroid": [
-      269.445814,
-      4.76918
-     ],
-     "offsetArcsec": [
-      -1.42,
-      0.61
-     ]
-    },
-    "D4": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "D5": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "D6": {
-     "frames": 1,
-     "requested": 1,
-     "failed": 0,
-     "dates": [
-      "2026-04-10",
-      "2026-04-10"
-     ],
-     "lambdaRange": [
-      4.5511,
-      4.5511
-     ],
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0.2,
-     "megabytes": 0.9,
-     "ok": true,
-     "fluxMilliJy": 3722.4,
-     "noiseMilliJy": 0.276,
-     "snr": 13475.1,
-     "emptyApertures": 154,
-     "peakMJySr": 1071,
-     "apertureCovered": 1,
-     "centroid": [
-      269.44629,
-      4.769002
-     ],
-     "offsetArcsec": [
-      0.29,
-      -0.03
-     ]
-    },
-    "J": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "H": {
-     "frames": 1,
-     "requested": 1,
-     "failed": 0,
-     "dates": [
-      "2026-04-10",
-      "2026-04-10"
-     ],
-     "lambdaRange": [
-      1.7934,
-      1.7934
-     ],
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": true,
-     "fluxMilliJy": 4957.7,
-     "noiseMilliJy": 0.757,
-     "snr": 6548.3,
-     "emptyApertures": 157,
-     "peakMJySr": 1570,
-     "apertureCovered": 0.77,
-     "centroid": [
-      269.445814,
-      4.76918
-     ],
-     "offsetArcsec": [
-      -1.42,
-      0.61
-     ]
-    },
-    "Ks": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "W1": {
-     "frames": 0,
-     "requested": 0,
-     "failed": 0,
-     "dates": null,
-     "lambdaRange": null,
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": false,
-     "reason": "no frames"
-    },
-    "W2": {
-     "frames": 1,
-     "requested": 1,
-     "failed": 0,
-     "dates": [
-      "2026-04-10",
-      "2026-04-10"
-     ],
-     "lambdaRange": [
-      4.5511,
-      4.5511
-     ],
-     "predicted": [
-      269.44621,
-      4.76901
-     ],
-     "seconds": 0,
-     "megabytes": 0,
-     "ok": true,
-     "fluxMilliJy": 3722.4,
-     "noiseMilliJy": 0.276,
-     "snr": 13475.1,
-     "emptyApertures": 154,
-     "peakMJySr": 1071,
-     "apertureCovered": 1,
-     "centroid": [
-      269.44629,
-      4.769002
-     ],
-     "offsetArcsec": [
-      0.29,
-      -0.03
+      0.22
      ]
     }
    }
@@ -1287,6 +2814,8 @@
     "D1": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1302,6 +2831,8 @@
     "D2": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1317,6 +2848,8 @@
     "D3": {
      "frames": 4,
      "requested": 4,
+     "available": 4,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-05-04",
@@ -1330,27 +2863,29 @@
       269.446195,
       4.769204
      ],
-     "seconds": 0.3,
-     "megabytes": 3.5,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 6474.1,
-     "noiseMilliJy": 0.709,
-     "snr": 9126.5,
+     "fluxMilliJy": 6471.4,
+     "noiseMilliJy": 0.715,
+     "snr": 9051.2,
      "emptyApertures": 162,
-     "peakMJySr": 1607,
+     "peakMJySr": 1605,
      "apertureCovered": 0.84,
      "centroid": [
-      269.446207,
-      4.768914
+      269.446212,
+      4.768909
      ],
      "offsetArcsec": [
-      0.04,
-      -1.04
+      0.06,
+      -1.06
      ]
     },
     "D4": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1366,6 +2901,8 @@
     "D5": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1381,6 +2918,8 @@
     "D6": {
      "frames": 4,
      "requested": 4,
+     "available": 4,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-05-04",
@@ -1394,17 +2933,17 @@
       269.446195,
       4.769204
      ],
-     "seconds": 0.3,
-     "megabytes": 3.7,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 3446.7,
-     "noiseMilliJy": 0.267,
-     "snr": 12928.7,
+     "fluxMilliJy": 3446.8,
+     "noiseMilliJy": 0.268,
+     "snr": 12884.9,
      "emptyApertures": 162,
-     "peakMJySr": 1065,
+     "peakMJySr": 1064,
      "apertureCovered": 1,
      "centroid": [
-      269.446204,
+      269.446203,
       4.769267
      ],
      "offsetArcsec": [
@@ -1415,6 +2954,8 @@
     "J": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1430,6 +2971,8 @@
     "H": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1445,6 +2988,8 @@
     "Ks": {
      "frames": 4,
      "requested": 4,
+     "available": 4,
+     "bandCoverage": 0.854,
      "failed": 0,
      "dates": [
       "2026-05-04",
@@ -1461,24 +3006,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 6490.7,
-     "noiseMilliJy": 0.706,
-     "snr": 9199.6,
+     "fluxMilliJy": 6442.9,
+     "noiseMilliJy": 0.734,
+     "snr": 8782.7,
      "emptyApertures": 162,
-     "peakMJySr": 1612,
+     "peakMJySr": 1587,
      "apertureCovered": 0.84,
      "centroid": [
-      269.4462,
-      4.76892
+      269.446217,
+      4.768932
      ],
      "offsetArcsec": [
-      0.02,
-      -1.02
+      0.08,
+      -0.98
      ]
     },
     "W1": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1494,6 +3041,8 @@
     "W2": {
      "frames": 4,
      "requested": 4,
+     "available": 4,
+     "bandCoverage": 0.17,
      "failed": 0,
      "dates": [
       "2026-05-04",
@@ -1510,19 +3059,19 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 3446.6,
-     "noiseMilliJy": 0.268,
-     "snr": 12869.2,
+     "fluxMilliJy": 3440.8,
+     "noiseMilliJy": 0.314,
+     "snr": 10940.9,
      "emptyApertures": 162,
-     "peakMJySr": 1065,
+     "peakMJySr": 1030,
      "apertureCovered": 1,
      "centroid": [
-      269.446204,
-      4.769267
+      269.4462,
+      4.76927
      ],
      "offsetArcsec": [
-      0.03,
-      0.23
+      0.02,
+      0.24
      ]
     }
    }
@@ -1537,6 +3086,8 @@
     "D1": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-23",
@@ -1550,27 +3101,29 @@
       269.446126,
       4.7701
      ],
-     "seconds": 1,
-     "megabytes": 15.4,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4858.4,
-     "noiseMilliJy": 0.669,
-     "snr": 7258.9,
+     "fluxMilliJy": 4656.1,
+     "noiseMilliJy": 0.663,
+     "snr": 7018.6,
      "emptyApertures": 162,
-     "peakMJySr": 1205,
+     "peakMJySr": 1176,
      "apertureCovered": 1,
      "centroid": [
-      269.446017,
-      4.770111
+      269.446018,
+      4.770108
      ],
      "offsetArcsec": [
       -0.39,
-      0.04
+      0.03
      ]
     },
     "D2": {
      "frames": 21,
      "requested": 21,
+     "available": 21,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-18",
@@ -1584,27 +3137,29 @@
       269.446129,
       4.770061
      ],
-     "seconds": 1.1,
-     "megabytes": 16.9,
+     "seconds": 0.1,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 8623.5,
-     "noiseMilliJy": 0.932,
-     "snr": 9252.9,
+     "fluxMilliJy": 8539.5,
+     "noiseMilliJy": 0.94,
+     "snr": 9085.2,
      "emptyApertures": 162,
-     "peakMJySr": 1751,
+     "peakMJySr": 1746,
      "apertureCovered": 0.94,
      "centroid": [
       269.44608,
-      4.770098
+      4.770109
      ],
      "offsetArcsec": [
-      -0.18,
-      0.13
+      -0.17,
+      0.17
      ]
     },
     "D3": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-16",
@@ -1618,27 +3173,29 @@
       269.446131,
       4.770036
      ],
-     "seconds": 1,
-     "megabytes": 14.6,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 7265.9,
-     "noiseMilliJy": 0.758,
-     "snr": 9579.8,
+     "fluxMilliJy": 7370.4,
+     "noiseMilliJy": 0.777,
+     "snr": 9488.6,
      "emptyApertures": 162,
      "peakMJySr": 1720,
      "apertureCovered": 0.96,
      "centroid": [
-      269.446081,
-      4.769961
+      269.446079,
+      4.769963
      ],
      "offsetArcsec": [
-      -0.18,
+      -0.19,
       -0.27
      ]
     },
     "D4": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-23",
@@ -1652,27 +3209,29 @@
       269.446126,
       4.7701
      ],
-     "seconds": 1.1,
-     "megabytes": 13.9,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4804.7,
-     "noiseMilliJy": 0.409,
-     "snr": 11744.2,
+     "fluxMilliJy": 4848.5,
+     "noiseMilliJy": 0.414,
+     "snr": 11715.3,
      "emptyApertures": 162,
-     "peakMJySr": 1063,
+     "peakMJySr": 1062,
      "apertureCovered": 0.96,
      "centroid": [
-      269.446039,
-      4.770091
+      269.446042,
+      4.770092
      ],
      "offsetArcsec": [
-      -0.31,
+      -0.3,
       -0.03
      ]
     },
     "D5": {
      "frames": 21,
      "requested": 21,
+     "available": 21,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-18",
@@ -1686,27 +3245,29 @@
       269.446129,
       4.770061
      ],
-     "seconds": 1.2,
-     "megabytes": 18.5,
+     "seconds": 0.1,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4854.7,
+     "fluxMilliJy": 4857.4,
      "noiseMilliJy": 0.228,
-     "snr": 21297.2,
+     "snr": 21333.1,
      "emptyApertures": 162,
-     "peakMJySr": 1419,
+     "peakMJySr": 1423,
      "apertureCovered": 1,
      "centroid": [
       269.44601,
-      4.770032
+      4.770033
      ],
      "offsetArcsec": [
-      -0.42,
+      -0.43,
       -0.1
      ]
     },
     "D6": {
      "frames": 17,
      "requested": 17,
+     "available": 17,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-16",
@@ -1720,14 +3281,14 @@
       269.446131,
       4.770036
      ],
-     "seconds": 1,
-     "megabytes": 16.4,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 3731.6,
+     "fluxMilliJy": 3734.1,
      "noiseMilliJy": 0.204,
-     "snr": 18277.9,
+     "snr": 18263.6,
      "emptyApertures": 162,
-     "peakMJySr": 1150,
+     "peakMJySr": 1151,
      "apertureCovered": 1,
      "centroid": [
       269.446013,
@@ -1741,6 +3302,8 @@
     "J": {
      "frames": 14,
      "requested": 16,
+     "available": 16,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-21",
@@ -1757,24 +3320,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 7629.8,
-     "noiseMilliJy": 0.919,
-     "snr": 8306,
+     "fluxMilliJy": 7668.6,
+     "noiseMilliJy": 0.915,
+     "snr": 8380.3,
      "emptyApertures": 162,
-     "peakMJySr": 1746,
+     "peakMJySr": 1763,
      "apertureCovered": 0.92,
      "centroid": [
-      269.44609,
-      4.770293
+      269.446104,
+      4.770286
      ],
      "offsetArcsec": [
-      -0.14,
-      0.81
+      -0.09,
+      0.79
      ]
     },
     "H": {
      "frames": 16,
      "requested": 23,
+     "available": 23,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-16",
@@ -1791,24 +3356,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 9335.9,
-     "noiseMilliJy": 0.91,
-     "snr": 10257.7,
+     "fluxMilliJy": 9373.5,
+     "noiseMilliJy": 0.911,
+     "snr": 10287.3,
      "emptyApertures": 162,
-     "peakMJySr": 1984,
+     "peakMJySr": 2005,
      "apertureCovered": 0.94,
      "centroid": [
-      269.446077,
-      4.770075
+      269.446084,
+      4.770067
      ],
      "offsetArcsec": [
-      -0.19,
-      0.1
+      -0.16,
+      0.07
      ]
     },
     "Ks": {
      "frames": 10,
      "requested": 11,
+     "available": 11,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-08-17",
@@ -1825,24 +3392,26 @@
      "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 6368,
-     "noiseMilliJy": 0.7,
-     "snr": 9096.7,
+     "fluxMilliJy": 6544.6,
+     "noiseMilliJy": 0.706,
+     "snr": 9264,
      "emptyApertures": 162,
-     "peakMJySr": 1745,
+     "peakMJySr": 1729,
      "apertureCovered": 0.96,
      "centroid": [
-      269.446142,
-      4.769831
+      269.446158,
+      4.769824
      ],
      "offsetArcsec": [
-      0.04,
-      -0.76
+      0.1,
+      -0.78
      ]
     },
     "W1": {
      "frames": 19,
      "requested": 25,
+     "available": 25,
+     "bandCoverage": 0.999,
      "failed": 0,
      "dates": [
       "2026-08-21",
@@ -1856,27 +3425,29 @@
       269.446127,
       4.770089
      ],
-     "seconds": 0.1,
+     "seconds": 0,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 5164.1,
-     "noiseMilliJy": 0.372,
-     "snr": 13872.2,
+     "fluxMilliJy": 5196.8,
+     "noiseMilliJy": 0.38,
+     "snr": 13683.1,
      "emptyApertures": 162,
-     "peakMJySr": 1932,
+     "peakMJySr": 1954,
      "apertureCovered": 1,
      "centroid": [
-      269.446013,
-      4.770057
+      269.44601,
+      4.770065
      ],
      "offsetArcsec": [
-      -0.41,
-      -0.12
+      -0.42,
+      -0.09
      ]
     },
     "W2": {
      "frames": 36,
      "requested": 38,
+     "available": 38,
+     "bandCoverage": 0.833,
      "failed": 0,
      "dates": [
       "2026-08-16",
@@ -1893,15 +3464,15 @@
      "seconds": 0.1,
      "megabytes": 0,
      "ok": true,
-     "fluxMilliJy": 4271.7,
-     "noiseMilliJy": 0.19,
-     "snr": 22505.2,
+     "fluxMilliJy": 4064.5,
+     "noiseMilliJy": 0.189,
+     "snr": 21456.1,
      "emptyApertures": 162,
-     "peakMJySr": 1231,
+     "peakMJySr": 1193,
      "apertureCovered": 1,
      "centroid": [
       269.446015,
-      4.770021
+      4.770022
      ],
      "offsetArcsec": [
       -0.41,
@@ -1920,6 +3491,8 @@
     "D1": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1935,6 +3508,8 @@
     "D2": {
      "frames": 1,
      "requested": 1,
+     "available": 1,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-09-22",
@@ -1948,8 +3523,8 @@
       269.446109,
       4.770315
      ],
-     "seconds": 0.2,
-     "megabytes": 0.9,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
      "fluxMilliJy": 6985.3,
      "noiseMilliJy": 0.843,
@@ -1969,6 +3544,8 @@
     "D3": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1984,6 +3561,8 @@
     "D4": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -1999,6 +3578,8 @@
     "D5": {
      "frames": 1,
      "requested": 1,
+     "available": 1,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": [
       "2026-09-22",
@@ -2012,8 +3593,8 @@
       269.446109,
       4.770315
      ],
-     "seconds": 0.2,
-     "megabytes": 1,
+     "seconds": 0,
+     "megabytes": 0,
      "ok": true,
      "fluxMilliJy": 4538.3,
      "noiseMilliJy": 0.292,
@@ -2033,6 +3614,8 @@
     "D6": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 1,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -2048,6 +3631,8 @@
     "J": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -2063,6 +3648,8 @@
     "H": {
      "frames": 1,
      "requested": 1,
+     "available": 1,
+     "bandCoverage": 0.117,
      "failed": 0,
      "dates": [
       "2026-09-22",
@@ -2097,6 +3684,8 @@
     "Ks": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -2112,6 +3701,8 @@
     "W1": {
      "frames": 0,
      "requested": 0,
+     "available": 0,
+     "bandCoverage": 0,
      "failed": 0,
      "dates": null,
      "lambdaRange": null,
@@ -2127,6 +3718,8 @@
     "W2": {
      "frames": 1,
      "requested": 1,
+     "available": 1,
+     "bandCoverage": 0.064,
      "failed": 0,
      "dates": [
       "2026-09-22",
@@ -2171,19 +3764,19 @@
       4.76858
      ],
      "ok": true,
-     "fluxMilliJy": 3760.4,
-     "noiseMilliJy": 0.632,
-     "snr": 5948.7,
+     "fluxMilliJy": 3649.5,
+     "noiseMilliJy": 0.611,
+     "snr": 5976.8,
      "emptyApertures": 161,
-     "peakMJySr": 875.5,
+     "peakMJySr": 857.8,
      "apertureCovered": 1,
      "centroid": [
-      269.44624,
-      4.768538
+      269.446249,
+      4.768522
      ],
      "offsetArcsec": [
-      -0.01,
-      -0.15
+      0.02,
+      -0.21
      ]
     },
     "D2": {
@@ -2193,19 +3786,19 @@
       4.768801
      ],
      "ok": true,
-     "fluxMilliJy": 5983.5,
-     "noiseMilliJy": 0.909,
-     "snr": 6584.9,
+     "fluxMilliJy": 5940.9,
+     "noiseMilliJy": 0.904,
+     "snr": 6573.3,
      "emptyApertures": 162,
-     "peakMJySr": 1335,
+     "peakMJySr": 1331,
      "apertureCovered": 1,
      "centroid": [
-      269.446302,
-      4.768888
+      269.446298,
+      4.76888
      ],
      "offsetArcsec": [
-      0.27,
-      0.31
+      0.26,
+      0.28
      ]
     },
     "D3": {
@@ -2215,19 +3808,19 @@
       4.768734
      ],
      "ok": true,
-     "fluxMilliJy": 5595.7,
-     "noiseMilliJy": 0.743,
-     "snr": 7526.9,
+     "fluxMilliJy": 5595.6,
+     "noiseMilliJy": 0.745,
+     "snr": 7515.3,
      "emptyApertures": 162,
-     "peakMJySr": 1129,
+     "peakMJySr": 1143,
      "apertureCovered": 1,
      "centroid": [
-      269.446202,
-      4.768851
+      269.446204,
+      4.768847
      ],
      "offsetArcsec": [
-      -0.11,
-      0.42
+      -0.1,
+      0.41
      ]
     },
     "D4": {
@@ -2237,19 +3830,19 @@
       4.768603
      ],
      "ok": true,
-     "fluxMilliJy": 4010.6,
-     "noiseMilliJy": 0.385,
-     "snr": 10413.2,
+     "fluxMilliJy": 4033.6,
+     "noiseMilliJy": 0.395,
+     "snr": 10216.2,
      "emptyApertures": 161,
-     "peakMJySr": 740.8,
+     "peakMJySr": 738.8,
      "apertureCovered": 1,
      "centroid": [
       269.446195,
-      4.768547
+      4.76854
      ],
      "offsetArcsec": [
       -0.17,
-      -0.2
+      -0.23
      ]
     },
     "D5": {
@@ -2259,41 +3852,41 @@
       4.768801
      ],
      "ok": true,
-     "fluxMilliJy": 4593.7,
-     "noiseMilliJy": 0.239,
-     "snr": 19202.2,
+     "fluxMilliJy": 4596.5,
+     "noiseMilliJy": 0.24,
+     "snr": 19182.5,
      "emptyApertures": 162,
      "peakMJySr": 1010,
      "apertureCovered": 1,
      "centroid": [
-      269.446251,
-      4.768817
+      269.446252,
+      4.768814
      ],
      "offsetArcsec": [
       0.09,
-      0.06
+      0.05
      ]
     },
     "D6": {
-     "frames": 55,
+     "frames": 56,
      "predicted": [
-      269.446229,
-      4.768763
+      269.446232,
+      4.768734
      ],
      "ok": true,
-     "fluxMilliJy": 3494.6,
-     "noiseMilliJy": 0.198,
-     "snr": 17615.5,
+     "fluxMilliJy": 3501.1,
+     "noiseMilliJy": 0.185,
+     "snr": 18946.8,
      "emptyApertures": 162,
-     "peakMJySr": 798.6,
+     "peakMJySr": 769.3,
      "apertureCovered": 1,
      "centroid": [
-      269.446221,
-      4.768813
+      269.446212,
+      4.768795
      ],
      "offsetArcsec": [
-      -0.03,
-      0.18
+      -0.07,
+      0.22
      ]
     },
     "J": {
@@ -2303,19 +3896,19 @@
       4.768743
      ],
      "ok": true,
-     "fluxMilliJy": 5707.3,
-     "noiseMilliJy": 0.864,
-     "snr": 6602.8,
+     "fluxMilliJy": 5630.1,
+     "noiseMilliJy": 0.9,
+     "snr": 6253.5,
      "emptyApertures": 162,
-     "peakMJySr": 1334,
+     "peakMJySr": 1303,
      "apertureCovered": 1,
      "centroid": [
-      269.446281,
-      4.76879
+      269.446282,
+      4.768799
      ],
      "offsetArcsec": [
       0.18,
-      0.17
+      0.2
      ]
     },
     "H": {
@@ -2325,19 +3918,19 @@
       4.768871
      ],
      "ok": true,
-     "fluxMilliJy": 6346.2,
-     "noiseMilliJy": 0.95,
-     "snr": 6677.5,
+     "fluxMilliJy": 6525.7,
+     "noiseMilliJy": 0.965,
+     "snr": 6761.9,
      "emptyApertures": 162,
-     "peakMJySr": 1347,
+     "peakMJySr": 1354,
      "apertureCovered": 1,
      "centroid": [
-      269.446334,
-      4.768961
+      269.446384,
+      4.76889
      ],
      "offsetArcsec": [
-      0.4,
-      0.33
+      0.58,
+      0.07
      ]
     },
     "Ks": {
@@ -2347,19 +3940,19 @@
       4.768802
      ],
      "ok": true,
-     "fluxMilliJy": 5716,
-     "noiseMilliJy": 0.701,
-     "snr": 8156.9,
+     "fluxMilliJy": 5733.4,
+     "noiseMilliJy": 0.663,
+     "snr": 8645.4,
      "emptyApertures": 162,
-     "peakMJySr": 1273,
+     "peakMJySr": 1321,
      "apertureCovered": 1,
      "centroid": [
-      269.446175,
-      4.768827
+      269.4462,
+      4.768823
      ],
      "offsetArcsec": [
-      -0.18,
-      0.09
+      -0.09,
+      0.07
      ]
     },
     "W1": {
@@ -2369,19 +3962,19 @@
       4.768632
      ],
      "ok": true,
-     "fluxMilliJy": 3949.5,
-     "noiseMilliJy": 0.378,
-     "snr": 10440.7,
+     "fluxMilliJy": 4030.4,
+     "noiseMilliJy": 0.388,
+     "snr": 10388,
      "emptyApertures": 161,
-     "peakMJySr": 738.9,
+     "peakMJySr": 754.7,
      "apertureCovered": 1,
      "centroid": [
-      269.446175,
-      4.768562
+      269.446176,
+      4.768537
      ],
      "offsetArcsec": [
       -0.23,
-      -0.25
+      -0.34
      ]
     },
     "W2": {
@@ -2391,24 +3984,24 @@
       4.768786
      ],
      "ok": true,
-     "fluxMilliJy": 3918.3,
-     "noiseMilliJy": 0.219,
-     "snr": 17894.4,
+     "fluxMilliJy": 3778.9,
+     "noiseMilliJy": 0.212,
+     "snr": 17832.3,
      "emptyApertures": 162,
-     "peakMJySr": 865.6,
+     "peakMJySr": 861.4,
      "apertureCovered": 1,
      "centroid": [
-      269.446226,
-      4.768846
+      269.446239,
+      4.768817
      ],
      "offsetArcsec": [
-      -0.01,
-      0.22
+      0.04,
+      0.11
      ]
     }
    }
   }
  ],
- "totalSeconds": 23,
+ "totalSeconds": 28,
  "totalMegabytes": 297
 }

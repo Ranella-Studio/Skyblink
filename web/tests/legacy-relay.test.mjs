@@ -60,7 +60,7 @@ test('static files stay inside the root', () => {
   }
 });
 
-test('live: 2MASS for Barnard\'s Star through the relay on localhost, and from the baked cutouts', async (t) => {
+test('live: 2MASS for Barnard\'s Star through the relay on localhost, and from the baked cutouts', { skip: process.env.SKYBLINK_LIVE !== '1' && 'needs the network: set SKYBLINK_LIVE=1' }, async (t) => {
   const app = createApp({ root: fileURLToPath(new URL('../public', import.meta.url)) });
   await new Promise((r) => app.listen(0, '127.0.0.1', r));
   t.after(() => app.close());

@@ -79,6 +79,14 @@ export function renderStrip({ thumbs, ruler, view, cur, onPick, onRetry, draw })
     const { done = 0, total = 0 } = slot.progress || {};
     b.querySelector('.fill').hidden = slot.status !== 'loading';
     b.querySelector('.fill i').style.width = total ? `${(100 * done) / total}%` : '0';
+    // Elapsed time since the previous date, on the gap before this thumbnail.
+    const prev = view[i - 1];
+    const known = (x) => x && x.mjd != null && (x.source === 'spherex' || x.status === 'ready');
+    let pill = li.querySelector('.gap');
+    if (known(prev) && known(slot)) {
+      if (!pill) li.append((pill = el('span', 'gap num')));
+      pill.textContent = `+${((slot.mjd - prev.mjd) / 365.25).toFixed(1)}\u00a0yr`;
+    } else pill?.remove();
     let retry = li.querySelector('.retry');
     if (slot.status === 'error') {
       if (!retry) {
@@ -107,7 +115,7 @@ export function drawRuler(svg, thumbs, view, cur) {
   const today = Date.now() / 86400000 + 40587;
   const pad = 12;
   const x = (mjd) => pad + ((mjd - RULER_START) / (today - RULER_START)) * (W - 2 * pad);
-  const axisY = H - 16;
+  const axisY = H - 14;
   const nodes = [svgEl('line', { class: 'axis', x1: pad, x2: W - pad, y1: axisY, y2: axisY })];
   for (let y = 1997; y <= mjdDate(today).getUTCFullYear(); y++) {
     const m = Date.UTC(y, 0, 1) / 86400000 + 40587;
@@ -120,6 +128,7 @@ export function drawRuler(svg, thumbs, view, cur) {
     }
   }
   const base = thumbs.getBoundingClientRect();
+  let top = null;
   [...thumbs.children].forEach((li, i) => {
     const slot = view[i];
     if (!slot) return;
@@ -128,9 +137,14 @@ export function drawRuler(svg, thumbs, view, cur) {
     const col = `var(--c-${slot.source})`;
     const known = slot.mjd != null && (slot.source === 'spherex' || slot.status === 'ready');
     const tx = known ? x(slot.mjd) : x((slot.span[0] + slot.span[1]) / 2);
-    nodes.push(svgEl('path', { class: `lead${i === cur ? ' current' : ''}`, d: `M${cx},0 C${cx},${axisY * 0.6} ${tx},${axisY * 0.4} ${tx},${axisY - 4}` }));
+    // Straight elbow: down, across, down. Each lane sits at its own height so crossings stay readable.
+    const mid = 3 + ((i % 3) * (axisY - 8)) / 3;
+    const d = `M${cx},0 V${mid} H${tx} V${axisY - 1}`;
+    if (i === cur) top = svgEl('path', { class: 'lead current', d });
+    else nodes.push(svgEl('path', { class: 'lead', stroke: col, d }));
     if (known) nodes.push(svgEl('line', { x1: tx, x2: tx, y1: axisY - 6, y2: axisY + 1, stroke: col, 'stroke-width': 2 }));
     else nodes.push(svgEl('line', { x1: x(slot.span[0]), x2: x(slot.span[1]), y1: axisY - 2, y2: axisY - 2, stroke: col, 'stroke-width': 3 }));
   });
+  if (top) nodes.push(top);
   svg.replaceChildren(...nodes);
 }

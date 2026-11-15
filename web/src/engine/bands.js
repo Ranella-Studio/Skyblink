@@ -37,8 +37,42 @@ export function bandResponse(band, lambda) {
   return r[k] + f * (r[k + 1] - r[k]);
 }
 
-/** Weight of one frame in a band: response at its wavelength times its bandwidth. */
-export const bandWeight = (band, lambda, bandwidth) => bandResponse(band, lambda) * bandwidth;
+// Integral of the band response from a to b (microns), trapezoid on a fine grid.
+function integrateResponse(band, a, b, steps = 400) {
+  if (!(b > a)) return 0;
+  const h = (b - a) / steps;
+  let s = (bandResponse(band, a) + bandResponse(band, b)) / 2;
+  for (let k = 1; k < steps; k++) s += bandResponse(band, a + k * h);
+  return s * h;
+}
+
+/**
+ * Synthetic-photometry weights for the frames of one pass in a matched band.
+ * frames: [{ lambda, bandwidth }] in any order. Frame i gets R(lambda_i) * its
+ * trapezoid cell (half-way to each in-band neighbour), the cell clipped to the
+ * band edges and to lambda_i +- bandwidth_i so a hole in the sampling stays a hole.
+ * Returns { weights (same order as frames), coverage: integral of R over the
+ * cells / integral of R over the band, 0..1 }.
+ */
+export function synthWeights(band, frames) {
+  const b = getBand(band);
+  const lo = b.lambda[0];
+  const hi = b.lambda.at(-1);
+  const weights = frames.map(() => 0);
+  const inBand = frames.map((f, k) => k).filter((k) => frames[k].lambda >= lo && frames[k].lambda <= hi);
+  inBand.sort((i, j) => frames[i].lambda - frames[j].lambda);
+  let covered = 0;
+  inBand.forEach((k, n) => {
+    const { lambda: l, bandwidth: bw } = frames[k];
+    const prev = n > 0 ? (frames[inBand[n - 1]].lambda + l) / 2 : lo;
+    const next = n < inBand.length - 1 ? (frames[inBand[n + 1]].lambda + l) / 2 : hi;
+    const a = Math.max(prev, l - bw);
+    const c = Math.min(next, l + bw);
+    weights[k] = bandResponse(b, l) * Math.max(0, c - a);
+    covered += integrateResponse(b, a, c);
+  });
+  return { weights, coverage: Math.min(1, covered / integrateResponse(b, lo, hi, 4000)) };
+}
 
 /**
  * The visits a band needs, chosen before download from each visit's detector

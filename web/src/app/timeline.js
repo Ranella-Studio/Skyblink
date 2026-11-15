@@ -19,6 +19,16 @@ const LEGACY = {
   allwise: { bands: ['W1', 'W2'], file: '../engine/legacy/allwise.js', fn: 'loadAllwise', label: 'WISE', span: [55197, 55605] }, // 2010-01-01 .. 2011-02-14
 };
 
+// Why a SPHEREx stack is too thin to show (status 'empty', reason in frame.note);
+// a partly sampled filter gets a note instead. Returns the reason or null.
+function thinStack(frame) {
+  const pct = Math.round(100 * frame.bandCoverage);
+  if (frame.n < 3) return `Only ${frame.n} SPHEREx frame${frame.n === 1 ? '' : 's'} in this filter on this visit`;
+  if (frame.bandCoverage < 0.35) return `SPHEREx sampled only ${pct}% of this filter on this visit`;
+  if (frame.bandCoverage < 0.8) frame.note = `SPHEREx sampled ${pct}% of this filter on this visit`;
+  return null;
+}
+
 const mjdYear = (mjd) => new Date((mjd - 40587) * 86400000).getUTCFullYear();
 const hasData = (d) => d.some((v) => v === v);
 
@@ -40,7 +50,9 @@ export function openTimeline({ ra, dec, fovArcmin, band, signal, onUpdate }) {
     try {
       const frame = await load();
       if (frame?.errors?.length && !hasData(frame.data)) throw new Error(`${frame.errors.length} of ${frame.requested} files failed: ${frame.errors[0].error}`);
-      if (!frame || !hasData(frame.data)) update(slot, { status: 'empty', frame: frame || null });
+      const why = slot.source === 'spherex' && frame && thinStack(frame);
+      if (why) update(slot, { status: 'empty', frame: Object.assign(frame, { note: why }) });
+      else if (!frame || !hasData(frame.data)) update(slot, { status: 'empty', frame: frame || null });
       else update(slot, { status: 'ready', frame, mjd: frame.mjd, year: mjdYear(frame.mjd) });
     } catch (err) {
       if (signal.aborted || err?.name === 'AbortError') return;
@@ -70,7 +82,7 @@ export function openTimeline({ ra, dec, fovArcmin, band, signal, onUpdate }) {
     const b = getBand(band);
     const jobs = [];
     for (const pass of passes) {
-      const need = visitsForBand(b, pass.visits).length;
+      const need = Math.min(48, visitsForBand(b, pass.visits).length); // passStack's maxFrames
       if (!need) continue; // passes without frames in this band are listed by the UI from `passes`, not shown as slots
       const slot = {
         id: `spherex-${pass.id}`, source: 'spherex', label: pass.label, year: mjdYear(pass.mjdMean), mjd: pass.mjdMean, span: [pass.start, pass.end],

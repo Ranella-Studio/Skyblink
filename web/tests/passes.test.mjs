@@ -7,9 +7,9 @@ import { Pointings } from '../src/data/pointings.js';
 // Visit stubs: only the time matters for grouping (no sky data involved).
 const at = (...mjds) => mjds.map((mjd, k) => ({ mjd, det: 1, k }));
 
-test('passes split on gaps over 12 days and keep time order', () => {
-  // 2025-06-01 is MJD 60827; second group 180 days later, third 20 days after that.
-  const p = groupPasses(at(60827, 60830.5, 60828, 61007, 61009, 61029));
+test('passes split only on gaps over 30 days and keep time order', () => {
+  // 2025-06-01 is MJD 60827; second group 180 days later, third 31 days after that.
+  const p = groupPasses(at(60827, 60830.5, 60828, 61007, 61009, 61040));
   assert.equal(p.length, 3);
   assert.deepEqual(p.map((x) => x.visits.length), [3, 2, 1]);
   assert.equal(p[0].start, 60827);
@@ -17,15 +17,26 @@ test('passes split on gaps over 12 days and keep time order', () => {
   assert.equal(p[0].mjdMean, (60827 + 60828 + 60830.5) / 3);
   assert.equal(p[0].label, 'Jun 2025');
   assert.deepEqual(p.map((x) => x.id), [0, 1, 2]);
+  // A 20-day gap no longer splits a visit.
+  assert.equal(groupPasses(at(60827, 60847)).length, 1);
 });
 
-test('a continuously observed spot splits at the six-month survey boundary', () => {
-  // Survey 1 starts MJD 60796, survey 2 at 60978.6: a visit every 5 days across it.
+test('one visit across the six-month survey boundary stays one pass', () => {
+  // Survey 2 starts at MJD 60978.6; a visit every 2 days from 60970 to 60990.
   const mjds = [];
-  for (let t = 60940; t < 61020; t += 5) mjds.push(t);
+  for (let t = 60970; t <= 60990; t += 2) mjds.push(t);
+  assert.equal(groupPasses(at(...mjds)).length, 1);
+});
+
+test('a continuously observed spot is cut into equal chunks of at most 60 days', () => {
+  // A visit every 5 days for 150 days: span 150 > 75, so 3 chunks of 50 days.
+  const mjds = [];
+  for (let t = 60800; t <= 60950; t += 5) mjds.push(t);
   const p = groupPasses(at(...mjds));
-  assert.equal(p.length, 2);
-  assert.ok(p[0].end < 60978.6 && p[1].start >= 60978.6);
+  assert.equal(p.length, 3);
+  assert.deepEqual(p.map((x) => [x.start, x.end]), [[60800, 60845], [60850, 60895], [60900, 60950]]);
+  // 70 days continuous stays one pass.
+  assert.equal(groupPasses(at(60800, 60820, 60840, 60860, 60870)).length, 1);
 });
 
 test('fixed time bins give a light curve for continuously observed spots', () => {

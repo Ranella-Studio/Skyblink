@@ -6,6 +6,7 @@ import { slotStatusText, slotYear } from './strip.js';
 import { getBand } from '../engine/bands.js';
 import { gridToSky, skyToGrid } from '../engine/grid.js';
 import { starAt } from '../app/gaia.js';
+import { formatRa, formatDec } from '../data/sky-math.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const SURVEY = { '2mass': '2MASS', allwise: 'WISE', spherex: 'SPHEREx' };
@@ -28,13 +29,14 @@ export const GAIA_RING_G = 15; // rings for stars to G 15; fainter ones would bu
 const iso = (mjd) => new Date((mjd - 40587) * 86400000).toISOString().slice(0, 10);
 
 let cache = new Map();
+let lastShown = null;
 export const clearRenderCache = () => (cache = new Map());
 
-function rgbaFor(slot, invert) {
-  const key = `${slot.id}|${invert}`;
+function rgbaFor(slot, palette) {
+  const key = `${slot.id}|${palette}`;
   if (!cache.has(key)) {
     const n = Math.round(Math.sqrt(slot.frame.data.length));
-    cache.set(key, { n, rgba: toRgba(stretch(slot.frame.data, { invert })) });
+    cache.set(key, { n, rgba: toRgba(stretch(slot.frame.data, { invert: palette === 'inverted' }), palette === 'heat') });
   }
   return cache.get(key);
 }
@@ -70,15 +72,37 @@ function notText(slot) {
   return '';
 }
 
+/** Header strip pieces: survey name in its colour, date, filter, frames. */
 function captionLines(slot) {
   const f = slot.frame;
-  const head = el('span');
-  head.append(el('span', `survey s-${slot.source}`, SURVEY[slot.source]), ` ${dateText(f)} · ${bandText(slot)}`);
-  const out = [head];
-  if (slot.source === 'spherex' && f.n) out.push(el('span', null, `${f.n} frame${f.n === 1 ? '' : 's'} added`));
-  const not = notText(slot);
-  if (not) out.push(el('span', 'note', not));
+  const b = getBand(f.band);
+  // ISO 8601 shortened interval: 2026-08-17/20, 2026-08-28/09-02, 2010-01-07/2010-12-31.
+  const [d0, d1] = f.mjdRange && f.mjdRange[1] - f.mjdRange[0] >= 1 ? [iso(f.mjdRange[0]), iso(f.mjdRange[1])] : [iso(f.mjd), null];
+  const date = !d1 ? d0 : d1.slice(0, 7) === d0.slice(0, 7) ? `${d0}/${d1.slice(8)}` : d1.slice(0, 4) === d0.slice(0, 4) ? `${d0}/${d1.slice(5)}` : `${d0}/${d1}`;
+  const out = [el('span', `survey s-${slot.source}`, SURVEY[slot.source]), el('span', null, date), el('span', null, b?.id ?? f.band)];
+  if (slot.source === 'spherex' && f.n) out.push(el('span', null, `${f.n}\u00a0frame${f.n === 1 ? '' : 's'}`));
   return out;
+}
+
+/** The readout's definition list for the frame on screen. */
+function factRows(slot, grid) {
+  const f = slot.frame;
+  const b = getBand(f.band);
+  const flags = Object.entries(f.flagCounts || {}).filter(([, c]) => c > 0).sort((x, y) => y[1] - x[1]).slice(0, 3);
+  const wl = f.lambdaRange ? `${f.lambdaRange[0].toFixed(2)}–${f.lambdaRange[1].toFixed(2)}\u00a0µm` : b?.kind === 'detector' ? `${b.lambda[0].toFixed(2)}–${b.lambda.at(-1).toFixed(2)}\u00a0µm` : CENTRAL[f.band] ? `${CENTRAL[f.band]}\u00a0µm (centre)` : '';
+  return [
+    ['Telescope', SURVEY[slot.source]],
+    ['Date', dateText(f)],
+    ['Filter', bandText(slot)],
+    ['Frames added', slot.source === 'spherex' && f.n ? String(f.n) : 'one atlas image'],
+    ['Wavelengths', wl || 'not given'],
+    ['Pixel scale', `${grid.scale.toFixed(2)}″ per pixel (resampled)`],
+    ['Flags', slot.source !== 'spherex' ? 'not read for this survey' : flags.length ? flags.map(([k, c]) => `${k} ${c}`).join(', ') : 'none in this cut-out'],
+  ];
+}
+
+function renderFacts(dl, rows) {
+  dl.replaceChildren(...rows.flatMap(([k, v]) => [el('dt', null, k), el('dd', 'data', v)]));
 }
 
 function shortName(slot) {
@@ -99,7 +123,7 @@ export const stagePanels = {
       const row = (v - p.y) * (p.grid.n / p.size) - 0.5;
       if (col < -0.5 || row < -0.5 || col > p.grid.n - 0.5 || row > p.grid.n - 0.5) continue;
       const [ra, dec] = gridToSky(p.grid, col, row);
-      return { ra, dec, mjd: p.slot.frame.mjd };
+      return { ra, dec, mjd: p.slot.frame.mjd, col, row, slot: p.slot, grid: p.grid };
     }
     return null;
   },
@@ -109,13 +133,20 @@ export const stagePanels = {
  * Draw whatever the mode asks for. Returns { message, retry, files } where
  * message is set when nothing can be drawn.
  */
-export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, scalebar, files }) {
+export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, axes, files, facts, footNote }) {
   const view = app.view;
   const grid = app.tl.grid;
   const n = grid.n;
   caption.replaceChildren();
   overlay.replaceChildren();
   files.replaceChildren();
+  facts.replaceChildren();
+  footNote.textContent = '';
+  footNote.removeAttribute('title');
+  canvasA.classList.remove('dim');
+  drawAxes(axes, grid);
+  const ready = view.filter((s) => s.status === 'ready');
+  const frameOf = (s) => el('span', 'frame-of', `frame ${ready.indexOf(s) + 1} of ${ready.length}`);
   panels = [];
   const side = st.mode === 'side';
   wrap.classList.toggle('side', side);
@@ -123,9 +154,14 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, s
   const cur = view.find((s) => s.id === st.curId);
   const A = view[st.a];
   const B = view[st.b];
+  // While a date loads, keep the last ready frame on screen, dimmed, rather than a black square.
   const blank = () => {
-    canvasA.getContext('2d').clearRect(0, 0, canvasA.width, canvasA.height);
     canvasB.hidden = true;
+    const last = view.find((s) => s.id === lastShown && s.status === 'ready') || ready[0];
+    if (last) {
+      paint(canvasA, rgbaFor(last, st.palette));
+      canvasA.classList.add('dim');
+    } else canvasA.getContext('2d').clearRect(0, 0, canvasA.width, canvasA.height);
   };
   const listFiles = (slot) => {
     for (const url of slot.frame.files || []) {
@@ -151,22 +187,23 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, s
       const label = `${SURVEY[cur.source]} ${slotYear(cur)}`;
       if (cur.status === 'error') return { message: `${label}: ${slotStatusText(cur)}. ${cur.error ? `(${cur.error})` : ''} The movie plays without it.`, retry: () => cur.retry() };
       if (cur.status === 'empty') return { message: `${label}: ${slotStatusText(cur)}.` };
-      return { message: `${label}: loading ${slotStatusText(cur)}` };
+      const { done = 0, total = 0 } = cur.progress || {};
+      return { message: total > 1 ? `Adding ${done} of ${total} frames` : `${label}: loading`, data: true };
     }
-    if (st.mode !== 'blink') caption.append(el('span', 'note', 'Compare needs two dates that have loaded; showing the blink.'));
-    paint(canvasA, rgbaFor(cur, st.invert));
-    caption.prepend(...captionLines(cur));
+    if (st.mode !== 'blink') footNote.textContent = 'Compare needs two dates that have loaded; showing the blink.';
+    paint(canvasA, rgbaFor(cur, st.palette));
+    lastShown = cur.id;
+    caption.prepend(...captionLines(cur), frameOf(cur));
+    footNote.textContent = notText(cur);
+    renderFacts(facts, factRows(cur, grid));
     listFiles(cur);
     viewN = n;
     panels = [{ slot: cur, grid, x: 0, y: 0, size: n }];
   } else if (side) {
-    paint(canvasA, rgbaFor(A, st.invert));
-    paint(canvasB, rgbaFor(B, st.invert));
-    const left = el('span', null, '');
-    left.append(el('span', `survey s-${A.source}`, SURVEY[A.source]), ` ${A.source === 'spherex' ? A.label : slotYear(A)}`);
-    const right = el('span', 'side-b');
-    right.append(el('span', `survey s-${B.source}`, SURVEY[B.source]), ` ${B.source === 'spherex' ? B.label : slotYear(B)}`);
-    caption.append(left, right, el('br'), el('span', null, bandText(B)));
+    paint(canvasA, rgbaFor(A, st.palette));
+    paint(canvasB, rgbaFor(B, st.palette));
+    caption.append(el('span', `survey s-${A.source}`, shortName(A)), el('span', null, 'beside'), el('span', `survey s-${B.source}`, shortName(B)), el('span', null, bandText(B)));
+    renderFacts(facts, factRows(B, grid));
     listFiles(A);
     listFiles(B);
     viewN = 2 * n;
@@ -176,7 +213,7 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, s
     ];
     overlay.append(svgEl('line', { x1: n, x2: n, y1: n / 2, y2: 1.5 * n, stroke: 'var(--paper)', 'stroke-width': 2, 'vector-effect': 'non-scaling-stroke' }));
   } else {
-    const key = `${st.mode}|${A.id}|${B.id}|${st.invert}`;
+    const key = `${st.mode}|${A.id}|${B.id}|${st.palette}`;
     if (!cache.has(key)) {
       let img;
       let note = '';
@@ -186,17 +223,17 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, s
         const a = blurToFwhm(A.frame, fwhm(A), to, grid.scale);
         const b = blurToFwhm(B.frame, fwhm(B), to, grid.scale);
         const d = difference(b, a);
-        img = diverging(d.data, { invert: st.invert });
+        img = diverging(d.data, { invert: st.palette === 'inverted' });
         note = Number.isFinite(d.fluxScale) ? `Earlier date scaled ×${d.fluxScale.toPrecision(3)} and both blurred to ${to.toFixed(1)}″ before subtracting.` : 'No star bright in both dates, so the brightness could not be matched.';
-      } else img = stretch(addFrames([A.frame.data, B.frame.data]), { invert: st.invert });
-      cache.set(key, { n, rgba: toRgba(img), note });
+      } else img = stretch(addFrames([A.frame.data, B.frame.data]), { invert: st.palette === 'inverted' });
+      // A difference stays grey: its white/black/grey carry meaning that a heat ramp would hide.
+      cache.set(key, { n, rgba: toRgba(img, st.palette === 'heat' && st.mode !== 'subtract'), note });
     }
     paint(canvasA, cache.get(key));
-    const line = el('span');
     const word = st.mode === 'subtract' ? 'minus' : 'plus';
-    line.append(el('span', `survey s-${B.source}`, shortName(B)), ` ${word} `, el('span', `survey s-${A.source}`, shortName(A)));
-    caption.append(line, el('br'), el('span', null, bandText(B)));
-    if (st.mode === 'subtract') caption.append(el('br'), el('span', 'note', `White: brighter in ${shortName(B)}. Black: brighter in ${shortName(A)}. Grey: no change.`), el('br'), el('span', 'note', cache.get(key).note));
+    caption.append(el('span', `survey s-${B.source}`, shortName(B)), el('span', null, word), el('span', `survey s-${A.source}`, shortName(A)), el('span', null, bandText(B)));
+    if (st.mode === 'subtract') footNote.textContent = `White: brighter in ${shortName(B)}. Black: brighter in ${shortName(A)}. Grey: no change. ${cache.get(key).note}`;
+    renderFacts(facts, factRows(B, grid));
     listFiles(A);
     listFiles(B);
     viewN = n;
@@ -205,7 +242,7 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, s
 
   overlay.setAttribute('viewBox', `0 0 ${viewN} ${viewN}`);
   for (const p of panels) drawMarks(overlay, p, app, st);
-  drawScale(scalebar, grid, panels[0].size / viewN);
+  if (footNote.textContent) footNote.title = footNote.textContent; // full text when two lines clip it
   return { files: files.children.length > 0 };
 }
 
@@ -243,23 +280,36 @@ function drawMarks(svg, p, app, st) {
   }
 }
 
-/** Scale bar (1 or 5 arcmin) and the N/E compass. frac: panel width / stage width. */
-function drawScale(box, grid, frac) {
+/**
+ * Real axes around the image: ticks every arcmin (every 5 above 12 arcmin),
+ * labelled as offsets from the centre. East is left, north up. The SVG is laid
+ * over the stage with overflow visible, so ticks and labels sit outside the image.
+ */
+function drawAxes(svg, grid) {
+  const W = svg.clientWidth || 400; // the image's size in CSS px (square)
   const fov = (grid.n * grid.scale) / 60;
-  const arcmin = fov > 10 ? 5 : 1;
-  const pct = ((arcmin * 60) / grid.scale / grid.n) * frac * 100;
-  const bar = el('div', 'bar', `${arcmin} arcmin`);
-  bar.style.width = `calc(var(--size) * ${(pct / 100).toFixed(4)})`;
-  // Compass: north up, east left (row 0 = north, col 0 = east).
-  const c = svgEl('svg', { width: 40, height: 40, viewBox: '-4 -4 44 44', 'aria-hidden': 'true' });
-  const s = { stroke: 'var(--ink)', 'stroke-width': 1.5 };
-  c.append(svgEl('line', { x1: 32, y1: 32, x2: 32, y2: 8, ...s }), svgEl('line', { x1: 32, y1: 32, x2: 8, y2: 32, ...s }));
-  const tN = svgEl('text', { x: 32, y: 4, 'text-anchor': 'middle', fill: 'var(--ink)', 'font-size': 12 });
-  tN.textContent = 'N';
-  const tE = svgEl('text', { x: 1, y: 36, 'text-anchor': 'middle', fill: 'var(--ink)', 'font-size': 12 });
-  tE.textContent = 'E';
-  c.append(tN, tE);
-  box.replaceChildren(c, bar);
+  const stepA = fov > 12 ? 5 : 1;
+  const half = fov / 2;
+  const nodes = [];
+  const t = (tag, attrs, text) => {
+    const e = svgEl(tag, attrs);
+    if (text != null) e.textContent = text;
+    nodes.push(e);
+  };
+  for (let a = -Math.floor(half / stepA) * stepA; a <= half + 1e-9; a += stepA) {
+    const p = W / 2 - (a / fov) * W; // east (positive) to the left; north (positive) up
+    const lab = a === 0 ? '0' : `${a > 0 ? '+' : '−'}${Math.abs(a)}′`;
+    t('line', { class: 'tick', x1: p, x2: p, y1: W, y2: W + 5 });
+    t('line', { class: 'tick', x1: -5, x2: 0, y1: p, y2: p });
+    t('text', { x: p, y: W + 17, 'text-anchor': 'middle' }, lab);
+    t('text', { x: -8, y: p + 4, 'text-anchor': 'end' }, lab);
+  }
+  t('text', { x: -20, y: W + 17, 'text-anchor': 'end', class: 'dir' }, 'E');
+  t('text', { x: -8, y: -6, 'text-anchor': 'end', class: 'dir' }, 'N');
+  svg.replaceChildren(...nodes);
 }
+
+/** Sexagesimal centre for the footer strip. */
+export const centreText = (ra, dec) => `${formatRa(ra)}  ${formatDec(dec)}`;
 
 drawStage.rgbaFor = rgbaFor;

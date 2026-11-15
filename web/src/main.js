@@ -103,7 +103,7 @@ function drawThumb(slot, canvas) {
 function renderStage() {
   const msg = $('stage-msg');
   msg.replaceChildren();
-  const res = drawStage({ app, st, canvasA: $('canvas-a'), canvasB: $('canvas-b'), wrap: $('canvases'), caption: $('caption'), overlay: $('overlay'), axes: $('axes'), files: $('files-list'), facts: $('facts'), footNote: $('foot-note') });
+  const res = drawStage({ app, st, canvasA: $('canvas-a'), canvasB: $('canvas-b'), wrap: $('canvases'), caption: $('caption'), overlay: $('overlay'), axes: $('axes'), files: $('files-list'), facts: $('facts'), footField: $('foot-field') });
   renderHud();
   if (res.message) {
     msg.append(el('p', res.data ? 'data' : null, res.message));
@@ -333,8 +333,9 @@ function renderHud() {
   const ready = app.view.filter((s) => s.status === 'ready');
   const cur = ready.find((s) => s.id === st.curId);
   const first = ready[0];
+  // The frame count is in the header strip; the HUD keeps only the elapsed years.
   $('hud-frame').textContent = cur && st.mode === 'blink'
-    ? `frame ${ready.indexOf(cur) + 1} of ${ready.length}   +${((cur.frame.mjd - first.frame.mjd) / 365.25).toFixed(1)} yr`
+    ? `+${((cur.frame.mjd - first.frame.mjd) / 365.25).toFixed(1)} yr`
     : '';
   const p = pointer && stagePanels.hit(pointer, $('stage'));
   if (!p) return void ($('hud-pointer').textContent = '');
@@ -366,7 +367,6 @@ function ensureGaia() {
       app.gaia = stars;
       app.gaiaState = 'ready';
       gaiaStateText();
-      if (app.click) measureClick(app, st, app.click.ra, app.click.dec, app.click.mjd);
       render();
     },
     (err) => {
@@ -389,7 +389,8 @@ $('stage').addEventListener('click', (e) => {
   if (st.embed) return;
   const hit = stagePanels.hit(e, $('stage'));
   if (!hit) return;
-  measureClick(app, st, hit.ra, hit.dec, hit.mjd);
+  stop(true);
+  measureClick(app, hit);
   ensureGaia();
   render();
   $('clicked').scrollIntoView({ block: 'nearest' });

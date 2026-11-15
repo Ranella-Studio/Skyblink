@@ -1,8 +1,9 @@
 // "What you clicked": the source's position on each date, its fitted motion,
 // the Gaia DR3 match, and its SPHEREx spectrum per pass.
 
-import { centroid, fitMotion, motionSentence, direction, apertureFlux } from '../app/measure.js';
-import { matchStar, starAt, totalPm } from '../app/gaia.js';
+import { centroid, fitMotion, motionSentence, direction, apertureFlux, frameNoise, accepted, scatterArcsec } from '../app/measure.js';
+import { angularDistance } from '../data/sky-math.js';
+import { matchStar, totalPm } from '../app/gaia.js';
 import { gridToSky, skyToGrid } from '../engine/grid.js';
 import { slotYear } from './strip.js';
 import { renderSpectrum } from './spectrum.js';
@@ -15,6 +16,7 @@ const el = (tag, cls, text) => {
   return e;
 };
 const SEARCH_ARCSEC = 12;
+const STILL_ARCSEC = 3; // one click: the same source within 3″ on every date means it did not move
 const MATCH_ARCSEC = 3; // a Gaia star counts as the same source within 3″ at the frame's date
 const APERTURE_ARCSEC = 9; // one aperture for every frame; sky from a ring at 2 to 3 times that
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -23,38 +25,96 @@ const monthYear = (mjd) => {
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 };
 
-/** Remember a click; the measurement itself is redone on every render as frames arrive. */
-export function measureClick(app, st, ra, dec, mjd) {
-  app.click = { ra, dec, mjd, positions: [], fit: null, match: null, spectra: new Map() };
+/** Mark the source nearest the click in the frame on screen only; a frame keeps one mark. Returns the mark or null. */
+export function measureClick(app, hit) {
+  const grid = app.tl.grid;
+  const m = centroid(hit.slot.frame.data, grid.n, hit.col, hit.row, SEARCH_ARCSEC / grid.scale, { core: 9 / grid.scale });
   $('clicked').hidden = false;
   $('click-hint').hidden = true;
+  if (!app.click) app.click = { marks: new Map(), positions: [], fit: null, still: null, spectra: new Map(), miss: false };
+  const c = app.click;
+  c.miss = !m;
+  if (!m) return null;
+  const [ra, dec] = gridToSky(grid, m.col, m.row);
+  c.marks.set(hit.slot.id, { slotId: hit.slot.id, mjd: hit.slot.frame.mjd, col: m.col, row: m.row, ra, dec });
+  const first = [...c.marks.values()][0];
+  Object.assign(c, { ra: first.ra, dec: first.dec, mjd: first.mjd });
+  return m;
 }
 
-/** Centroid in every ready frame, searching around the Gaia track when the click matches a Gaia star. */
+/** Sky position + brightness of a centroid in one frame. */
+function position(slot, m, kind, grid) {
+  const [ra, dec] = gridToSky(grid, m.col, m.row);
+  const flux = apertureFlux(slot.frame.data, grid.n, grid.n, m.col, m.row, APERTURE_ARCSEC / grid.scale);
+  return { slot, mjd: slot.frame.mjd, found: true, kind, col: m.col, row: m.row, ra, dec, flux, ...brightness(flux, slot.frame.unit, grid.scale) };
+}
+
+/**
+ * Marks -> positions on every ready frame. One mark: if the same source sits within 3″ in every other
+ * ready frame it did not move. Two or more: fit a line, look within 12″ of its prediction in each unmarked
+ * frame, accept a centroid whose aperture sum is at least 5 times the frame's aperture noise, refit with all.
+ */
 export function measure(app) {
   const c = app.click;
   if (!c) return;
   const grid = app.tl.grid;
-  c.match = app.gaia ? matchStar(app.gaia, c.ra, c.dec, c.mjd, SEARCH_ARCSEC) : null;
-  c.positions = app.view
-    .filter((s) => s.status === 'ready')
-    .map((slot) => {
-      const mjd = slot.frame.mjd;
-      const [pra, pdec] = c.match ? starAt(c.match.star, mjd) : [c.ra, c.dec];
-      const g = skyToGrid(grid, pra, pdec);
-      const m = g && centroid(slot.frame.data, grid.n, g[0], g[1], SEARCH_ARCSEC / grid.scale, { core: 9 / grid.scale });
-      if (!m) return { slot, mjd, found: false };
-      const [ra, dec] = gridToSky(grid, m.col, m.row);
-      const flux = apertureFlux(slot.frame.data, grid.n, grid.n, m.col, m.row, APERTURE_ARCSEC / grid.scale);
-      return { slot, mjd, found: true, col: m.col, row: m.row, ra, dec, ...brightness(flux, slot.frame.unit, grid.scale) };
-    });
-  c.fit = fitMotion(c.positions.filter((p) => p.found), { floor: grid.scale / 2 });
+  const ready = app.view.filter((s) => s.status === 'ready');
+  for (const id of c.marks.keys()) if (!ready.some((s) => s.id === id)) c.marks.delete(id);
+  const look = (slot, ra, dec, radius) => {
+    const g = skyToGrid(grid, ra, dec);
+    return g && centroid(slot.frame.data, grid.n, g[0], g[1], radius / grid.scale, { core: 9 / grid.scale });
+  };
+  const marked = ready.filter((s) => c.marks.has(s.id)).map((s) => position(s, c.marks.get(s.id), 'marked', grid));
+  c.still = null;
+  c.fit = null;
+  c.positions = marked;
+  if (marked.length === 1) {
+    const [m] = marked;
+    const others = ready.filter((s) => s.id !== m.slot.id).map((s) => [s, look(s, m.ra, m.dec, STILL_ARCSEC)]);
+    if (others.length && others.every(([, f]) => f)) {
+      c.positions = [m, ...others.map(([s, f]) => position(s, f, 'found', grid))];
+      const near = c.positions.every((p) => angularDistance(p.ra, p.dec, m.ra, m.dec) * 3600 <= STILL_ARCSEC);
+      if (near) c.still = { scatter: scatterArcsec(c.positions) };
+      else c.positions = marked;
+    }
+  } else if (marked.length >= 2) {
+    const line = fitMotion(marked, { floor: grid.scale / 2 });
+    if (line) {
+      const npix = Math.PI * (APERTURE_ARCSEC / grid.scale) ** 2;
+      const found = [];
+      for (const s of ready) {
+        if (c.marks.has(s.id)) continue;
+        const f = look(s, ...line.at(s.frame.mjd), SEARCH_ARCSEC);
+        if (!f) continue;
+        const p = position(s, f, 'found', grid);
+        s.frame.noise ??= frameNoise(s.frame.data); // shortcut: cached on the frame object, recomputed if the frame is rebuilt
+        // A saturated core leaves flagged (NaN) pixels in the aperture: then judge the centroid's core sum instead.
+        const ok = Number.isFinite(p.flux) ? accepted(p.flux, s.frame.noise, npix) : accepted(f.flux, s.frame.noise, f.npix);
+        if (ok) found.push(p);
+      }
+      c.positions = [...marked, ...found].sort((x, y) => x.mjd - y.mjd);
+    }
+    c.fit = fitMotion(c.positions, { floor: grid.scale / 2 });
+  }
+  c.readyCount = ready.length;
+}
+
+function motionText(c) {
+  const n = c.readyCount;
+  const marks = c.marks.size;
+  const miss = c.miss ? `No source within ${SEARCH_ARCSEC}″ of that click. ` : '';
+  if (c.still) return `${miss}Did not move: the same source sits within ${STILL_ARCSEC}″ in all ${n} frames (scatter ${c.still.scatter.toFixed(1)}″).`;
+  if (marks === 0) return `${miss}Click a star to mark it.`;
+  if (marks === 1) return `${miss}Marked in 1 of ${n} frames. Step to another date and click it again.`;
+  if (!c.fit) return `${miss}The marks are less than three months apart. Mark a date further away.`;
+  const found = c.positions.length - marks;
+  return `${miss}${motionSentence(c.fit)} Marked in ${marks}, found in ${found} more, of ${n} frames.`;
 }
 
 export function renderClicked(app, st) {
   const c = app.click;
   if (!c) return;
-  $('motion').textContent = motionSentence(c.fit);
+  $('motion').textContent = motionText(c);
   $('gaia-match').textContent = gaiaLine(app, c);
   $('bright').textContent = brightSentence(c.positions);
   const body = $('pos-table').tBodies[0];
@@ -63,7 +123,7 @@ export function renderClicked(app, st) {
   body.replaceChildren(
     ...c.positions.map((p) => {
       const tr = el('tr');
-      tr.append(el('td', null, `${p.slot.source === 'spherex' ? p.slot.label : `${slotYear(p.slot)} ${p.slot.source === '2mass' ? '2MASS' : 'WISE'}`}`));
+      tr.append(el('td', null, `${p.kind === 'marked' ? '● ' : '○ '}${p.slot.source === 'spherex' ? p.slot.label : `${slotYear(p.slot)} ${p.slot.source === '2mass' ? '2MASS' : 'WISE'}`}`));
       if (!p.found) {
         const td = el('td', 'missing', `not found within ${SEARCH_ARCSEC}″`);
         td.colSpan = 3;
@@ -72,7 +132,7 @@ export function renderClicked(app, st) {
         let dra = p.ra - first.ra;
         if (dra > 180) dra -= 360;
         if (dra < -180) dra += 360;
-        tr.append(el('td', null, signed(dra * cosd * 3600)), el('td', null, signed((p.dec - first.dec) * 3600)), el('td', null, Number.isFinite(p.value) ? `${p.value.toPrecision(3)}\u00a0${p.unit}` : 'flagged pixels in aperture'));
+        tr.append(el('td', null, signed(dra * cosd * 3600)), el('td', null, signed((p.dec - first.dec) * 3600)), el('td', null, Number.isFinite(p.value) ? `${p.value.toPrecision(3)}\u00a0${p.unit}` : 'flagged'));
       }
       return tr;
     }),

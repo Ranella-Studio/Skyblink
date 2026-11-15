@@ -14,7 +14,7 @@ function median(a) {
  * then the flux-weighted centroid within `core` pixels of it, on a local
  * background (median of a box 2 x radius around the click). The brightest pixel
  * must stand `snr` sigma (MAD of the box) above the background.
- * Returns { col, row, flux, snr } or null.
+ * Returns { col, row, flux (positive core sum), npix (finite core pixels), snr } or null.
  */
 export function centroid(data, n, col, row, radius, { snr = 5, core = 2.5 } = {}) {
   const at = (x, y) => (x < 0 || y < 0 || x >= n || y >= n ? NaN : data[y * n + x]);
@@ -41,16 +41,18 @@ export function centroid(data, n, col, row, radius, { snr = 5, core = 2.5 } = {}
   let sw = 0;
   let sx = 0;
   let sy = 0;
+  let npix = 0;
   for (let y = Math.floor(py - core); y <= Math.ceil(py + core); y++)
     for (let x = Math.floor(px - core); x <= Math.ceil(px + core); x++) {
       if ((x - px) ** 2 + (y - py) ** 2 > core * core) continue;
       const w = at(x, y) - bg;
+      if (w === w) npix++;
       if (!(w > 0)) continue;
       sw += w;
       sx += w * x;
       sy += w * y;
     }
-  return { col: sx / sw, row: sy / sw, flux: sw, snr: peak / sigma };
+  return { col: sx / sw, row: sy / sw, flux: sw, npix, snr: peak / sigma };
 }
 
 /** Sum over a circular aperture minus the median of a surrounding annulus; NaN if the aperture has holes. */

@@ -1,6 +1,13 @@
 // Measuring a clicked source: centroids on the shared grid, a straight-line
 // fit of position against time, aperture flux. Pure functions, no DOM.
 
+import { angularDistance } from '../data/sky-math.js';
+import { gridToSky, skyToGrid } from '../engine/grid.js';
+
+export const SEARCH_ARCSEC = 12;
+export const STILL_ARCSEC = 3; // one click: the same source within 3″ on other dates means it did not move
+const APERTURE_ARCSEC = 9; // one aperture for every frame; sky from a ring at 2 to 3 times that
+
 const sortNum = (a) => a.sort((x, y) => x - y);
 function median(a) {
   if (!a.length) return NaN;
@@ -143,4 +150,86 @@ export function motionSentence(fit) {
   if (!fit) return 'Not enough dates to measure motion.';
   if (fit.speed < 3 * fit.sigma) return `No clear motion: less than ${(3 * fit.sigma).toFixed(1)} arcsec a year over ${fit.years.toFixed(0)} years.`;
   return `Moved ${fit.speed.toFixed(2)} ± ${fit.sigma.toFixed(2)} arcsec a year, toward ${direction(fit.pa)}.`;
+}
+
+/** Sky position + brightness of a centroid in one frame. */
+function position(slot, m, kind, grid) {
+  const [ra, dec] = gridToSky(grid, m.col, m.row);
+  const flux = apertureFlux(slot.frame.data, grid.n, grid.n, m.col, m.row, APERTURE_ARCSEC / grid.scale);
+  return { slot, mjd: slot.frame.mjd, found: true, kind, col: m.col, row: m.row, ra, dec, flux, ...brightness(flux, slot.frame.unit, grid.scale) };
+}
+
+/**
+ * Marks -> positions on every ready frame. One mark: frames where the same source sits within 3″ join;
+ * found in two or more other frames and nowhere further away, it did not move. Two or more: fit a line,
+ * look within 12″ of its prediction in each unmarked frame, accept a centroid whose aperture sum is at least 5 times the frame's aperture noise, refit with all.
+ */
+export function measure(app) {
+  const c = app.click;
+  if (!c) return;
+  const grid = app.tl.grid;
+  const ready = app.view.filter((s) => s.status === 'ready');
+  for (const id of c.marks.keys()) if (!ready.some((s) => s.id === id)) c.marks.delete(id);
+  const look = (slot, ra, dec, radius) => {
+    const g = skyToGrid(grid, ra, dec);
+    return g && centroid(slot.frame.data, grid.n, g[0], g[1], radius / grid.scale, { core: 9 / grid.scale });
+  };
+  const marked = ready.filter((s) => c.marks.has(s.id)).map((s) => position(s, c.marks.get(s.id), 'marked', grid));
+  c.still = null;
+  c.fit = null;
+  c.positions = marked;
+  if (marked.length === 1) {
+    const [m] = marked;
+    // Search the normal 12″ (centroid measures its sky in a box twice the search radius; at 3″ that box is
+    // the star itself and nothing is found), then keep what lies within 3″ of the mark.
+    let away = 0;
+    for (const s of ready) {
+      if (s.id === m.slot.id) continue;
+      const f = look(s, m.ra, m.dec, SEARCH_ARCSEC);
+      if (!f) continue;
+      const p = position(s, f, 'found', grid);
+      if (angularDistance(p.ra, p.dec, m.ra, m.dec) * 3600 <= STILL_ARCSEC) c.positions.push(p);
+      else away++;
+    }
+    c.positions.sort((x, y) => x.mjd - y.mjd);
+    c.away = away;
+    if (c.positions.length >= 3 && !away) c.still = { scatter: scatterArcsec(c.positions) };
+  } else if (marked.length >= 2) {
+    const line = fitMotion(marked, { floor: grid.scale / 2 });
+    if (line) {
+      const npix = Math.PI * (APERTURE_ARCSEC / grid.scale) ** 2;
+      const found = [];
+      for (const s of ready) {
+        if (c.marks.has(s.id)) continue;
+        const f = look(s, ...line.at(s.frame.mjd), SEARCH_ARCSEC);
+        if (!f) continue;
+        const p = position(s, f, 'found', grid);
+        s.frame.noise ??= frameNoise(s.frame.data); // shortcut: cached on the frame object, recomputed if the frame is rebuilt
+        // A saturated core leaves flagged (NaN) pixels in the aperture: then judge the centroid's core sum instead.
+        const ok = Number.isFinite(p.flux) ? accepted(p.flux, s.frame.noise, npix) : accepted(f.flux, s.frame.noise, f.npix);
+        if (ok) found.push(p);
+      }
+      c.positions = [...marked, ...found].sort((x, y) => x.mjd - y.mjd);
+    }
+    c.fit = fitMotion(c.positions, { floor: grid.scale / 2 });
+  }
+  c.readyCount = ready.length;
+}
+
+/**
+ * Aperture sum -> a value in the frame's own unit. Surface brightness in MJy/sr
+ * summed over pixels times the pixel's solid angle is a flux density, given in mJy;
+ * any other unit is shown as the plain sum, labelled with that unit.
+ */
+function brightness(sum, unit, scaleArcsec) {
+  if (!Number.isFinite(sum)) return { value: NaN, unit: unit || '' };
+  if (unit === 'MJy/sr') return { value: sum * 1e9 * (scaleArcsec / 206264.806) ** 2, unit: 'mJy' };
+  return { value: sum, unit: `${unit || 'counts'} summed` };
+}
+
+/** A published track { ra, dec, epoch (Julian year), pmra, pmdec (mas/yr, pmra with cos Dec) } -> [ra, dec] at `mjd`. */
+export function trackAt(t, mjd) {
+  const dt = 2000 + (mjd - 51544.5) / 365.25 - t.epoch;
+  const dec = t.dec + (t.pmdec * dt) / 3.6e6;
+  return [t.ra + (t.pmra * dt) / 3.6e6 / Math.cos((((t.dec + dec) / 2) * Math.PI) / 180), dec];
 }

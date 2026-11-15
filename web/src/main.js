@@ -10,7 +10,7 @@ import { getBand, visitsForBand, BANDS as BAND_DEFS } from './engine/bands.js';
 import { loadGaia } from './app/gaia.js';
 import { renderStrip, drawRuler, slotStatusText, slotYear } from './ui/strip.js';
 import { drawStage, stagePanels, clearRenderCache, GAIA_RING_G, centreText } from './ui/stage.js';
-import { measureClick, measure, renderClicked } from './ui/clicked.js';
+import { measureClick, measure, renderClicked, missionMarks } from './ui/clicked.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => {
@@ -36,7 +36,9 @@ function load() {
   app.ctrl = new AbortController();
   app.gaiaCtrl?.abort();
   clearRenderCache();
-  Object.assign(app, { view: [], passes: null, passError: null, gaia: null, gaiaState: 'off', click: null });
+  // A mission (centre and filter equal to a target's) places its own marks once its frames are in.
+  const mission = TARGETS.find((t) => Math.abs(t.ra - st.ra) < 1e-4 && Math.abs(t.dec - st.dec) < 1e-4 && t.band === st.band);
+  Object.assign(app, { view: [], passes: null, passError: null, gaia: null, gaiaState: 'off', click: null, mission: mission?.track ?? null });
   st.curId = null;
   st.userHeld = false;
   st.pausedByUser = false;
@@ -89,6 +91,12 @@ function render() {
   });
   renderPickers();
   renderPassNote();
+  // Wait until no frame is still loading, so the first and last ready frames are the real first and last.
+  if (app.mission && !app.click && ready.length >= 2 && !app.view.some((s) => s.status === 'loading')) {
+    const track = app.mission;
+    app.mission = null;
+    if (missionMarks(app, track)) ensureGaia();
+  }
   if (app.click) measure(app);
   renderStage();
   if (app.click) renderClicked(app, st);
@@ -390,6 +398,7 @@ $('stage').addEventListener('click', (e) => {
   const hit = stagePanels.hit(e, $('stage'));
   if (!hit) return;
   stop(true);
+  app.mission = null;
   measureClick(app, hit);
   ensureGaia();
   render();
@@ -397,6 +406,7 @@ $('stage').addEventListener('click', (e) => {
 });
 $('clear-click').onclick = () => {
   app.click = null;
+  app.mission = null;
   $('clicked').hidden = true;
   $('click-hint').hidden = false;
   render();

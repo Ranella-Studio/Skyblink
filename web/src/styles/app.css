@@ -18,7 +18,7 @@
   --mono: 'Overpass Mono', ui-monospace, monospace;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --top: 56px;
-  --strip: 168px;
+  --strip: 170px;
   --left: 296px;
   --right: 360px;
   color-scheme: dark;
@@ -281,9 +281,9 @@ a { color: var(--ink); }
 .thumb:focus-visible canvas { outline: 2px solid var(--accent); outline-offset: 3px; }
 .thumb .fill { position: absolute; left: 0; right: 0; top: 93px; height: 3px; background: var(--hairline); }
 .thumb .fill i { display: block; height: 100%; background: var(--survey); width: 0; }
-.thumb .lab { height: 30px; padding: 2px 0 0; line-height: 1.1; flex: none; }
-.thumb .yr { font-family: var(--mono); font-size: 16px; font-variant-numeric: tabular-nums; display: block; }
-.thumb .mo { font-size: 12px; color: var(--ink-muted); }
+.thumb .lab { height: 34px; padding: 2px 0 0; flex: none; } /* holds both lines, so the ruler's leaders start below the text */
+.thumb .yr { font-family: var(--mono); font-size: 16px; line-height: 18px; font-variant-numeric: tabular-nums; display: block; }
+.thumb .mo { display: block; font-size: 12px; line-height: 14px; color: var(--ink-muted); }
 .thumb .state { position: absolute; left: 0; right: 0; top: 0; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 8px 4px 4px; text-align: center; font-size: 11px; color: var(--ink-muted); line-height: 1.25; }
 .thumb.empty canvas, .thumb.error canvas { border-top-color: var(--ink-faint); }
 .retry { font-size: 12px; padding: 2px 8px; margin-top: 4px; color: var(--ink); border: 1px solid var(--hairline); border-radius: 6px; background: var(--panel); cursor: pointer; }

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 
-// Every host the page may fetch from. GitHub Pages cannot send headers, so the
+// Every host the page may fetch from. A plain static host may not send headers, so the
 // policy ships as a <meta> tag in the build (frame-ancestors is ignored there,
 // which suits us: embedding is a feature). Dev mode skips it so hot reload works.
 const CONNECT = [

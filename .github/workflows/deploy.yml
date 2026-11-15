@@ -11,13 +11,12 @@ on:
     - cron: '17 6 * * *'
   workflow_dispatch:
 
-# Least privilege: only the deploy job may publish to Pages.
 permissions:
   contents: read
 
 concurrency:
-  group: pages-${{ github.ref }}
-  # Never cancel a Pages deploy halfway; superseded PR builds can stop early.
+  group: deploy-${{ github.ref }}
+  # Never cancel a deploy halfway; superseded PR builds can stop early.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -61,22 +60,12 @@ jobs:
         working-directory: web
         run: npm run build
 
-      - uses: actions/upload-pages-artifact@v3
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      - name: Publish to Firebase Hosting
+        # Only main is ever published, including manual runs, and only once the
+        # repository variable FIREBASE_PROJECT_ID and the secret FIREBASE_SERVICE_ACCOUNT are set.
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.FIREBASE_PROJECT_ID != ''
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          path: web/dist
-
-  deploy:
-    # Only main is ever published, including manual runs.
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ vars.FIREBASE_PROJECT_ID }}
+          channelId: live

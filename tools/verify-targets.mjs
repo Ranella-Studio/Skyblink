@@ -20,7 +20,7 @@ const SCALE = 3;
 const TARGETS = [
   { id: 'barnards-star', name: "Barnard's Star", ra: 269.45208, dec: 4.69339, pmra: -801.6, pmdec: 10362.4, epoch: 2000.0 },
   { id: 'eps-indi-b', name: 'Epsilon Indi B', ra: 331.04383, dec: -56.78269, pmra: 3966.7, pmdec: -2536.2, epoch: 2000.0 },
-  { id: 'wise-0855', name: 'WISE 0855-0714', ra: 133.795129, dec: -7.245147, pmra: -8118, pmdec: 680, epoch: 2014.3 },
+  { id: 'wise-0855', name: 'WISE 0855-0714', ra: 133.795129, dec: -7.245147, pmra: -8123.7, pmdec: 673.3, epoch: 2010.5 },
   { id: 'rw-aur', name: 'RW Aurigae', ra: 76.95642, dec: 30.40136, pmra: 0, pmdec: 0, epoch: 2000.0 },
   { id: 'r-dra', name: 'R Draconis', ra: 248.1675, dec: 66.755, pmra: 0, pmdec: 0, epoch: 2000.0 },
 ];
@@ -167,6 +167,8 @@ async function runRows(target, passes, grid, kind) {
       row.bands[band.id] = {
         frames: s.n,
         requested: s.requested,
+        available: s.available,
+        bandCoverage: +s.bandCoverage.toFixed(3),
         failed: s.errors.length,
         dates: s.mjdRange ? s.mjdRange.map(isoDate) : null,
         lambdaRange: s.lambdaRange?.map((l) => +l.toFixed(4)) ?? null,
@@ -179,7 +181,7 @@ async function runRows(target, passes, grid, kind) {
       tiles.push(s.n ? tileRgb(s, grid, at) : null);
       if (s.n) all[band.id].push(s);
       const r = row.bands[band.id];
-      console.log(`${target.id} ${kind} ${pass.label} ${band.id}: n=${s.n}/${s.requested} ${r.ok ? `flux=${r.fluxMilliJy}mJy snr=${r.snr} off=${r.offsetArcsec}` : r.reason} ${r.seconds}s ${r.megabytes}MB`);
+      console.log(`${target.id} ${kind} ${pass.label} ${band.id}: n=${s.n}/${s.requested}/${s.available} cov=${r.bandCoverage} ${r.ok ? `flux=${r.fluxMilliJy}mJy snr=${r.snr} off=${r.offsetArcsec}` : r.reason} ${r.seconds}s ${r.megabytes}MB`);
     }
     rows.push(row);
   }

@@ -92,3 +92,36 @@ Press 140ms, hover 180ms, menus 240ms, all on `ease-out`; named properties only.
 - Do keep focus rings visible (2px amber, 2px offset) and zoom unlocked.
 - Don't add gradients, glass, glows, eyebrow labels, emoji or decorative icons.
 - Don't animate the image except by cutting between frames.
+
+## Console layout (supersedes "Stage and rail" above for 1100px and wider)
+
+The owner's bar: it should look like something a NASA archive could put its name on. That means rigour, not decoration: a strict grid, real axes, every number labelled with its unit, and credits in plain sight. It must not carry NASA's logo or imply it is an official NASA product.
+
+**Frame.** A three-column console on a 12-column grid with 24px gutters and 24px outer margins:
+- **Left rail, 296px: "Controls".** Three groups in this order: Look through (filters 1 to 5, then the six detectors), Compare (mode, A and B pickers when subtracting or adding), Display (palette, field of view, speed, HUD, Gaia rings). Each group opens with a 12px label in `ink-muted`, 500 weight, sentence case, and groups are 32px apart with a hairline between them.
+- **Centre: the stage**, a square as large as the space allows (`min(100vh - 56px - 212px - 72px, 100vw - 296px - 360px - 96px)`), centred in its column.
+- **Right rail, 360px: "Readout".** Top: a definition list for the frame on screen, one row each: Telescope, Date, Filter, Frames added, Wavelengths, Pixel scale, Flags (the three most common flag names with counts), Source files (a disclosure). Labels left in `ink-muted`, values right-aligned in the `data` type. Under it "What you clicked" (positions, motion, brightness, Gaia match), then the spectrum. When nothing is clicked, one quiet line: "Click a star to measure it."
+- Between 720 and 1100px the right rail drops under the stage; under 720px everything stacks (stage, strip, readout, controls).
+
+**Stage chrome.** The image carries no text on top of it except the HUD when the HUD is on.
+- A header strip above the image, same width, 36px: the survey name in its survey colour, then date, filter and frames in `data` type, separated by 16px gaps (not dots). At the right end, "frame 3 of 5".
+- Real axes: a 1px `hairline` border around the image with tick marks outside it every arcminute (every 5 above 12 arcmin fields), labelled along the bottom and left as offsets from the centre in arcmin ("-2′", "0", "+2′"), `data` type at 11px, `ink-faint`. East is left; put a small "E" at the left end of the bottom axis and "N" at the top of the left axis. This replaces the compass and scale bar.
+- A footer strip under the image, 28px: the centre coordinates in sexagesimal at left, the note for this frame (the "say what it is not" line) at right in `ink-muted`.
+- While a date is loading, the image area shows the last ready frame dimmed to 40% with a centred `data` line ("Adding 12 of 33 frames"), never a spinner graphic and never an empty black square if any frame is ready.
+
+**Film strip.** Height 212px. Thumbnails 132px square with 12px gaps, left-aligned after a 64px transport block (Play/Pause as an icon button with a text label under it, and step buttons). Under each thumbnail: the year in 20px `data` type, the telescope and month in 12px `ink-muted`. Between neighbouring thumbnails, centred on the gap and vertically at the thumbnails' middle, the elapsed time in a small pill on `panel` ("+10.2 yr"). The ruler: a 1px line with year ticks every year and labels every five; connectors from thumbnail to date are straight elbow lines (down, across, down) in that survey's colour at 60% opacity, 1px, and the current frame's connector is amber at full strength. No curves.
+
+**Header and footer.**
+- Header 56px: the mark and wordmark at left. The mark is two 8px discs, one amber and one `ink-faint`, overlapping by a third (a star and where it used to be). Beside the wordmark, in `ink-muted` 13px: "SPHEREx time-domain viewer". Then the coordinate form (field 320px, `data` type inside), the **Blink** button, a "Missions" menu button that lists the five missions with their one-line briefings, and at the far right "How it works".
+- A footer bar, 32px, `ink-faint` 12px: "Data: NASA/JPL-Caltech SPHEREx and WISE, 2MASS (UMass/IPAC), ESA Gaia. Built for NASA Space Apps 2026. Not an official NASA product." and a link to the source code.
+
+**Controls.**
+- Segmented controls: 36px tall, `well` track, the selected segment on `panel` with a 1px `hairline` and `ink` text, others `ink-muted`; key caps (1 to 5) as 10px `data` type in the segment's top-right corner.
+- Sliders: 2px track, 14px round thumb in `ink`, amber only while dragging or focused; the value right-aligned in `data` type on the label row.
+- Toggles (HUD, Gaia rings): real switches, 32x18px, not checkboxes.
+- The only solid amber surface on the screen is the **Blink** button; the frame on screen is marked by an amber 2px outline in the strip.
+- Every number has its unit, with a no-break space. Tabular numbers everywhere.
+
+**Type.** 15px body; 13px labels; 12px captions; 20px for the strip years; the mission briefing line above the stage at 17px `ink`, at most 80 characters wide, with the mission name before it in 13px `ink-muted`. Nothing else is larger. No uppercase runs, no letter-spaced caps.
+
+**Quality bar for the review screenshots.** Shared left edges: the wordmark, the left rail and the strip's transport block start on the same x. The stage header strip, image and footer strip share one width. No element touches the viewport edge. Nothing overlaps at 1280x800 or 1440x900, and the phone layout at 390px has no horizontal scroll.

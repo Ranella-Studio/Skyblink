@@ -61,6 +61,17 @@ jobs:
         working-directory: web
         run: npm run build
 
+      - name: Also publish to Firebase Hosting
+        # Optional second home. Runs only on main, and only once the repository variable
+        # FIREBASE_PROJECT_ID and the secret FIREBASE_SERVICE_ACCOUNT are set.
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.FIREBASE_PROJECT_ID != ''
+        continue-on-error: true
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ vars.FIREBASE_PROJECT_ID }}
+          channelId: live
+
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:

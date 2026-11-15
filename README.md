@@ -63,13 +63,18 @@ node ../tools/verify-targets.mjs # rerun the five test targets
 
 To run the site with live 2MASS for any position: `cd web && VITE_IRSA_PROXY=/irsa npm run build && node ../server/server.mjs` (or deploy `render.yaml`).
 
+## Publishing
+
+Every push to main and every daily index refresh publishes `web/dist` to GitHub Pages through `.github/workflows/deploy.yml`.
+
+The same build can also go to Firebase Hosting; `firebase.json` points it at `web/dist`.
+
+- By hand: `cd web && npm ci && npm run build && cd .. && npx firebase-tools deploy --only hosting --project <project id>`.
+- Automatically: set the repository variable `FIREBASE_PROJECT_ID` and the secret `FIREBASE_SERVICE_ACCOUNT` (a service account key with the Firebase Hosting Admin role), and the workflow publishes there too.
+
 ## How it is built
 
 A static site in plain JavaScript with Vite, no framework, and no server needed except the optional 2MASS relay. `web/src/fits` reads FITS files over HTTP range requests; `web/src/engine` groups frames into visits, weights them through a filter and stacks them; `web/src/engine/legacy` reads WISE and 2MASS; `web/src/ui` is the screen. The design is written down in [docs/DESIGN.md](docs/DESIGN.md).
-
-## What we reused
-
-The FITS reader, sky maths and pointing index come from our own first attempt at this challenge, [Ranella-Studio/Nasa-Challenge](https://github.com/Ranella-Studio/Nasa-Challenge). Each of those files says so on its first line and is listed in [REFERENCES.md](REFERENCES.md). Everything that makes this tool what it is (matched filters, visits, the long timeline, WISE and 2MASS readers, the screen, the tests on the five targets) was written during the hackathon.
 
 ## Licence
 

@@ -5,7 +5,6 @@
 import { apertureFlux } from '../app/measure.js';
 import { passFrames, passCounts } from '../app/timeline.js';
 import { skyToGrid } from '../engine/grid.js';
-import { starAt } from '../app/gaia.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const SHAPES = ['circle', 'square', 'triangle', 'diamond'];
@@ -21,12 +20,12 @@ const svgEl = (tag, attrs) => {
   return e;
 };
 
-/** Where to put the aperture in a pass: the measured position, or the Gaia/click position. */
+/** Where to put the aperture in a pass: the measured position, else the fitted track or the first mark. */
 function positionIn(app, slot) {
   const c = app.click;
   const p = c.positions.find((q) => q.slot.id === slot.id && q.found);
   if (p) return [p.col, p.row];
-  const [ra, dec] = c.match ? starAt(c.match.star, slot.frame.mjd) : [c.ra, c.dec];
+  const [ra, dec] = c.fit ? c.fit.at(slot.frame.mjd) : [c.ra, c.dec];
   return skyToGrid(app.tl.grid, ra, dec);
 }
 

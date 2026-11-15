@@ -10,7 +10,7 @@ import { getBand, visitsForBand, BANDS as BAND_DEFS } from './engine/bands.js';
 import { loadGaia } from './app/gaia.js';
 import { renderStrip, drawRuler, slotStatusText, slotYear } from './ui/strip.js';
 import { drawStage, stagePanels, clearRenderCache, GAIA_RING_G, centreText } from './ui/stage.js';
-import { measureClick, measure, renderClicked } from './ui/clicked.js';
+import { measureClick, measure, renderClicked, missionMarks } from './ui/clicked.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => {
@@ -36,7 +36,9 @@ function load() {
   app.ctrl = new AbortController();
   app.gaiaCtrl?.abort();
   clearRenderCache();
-  Object.assign(app, { view: [], passes: null, passError: null, gaia: null, gaiaState: 'off', click: null });
+  // A mission (centre and filter equal to a target's) places its own marks once its frames are in.
+  const mission = TARGETS.find((t) => Math.abs(t.ra - st.ra) < 1e-4 && Math.abs(t.dec - st.dec) < 1e-4 && t.band === st.band);
+  Object.assign(app, { view: [], passes: null, passError: null, gaia: null, gaiaState: 'off', click: null, mission: mission?.track ?? null });
   st.curId = null;
   st.userHeld = false;
   st.pausedByUser = false;
@@ -89,6 +91,12 @@ function render() {
   });
   renderPickers();
   renderPassNote();
+  // Wait until no frame is still loading, so the first and last ready frames are the real first and last.
+  if (app.mission && !app.click && ready.length >= 2 && !app.view.some((s) => s.status === 'loading')) {
+    const track = app.mission;
+    app.mission = null;
+    if (missionMarks(app, track)) ensureGaia();
+  }
   if (app.click) measure(app);
   renderStage();
   if (app.click) renderClicked(app, st);
@@ -103,7 +111,7 @@ function drawThumb(slot, canvas) {
 function renderStage() {
   const msg = $('stage-msg');
   msg.replaceChildren();
-  const res = drawStage({ app, st, canvasA: $('canvas-a'), canvasB: $('canvas-b'), wrap: $('canvases'), caption: $('caption'), overlay: $('overlay'), axes: $('axes'), files: $('files-list'), facts: $('facts'), footNote: $('foot-note') });
+  const res = drawStage({ app, st, canvasA: $('canvas-a'), canvasB: $('canvas-b'), wrap: $('canvases'), caption: $('caption'), overlay: $('overlay'), axes: $('axes'), files: $('files-list'), facts: $('facts'), footField: $('foot-field') });
   renderHud();
   if (res.message) {
     msg.append(el('p', res.data ? 'data' : null, res.message));
@@ -333,8 +341,9 @@ function renderHud() {
   const ready = app.view.filter((s) => s.status === 'ready');
   const cur = ready.find((s) => s.id === st.curId);
   const first = ready[0];
+  // The frame count is in the header strip; the HUD keeps only the elapsed years.
   $('hud-frame').textContent = cur && st.mode === 'blink'
-    ? `frame ${ready.indexOf(cur) + 1} of ${ready.length}   +${((cur.frame.mjd - first.frame.mjd) / 365.25).toFixed(1)} yr`
+    ? `+${((cur.frame.mjd - first.frame.mjd) / 365.25).toFixed(1)} yr`
     : '';
   const p = pointer && stagePanels.hit(pointer, $('stage'));
   if (!p) return void ($('hud-pointer').textContent = '');
@@ -366,7 +375,6 @@ function ensureGaia() {
       app.gaia = stars;
       app.gaiaState = 'ready';
       gaiaStateText();
-      if (app.click) measureClick(app, st, app.click.ra, app.click.dec, app.click.mjd);
       render();
     },
     (err) => {
@@ -389,13 +397,16 @@ $('stage').addEventListener('click', (e) => {
   if (st.embed) return;
   const hit = stagePanels.hit(e, $('stage'));
   if (!hit) return;
-  measureClick(app, st, hit.ra, hit.dec, hit.mjd);
+  stop(true);
+  app.mission = null;
+  measureClick(app, hit);
   ensureGaia();
   render();
   $('clicked').scrollIntoView({ block: 'nearest' });
 });
 $('clear-click').onclick = () => {
   app.click = null;
+  app.mission = null;
   $('clicked').hidden = true;
   $('click-hint').hidden = false;
   render();

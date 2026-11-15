@@ -14,13 +14,15 @@ export const FOV_MAX = 20;
 // Barnard: J2000 269.45208 +4.69339, pm -801.6 +10362.4 mas/yr -> 2012.5.
 // Epsilon Indi B: J2000 331.04383 -56.78269, pm +3966.7 -2536.2 -> 2012.5.
 // WISE 0855: 2010.5 133.795129 -7.245147, pm -8123.7 +673.3 (Luhman & Esplin 2016) -> 2018.0 (it is too faint for 2MASS).
+// track: published position at epoch (Julian year) and proper motion in mas/yr (pmra includes cos Dec),
+// copied from tools/verify-targets.mjs; a mission centroids the real image near it to place its own marks.
 // Each target is also a guided mission: choosing it sets target, field and filter, and shows `brief`.
 export const TARGETS = [
-  { id: 'barnard', name: 'Barnard’s Star', ra: 269.449287, dec: 4.729371, fov: 6, band: 'Ks', brief: 'The fastest star in the sky. Watch it climb north, about 4.5 arcmin since 2MASS saw it in 2000.' },
-  { id: 'eps-indi-b', name: 'Epsilon Indi B', ra: 331.068976, dec: -56.791496, fov: 6, band: 'Ks', brief: 'Two brown dwarfs 12 light-years away. Follow the faint dot drifting south-east, 4.7 arcsec a year.' },
-  { id: 'wise0855', name: 'WISE 0855', ra: 133.778068, dec: -7.243744, fov: 6, band: 'W2', brief: 'The coldest known brown dwarf. Invisible to 2MASS, a faint dot for WISE in 2010, and SPHEREx finds it again 2 arcmin to the west.' },
-  { id: 'rw-aur', name: 'RW Aurigae', ra: 76.95641, dec: 30.40141, fov: 6, band: 'W1', brief: 'A young star that dims when dust crosses it. It holds still, so watch its brightness, not its place.' },
-  { id: 'r-dra', name: 'R Draconis', ra: 248.1676, dec: 66.755, fov: 6, band: 'W2', brief: 'A red giant that swells and shrinks every 246 days. SPHEREx passes it often; watch it brighten and fade.' },
+  { id: 'barnard', name: 'Barnard’s Star', ra: 269.449287, dec: 4.729371, fov: 6, band: 'Ks', brief: 'The fastest star in the sky. Watch it climb north, about 4.5 arcmin since 2MASS saw it in 2000.', track: { ra: 269.45208, dec: 4.69339, epoch: 2000.0, pmra: -801.6, pmdec: 10362.4 } },
+  { id: 'eps-indi-b', name: 'Epsilon Indi B', ra: 331.068976, dec: -56.791496, fov: 6, band: 'Ks', brief: 'Two brown dwarfs 12 light-years away. Follow the faint dot drifting south-east, 4.7 arcsec a year.', track: { ra: 331.04383, dec: -56.78269, epoch: 2000.0, pmra: 3966.7, pmdec: -2536.2 } },
+  { id: 'wise0855', name: 'WISE 0855', ra: 133.778068, dec: -7.243744, fov: 6, band: 'W2', brief: 'The coldest known brown dwarf. Invisible to 2MASS, a faint dot for WISE in 2010, and SPHEREx finds it again 2 arcmin to the west.', track: { ra: 133.795129, dec: -7.245147, epoch: 2010.5, pmra: -8123.7, pmdec: 673.3 } },
+  { id: 'rw-aur', name: 'RW Aurigae', ra: 76.95641, dec: 30.40141, fov: 6, band: 'W1', brief: 'A young star that dims when dust crosses it. It holds still, so watch its brightness, not its place.', track: { ra: 76.95642, dec: 30.40136, epoch: 2000.0, pmra: 0, pmdec: 0 } },
+  { id: 'r-dra', name: 'R Draconis', ra: 248.1676, dec: 66.755, fov: 6, band: 'W2', brief: 'A red giant that swells and shrinks every 246 days. SPHEREx passes it often; watch it brighten and fade.', track: { ra: 248.1675, dec: 66.755, epoch: 2000.0, pmra: 0, pmdec: 0 } },
 ];
 export const NO_MISSION = 'See the sky change over 27 years';
 

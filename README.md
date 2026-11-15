@@ -26,7 +26,7 @@ You can also look through SPHEREx's own six detectors, subtract any date from an
 |---|---|
 | Barnard's Star | Moves 271 arcsec between 2MASS (2000) and SPHEREx (2026): 10.34 arcsec a year. Gaia says 10.39. |
 | Epsilon Indi B | The brown dwarf pair drifts 126 arcsec in 26.9 years: 4.69 arcsec a year. Published: 4.71. |
-| WISE 0855-0714 | Invisible in 2MASS. SPHEREx finds it 126 arcsec from its 2010 WISE position, at 6 to 10 times the noise, at the brightness WISE measured (0.60 against 0.57 mJy). |
+| WISE 0855-0714 | Invisible in 2MASS. SPHEREx finds it 126 arcsec from its 2010 WISE position, at 6 to 10 times the noise: 0.61 mJy where the WISE 2010 image shows 0.08, while the 2010 spot drops from 0.57 to 0.15 mJy. |
 | RW Aurigae | Stays put, but faded 35% at 3.4 microns and 47% at 4.6 microns between Sep 2025 and Sep 2026. |
 | R Draconis | Nine SPHEREx visits; about 40% fainter at 4.6 microns in Jul 2026 than in Jun 2025. Too bright to measure at shorter wavelengths, and the tool says so. |
 

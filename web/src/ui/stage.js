@@ -133,7 +133,7 @@ export const stagePanels = {
  * Draw whatever the mode asks for. Returns { message, retry, files } where
  * message is set when nothing can be drawn.
  */
-export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, axes, files, facts, footNote }) {
+export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, axes, files, facts, footField }) {
   const view = app.view;
   const grid = app.tl.grid;
   const n = grid.n;
@@ -141,8 +141,8 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, a
   overlay.replaceChildren();
   files.replaceChildren();
   facts.replaceChildren();
-  footNote.textContent = '';
-  footNote.removeAttribute('title');
+  let note = ''; // shown in full as the readout's last row
+  footField.textContent = `${((grid.n * grid.scale) / 60).toFixed(1)} arcmin across, north up, east left`;
   canvasA.classList.remove('dim');
   drawAxes(axes, grid);
   const ready = view.filter((s) => s.status === 'ready');
@@ -190,11 +190,11 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, a
       const { done = 0, total = 0 } = cur.progress || {};
       return { message: total > 1 ? `Adding ${done} of ${total} frames` : `${label}: loading`, data: true };
     }
-    if (st.mode !== 'blink') footNote.textContent = 'Compare needs two dates that have loaded; showing the blink.';
+    if (st.mode !== 'blink') note = 'Compare needs two dates that have loaded; showing the blink. ';
     paint(canvasA, rgbaFor(cur, st.palette));
     lastShown = cur.id;
     caption.prepend(...captionLines(cur), frameOf(cur));
-    footNote.textContent = notText(cur);
+    note += notText(cur);
     renderFacts(facts, factRows(cur, grid));
     listFiles(cur);
     viewN = n;
@@ -232,7 +232,7 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, a
     paint(canvasA, cache.get(key));
     const word = st.mode === 'subtract' ? 'minus' : 'plus';
     caption.append(el('span', `survey s-${B.source}`, shortName(B)), el('span', null, word), el('span', `survey s-${A.source}`, shortName(A)), el('span', null, bandText(B)));
-    if (st.mode === 'subtract') footNote.textContent = `White: brighter in ${shortName(B)}. Black: brighter in ${shortName(A)}. Grey: no change. ${cache.get(key).note}`;
+    if (st.mode === 'subtract') note = `White: brighter in ${shortName(B)}. Black: brighter in ${shortName(A)}. Grey: no change. ${cache.get(key).note}`;
     renderFacts(facts, factRows(B, grid));
     listFiles(A);
     listFiles(B);
@@ -242,7 +242,7 @@ export function drawStage({ app, st, canvasA, canvasB, wrap, caption, overlay, a
 
   overlay.setAttribute('viewBox', `0 0 ${viewN} ${viewN}`);
   for (const p of panels) drawMarks(overlay, p, app, st);
-  if (footNote.textContent) footNote.title = footNote.textContent; // full text when two lines clip it
+  if (note) facts.append(el('dt', 'note', 'Note'), el('dd', 'note', note));
   return { files: files.children.length > 0 };
 }
 
@@ -260,23 +260,31 @@ function drawMarks(svg, p, app, st) {
       svg.append(svgEl('circle', { cx: x, cy: y, r: 2.6 * k, fill: 'none', stroke: 'var(--gaia)', 'stroke-width': 1.25, 'vector-effect': 'non-scaling-stroke', opacity: 0.85 }));
     }
   }
-  const m = app.click?.positions?.find((q) => q.slot.id === p.slot.id && q.found);
-  if (m) {
-    const [x, y] = at(m.col, m.row);
-    const r = 3.5 * k;
-    const attrs = { stroke: 'var(--ink)', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' };
-    svg.append(
-      svgEl('line', { x1: x - 2 * r, x2: x - r, y1: y, y2: y, ...attrs }),
-      svgEl('line', { x1: x + r, x2: x + 2 * r, y1: y, y2: y, ...attrs }),
-      svgEl('line', { x1: x, x2: x, y1: y - 2 * r, y2: y - r, ...attrs }),
-      svgEl('line', { x1: x, x2: x, y1: y + r, y2: y + 2 * r, ...attrs }),
-    );
-  } else if (app.click) {
-    const g = skyToGrid(p.grid, app.click.ra, app.click.dec);
-    if (g && inside(...g)) {
-      const [x, y] = at(...g);
-      svg.append(svgEl('circle', { cx: x, cy: y, r: 4 * k, fill: 'none', stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 3', 'stroke-width': 1.25, 'vector-effect': 'non-scaling-stroke' }));
+  const c = app.click;
+  if (!c) return;
+  const line = { 'vector-effect': 'non-scaling-stroke', fill: 'none' };
+  // Fitted track across the dates on screen, dashed; marked = filled disc, found by the track = hollow ring.
+  if (c.fit) {
+    const mjds = c.positions.map((q) => q.mjd);
+    const ends = [Math.min(...mjds), Math.max(...mjds)].map((t) => skyToGrid(p.grid, ...c.fit.at(t)));
+    if (ends.every(Boolean)) {
+      const [[x1, y1], [x2, y2]] = ends.map((g) => at(...g));
+      svg.append(svgEl('line', { x1, y1, x2, y2, stroke: 'var(--accent)', 'stroke-width': 1.25, 'stroke-dasharray': '5 4', opacity: 0.8, ...line }));
     }
+  }
+  const r = 3.5 * k;
+  for (const q of c.positions) {
+    const [x, y] = at(q.col, q.row);
+    const here = q.slot.id === p.slot.id;
+    if (!here && !c.fit) continue;
+    if (!here) {
+      svg.append(svgEl('circle', { cx: x, cy: y, r: 1.4, fill: 'var(--accent)', opacity: 0.7, stroke: 'none' }));
+      continue;
+    }
+    const attrs = q.kind === 'marked'
+      ? { fill: 'var(--accent)', 'fill-opacity': 0.28, stroke: 'var(--accent)', 'stroke-width': 2 }
+      : { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.5 };
+    svg.append(svgEl('circle', { cx: x, cy: y, r, 'vector-effect': 'non-scaling-stroke', ...attrs }));
   }
 }
 

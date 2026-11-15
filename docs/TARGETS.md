@@ -5,6 +5,7 @@ The challenge asks every tool to be tested on Barnard's Star, Epsilon Indi B, WI
 ```
 node tools/verify-targets.mjs     # SPHEREx: every visit, every filter
 node tools/verify-legacy.mjs      # WISE 2010 and 2MASS
+node tools/check-wise0855.mjs     # WISE 0855 at its old and new place, in both surveys
 ```
 
 Both scripts write their numbers and contact sheets into `docs/targets/<target>/`. The numbers below come from the run of 15 November 2026 (SPHEREx Data Release 1 and Quick Release 3, pointing index of 14 November 2026).
@@ -35,7 +36,16 @@ All three agree with the published motions to about 1%. The leftover difference 
 | Nov 2025 | 42 | 9.6 | 0.60 mJy | 84% |
 | May 2026 | 33 | 8.8 | 0.58 mJy | 77% |
 
-WISE itself measured 0.57 mJy in 2010, in the same aperture on the AllWISE image. So adding SPHEREx's narrow channels through the WISE W2 response curve gives the WISE brightness back to within about 6%, for an object that no single SPHEREx frame shows.
+WISE itself measured 0.57 mJy in 2010, in the same aperture on the AllWISE image, so the raw brightness comes back to within about 7% for an object that no single SPHEREx frame shows.
+
+The stronger check is the blink itself: measure both images at both places.
+
+| Place on the sky | WISE W2, 2010 | SPHEREx as W2, Nov 2025 |
+|---|---|---|
+| Where the brown dwarf was in 2010 | 0.57 mJy | 0.15 mJy |
+| Where it is in Nov 2025, 125 arcsec west | 0.08 mJy | 0.61 mJy |
+
+The object left one place and turned up at the other. Neither place is quite empty without it: a faint background source sits in each aperture (0.15 and 0.08 mJy). With those taken off, the brown dwarf alone is about 0.42 mJy in WISE and 0.53 mJy in SPHEREx, a difference of about 25%. So read the brightness agreement as "the same object at roughly the same brightness", not as a 7% calibration. (Measured 15 Nov 2026 on a 6 arcmin field centred between the two positions; the Nov 2025 value is 0.61 here and 0.60 in the table above because the grid centre differs.)
 
 ## Variable stars
 
@@ -54,7 +64,7 @@ Over one year it faded by 35% at 3.4 microns and 47% at 4.6 microns, while brigh
 ## What these tests say about the method
 
 - **Positions** are good to about 1 arcsec (a sixth of a SPHEREx pixel) for anything detected at 10 times the noise or better.
-- **Matched filters work.** SPHEREx frames added through the 2MASS and WISE response curves reproduce WISE's own W2 brightness to about 6% for WISE 0855 and Epsilon Indi B (26 mJy against WISE's 25 mJy).
+- **Matched filters work.** SPHEREx frames added through the 2MASS and WISE response curves reproduce WISE's own W2 brightness for Epsilon Indi B to about 4% (26 mJy against WISE's 25 mJy). For WISE 0855 the raw apertures agree to 7%, and to about 25% once the faint background source in each aperture is taken off.
 - **A visit does not always sample a whole filter.** Each visit catches a spot at a different set of wavelengths. Skyblink reports the share of the filter that was sampled, hides a frame when it is under 35%, and says so on the frame when it is under 80%. Epsilon Indi B shows why: its W1 brightness is 19 and 17 mJy in the two visits that sampled the filter fully, and a meaningless 47 mJy in a visit that sampled under 1% of it.
 - **Very bright stars saturate.** R Draconis overflows the detector at every wavelength below 4 microns. The pipeline flags those pixels, and Skyblink gives no brightness there.
 - **Old images of bright stars are saturated too**, so Skyblink never compares brightness between different telescopes in one sentence, only within one telescope and filter.

@@ -1,0 +1,167 @@
+{
+ "target": "R Draconis",
+ "grid": {
+  "ra0": 248.1675,
+  "dec0": 66.755,
+  "n": 121,
+  "scale": 3
+ },
+ "aperture": "12 arcsec radius, sky-subtracted, no aperture correction",
+ "frames": [
+  {
+   "band": "W1",
+   "label": "AllWISE W1, 2010",
+   "tile": "2486p666",
+   "epoch": 2010.696,
+   "mjd": 55451.174,
+   "mjdRange": [
+    55344.389,
+    55557.959
+   ],
+   "unit": "MJy/sr",
+   "files": [
+    "https://nasa-irsa-wise.s3.us-west-2.amazonaws.com/wise/allwise/images/p3am_cdd/24/2486/2486p666_ac51/2486p666_ac51-w1-int-3.fits"
+   ],
+   "ms": 577,
+   "emptyPixels": 3,
+   "atCataloguePosition": {
+    "centroid": [
+     248.165076,
+     66.754977
+    ],
+    "offsetArcsec": 3.45,
+    "peakSnr": 2808.5,
+    "apertureMJy": 899.949,
+    "apertureVegaMag": 6.34
+   },
+   "predictedPosition": [
+    248.1675,
+    66.755
+   ]
+  },
+  {
+   "band": "W2",
+   "label": "AllWISE W2, 2010",
+   "tile": "2486p666",
+   "epoch": 2010.696,
+   "mjd": 55451.174,
+   "mjdRange": [
+    55344.389,
+    55557.959
+   ],
+   "unit": "MJy/sr",
+   "files": [
+    "https://nasa-irsa-wise.s3.us-west-2.amazonaws.com/wise/allwise/images/p3am_cdd/24/2486/2486p666_ac51/2486p666_ac51-w2-int-3.fits"
+   ],
+   "ms": 592,
+   "emptyPixels": 2,
+   "atCataloguePosition": {
+    "centroid": [
+     248.164911,
+     66.754837
+    ],
+    "offsetArcsec": 3.73,
+    "peakSnr": 4258.9,
+    "apertureMJy": 1396.361,
+    "apertureVegaMag": 5.22
+   },
+   "predictedPosition": [
+    248.1675,
+    66.755
+   ]
+  },
+  {
+   "band": "J",
+   "label": "2MASS J, 26 May 1999",
+   "epoch": 1999.397,
+   "mjd": 51324.338,
+   "mjdRange": [
+    51324.336,
+    51324.338
+   ],
+   "unit": "MJy/sr",
+   "files": [
+    "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s073/image/ji0730044.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+    "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s072/image/ji0720232.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false"
+   ],
+   "ms": 53,
+   "emptyPixels": 0,
+   "atCataloguePosition": {
+    "centroid": [
+     248.168934,
+     66.755542
+    ],
+    "offsetArcsec": 2.82,
+    "peakSnr": 14007.3,
+    "apertureMJy": 9589.549,
+    "apertureVegaMag": 5.55
+   },
+   "predictedPosition": [
+    248.1675,
+    66.755
+   ]
+  },
+  {
+   "band": "H",
+   "label": "2MASS H, 26 May 1999",
+   "epoch": 1999.397,
+   "mjd": 51324.338,
+   "mjdRange": [
+    51324.336,
+    51324.338
+   ],
+   "unit": "MJy/sr",
+   "files": [
+    "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s073/image/hi0730044.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+    "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s072/image/hi0720232.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false"
+   ],
+   "ms": 42,
+   "emptyPixels": 0,
+   "atCataloguePosition": {
+    "centroid": [
+     248.169009,
+     66.755625
+    ],
+    "offsetArcsec": 3.11,
+    "peakSnr": 7031.1,
+    "apertureMJy": 6315.473,
+    "apertureVegaMag": 5.52
+   },
+   "predictedPosition": [
+    248.1675,
+    66.755
+   ]
+  },
+  {
+   "band": "Ks",
+   "label": "2MASS Ks, 26 May 1999",
+   "epoch": 1999.397,
+   "mjd": 51324.338,
+   "mjdRange": [
+    51324.336,
+    51324.338
+   ],
+   "unit": "MJy/sr",
+   "files": [
+    "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s073/image/ki0730044.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false",
+    "https://irsa.ipac.caltech.edu/ibe/data/twomass/allsky/allsky/990526n/s072/image/ki0720232.fits.gz?center=248.167500,66.755000&size=8arcmin&gzip=false"
+   ],
+   "ms": 49,
+   "emptyPixels": 0,
+   "atCataloguePosition": {
+    "centroid": [
+     248.16749,
+     66.755524
+    ],
+    "offsetArcsec": 1.89,
+    "peakSnr": 6453.4,
+    "apertureMJy": 5765.19,
+    "apertureVegaMag": 5.16
+   },
+   "predictedPosition": [
+    248.1675,
+    66.755
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1421 @@
+{
+ "target": {
+  "id": "rw-aur",
+  "name": "RW Aurigae",
+  "ra": 76.95642,
+  "dec": 30.40136,
+  "pmra": 0,
+  "pmdec": 0,
+  "epoch": 2000
+ },
+ "grid": {
+  "ra0": 76.95642,
+  "dec0": 30.40136,
+  "n": 121,
+  "scale": 3
+ },
+ "generatedAt": "2026-11-14T20:18:28.212Z",
+ "notes": "Fluxes are 12-arcsec-radius aperture sums minus an 18-30 arcsec annulus median, with no aperture correction: compare them between passes, not with catalogues. noise is the robust spread of the same aperture placed on empty sky across the field.",
+ "offsetSign": "offsetArcsec = measured centroid minus predicted position, [east, north] in arcsec",
+ "passes": [
+  {
+   "id": 0,
+   "label": "Sep 2025",
+   "start": "2025-09-01",
+   "end": "2025-09-20",
+   "visits": 102,
+   "bands": {
+    "D1": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2025-09-01",
+      "2025-09-04"
+     ],
+     "lambdaRange": [
+      0.7645,
+      1.094
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 17.2,
+     "ok": true,
+     "fluxMilliJy": 141.15,
+     "noiseMilliJy": 0.308,
+     "snr": 457.7,
+     "emptyApertures": 161,
+     "peakMJySr": 55.85,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956289,
+      30.401161
+     ],
+     "offsetArcsec": [
+      -0.41,
+      -0.71
+     ]
+    },
+    "D2": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2025-09-08",
+      "2025-09-10"
+     ],
+     "lambdaRange": [
+      1.1312,
+      1.6234
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 15.5,
+     "ok": true,
+     "fluxMilliJy": 254.25,
+     "noiseMilliJy": 0.377,
+     "snr": 674.1,
+     "emptyApertures": 161,
+     "peakMJySr": 102.5,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956197,
+      30.401196
+     ],
+     "offsetArcsec": [
+      -0.69,
+      -0.59
+     ]
+    },
+    "D3": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2025-09-11",
+      "2025-09-20"
+     ],
+     "lambdaRange": [
+      1.6589,
+      2.4057
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 16,
+     "ok": true,
+     "fluxMilliJy": 522.26,
+     "noiseMilliJy": 0.32,
+     "snr": 1632.2,
+     "emptyApertures": 161,
+     "peakMJySr": 200.3,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956223,
+      30.401253
+     ],
+     "offsetArcsec": [
+      -0.61,
+      -0.38
+     ]
+    },
+    "D4": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2025-09-01",
+      "2025-09-04"
+     ],
+     "lambdaRange": [
+      2.4876,
+      3.7483
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0.9,
+     "megabytes": 16.4,
+     "ok": true,
+     "fluxMilliJy": 1154,
+     "noiseMilliJy": 0.201,
+     "snr": 5732.8,
+     "emptyApertures": 161,
+     "peakMJySr": 393.1,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956099,
+      30.401258
+     ],
+     "offsetArcsec": [
+      -1,
+      -0.37
+     ]
+    },
+    "D5": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2025-09-08",
+      "2025-09-10"
+     ],
+     "lambdaRange": [
+      3.8601,
+      4.4014
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 16.4,
+     "ok": true,
+     "fluxMilliJy": 2211.1,
+     "noiseMilliJy": 0.154,
+     "snr": 14379.7,
+     "emptyApertures": 161,
+     "peakMJySr": 698.2,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956317,
+      30.401315
+     ],
+     "offsetArcsec": [
+      -0.32,
+      -0.16
+     ]
+    },
+    "D6": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2025-09-11",
+      "2025-09-20"
+     ],
+     "lambdaRange": [
+      4.4408,
+      4.9964
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.2,
+     "megabytes": 16.7,
+     "ok": true,
+     "fluxMilliJy": 2670.8,
+     "noiseMilliJy": 0.147,
+     "snr": 18118.8,
+     "emptyApertures": 161,
+     "peakMJySr": 786.3,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956392,
+      30.401304
+     ],
+     "offsetArcsec": [
+      -0.09,
+      -0.2
+     ]
+    },
+    "J": {
+     "frames": 14,
+     "requested": 16,
+     "failed": 0,
+     "dates": [
+      "2025-09-01",
+      "2025-09-10"
+     ],
+     "lambdaRange": [
+      1.0683,
+      1.4411
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 217.12,
+     "noiseMilliJy": 0.358,
+     "snr": 607,
+     "emptyApertures": 161,
+     "peakMJySr": 85.87,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956199,
+      30.401163
+     ],
+     "offsetArcsec": [
+      -0.69,
+      -0.71
+     ]
+    },
+    "H": {
+     "frames": 12,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2025-09-08",
+      "2025-09-17"
+     ],
+     "lambdaRange": [
+      1.4303,
+      1.86
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 360.71,
+     "noiseMilliJy": 0.369,
+     "snr": 977.3,
+     "emptyApertures": 161,
+     "peakMJySr": 158.3,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956212,
+      30.40124
+     ],
+     "offsetArcsec": [
+      -0.65,
+      -0.43
+     ]
+    },
+    "Ks": {
+     "frames": 10,
+     "requested": 12,
+     "failed": 0,
+     "dates": [
+      "2025-09-11",
+      "2025-09-20"
+     ],
+     "lambdaRange": [
+      1.9469,
+      2.354
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 574.67,
+     "noiseMilliJy": 0.301,
+     "snr": 1910.2,
+     "emptyApertures": 161,
+     "peakMJySr": 203,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956161,
+      30.401227
+     ],
+     "offsetArcsec": [
+      -0.8,
+      -0.48
+     ]
+    },
+    "W1": {
+     "frames": 20,
+     "requested": 24,
+     "failed": 0,
+     "dates": [
+      "2025-09-01",
+      "2025-09-09"
+     ],
+     "lambdaRange": [
+      2.6241,
+      3.9955
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 1335.5,
+     "noiseMilliJy": 0.176,
+     "snr": 7600,
+     "emptyApertures": 161,
+     "peakMJySr": 469.1,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956122,
+      30.401289
+     ],
+     "offsetArcsec": [
+      -0.93,
+      -0.26
+     ]
+    },
+    "W2": {
+     "frames": 33,
+     "requested": 34,
+     "failed": 0,
+     "dates": [
+      "2025-09-08",
+      "2025-09-20"
+     ],
+     "lambdaRange": [
+      3.8935,
+      4.9964
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 2469.9,
+     "noiseMilliJy": 0.158,
+     "snr": 15615.8,
+     "emptyApertures": 161,
+     "peakMJySr": 754.4,
+     "apertureCovered": 1,
+     "centroid": [
+      76.95636,
+      30.40131
+     ],
+     "offsetArcsec": [
+      -0.19,
+      -0.18
+     ]
+    }
+   }
+  },
+  {
+   "id": 1,
+   "label": "Mar 2026",
+   "start": "2026-02-20",
+   "end": "2026-03-12",
+   "visits": 104,
+   "bands": {
+    "D1": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-03-04",
+      "2026-03-12"
+     ],
+     "lambdaRange": [
+      0.7583,
+      1.0859
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 17,
+     "ok": true,
+     "fluxMilliJy": 176.09,
+     "noiseMilliJy": 0.274,
+     "snr": 641.8,
+     "emptyApertures": 161,
+     "peakMJySr": 87.74,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956275,
+      30.401197
+     ],
+     "offsetArcsec": [
+      -0.45,
+      -0.59
+     ]
+    },
+    "D2": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-03-01",
+      "2026-03-09"
+     ],
+     "lambdaRange": [
+      1.12,
+      1.6078
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 15.2,
+     "ok": true,
+     "fluxMilliJy": 346.51,
+     "noiseMilliJy": 0.381,
+     "snr": 909.3,
+     "emptyApertures": 161,
+     "peakMJySr": 151,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956269,
+      30.401194
+     ],
+     "offsetArcsec": [
+      -0.47,
+      -0.6
+     ]
+    },
+    "D3": {
+     "frames": 17,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2026-02-20",
+      "2026-03-02"
+     ],
+     "lambdaRange": [
+      1.6772,
+      2.3751
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 16.5,
+     "ok": true,
+     "fluxMilliJy": 587.48,
+     "noiseMilliJy": 0.334,
+     "snr": 1758.4,
+     "emptyApertures": 161,
+     "peakMJySr": 238,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956335,
+      30.40122
+     ],
+     "offsetArcsec": [
+      -0.26,
+      -0.5
+     ]
+    },
+    "D4": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-03-04",
+      "2026-03-12"
+     ],
+     "lambdaRange": [
+      2.4652,
+      3.7185
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 15.7,
+     "ok": true,
+     "fluxMilliJy": 1078.5,
+     "noiseMilliJy": 0.173,
+     "snr": 6234.9,
+     "emptyApertures": 161,
+     "peakMJySr": 408.5,
+     "apertureCovered": 1,
+     "centroid": [
+      76.95652,
+      30.401249
+     ],
+     "offsetArcsec": [
+      0.31,
+      -0.4
+     ]
+    },
+    "D5": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-03-01",
+      "2026-03-09"
+     ],
+     "lambdaRange": [
+      3.8459,
+      4.3864
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 16.2,
+     "ok": true,
+     "fluxMilliJy": 1914.5,
+     "noiseMilliJy": 0.141,
+     "snr": 13537.9,
+     "emptyApertures": 161,
+     "peakMJySr": 606.5,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956478,
+      30.401242
+     ],
+     "offsetArcsec": [
+      0.18,
+      -0.42
+     ]
+    },
+    "D6": {
+     "frames": 17,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2026-02-20",
+      "2026-03-02"
+     ],
+     "lambdaRange": [
+      4.4558,
+      4.9755
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 17,
+     "ok": true,
+     "fluxMilliJy": 1922.3,
+     "noiseMilliJy": 0.136,
+     "snr": 14178.8,
+     "emptyApertures": 161,
+     "peakMJySr": 547.2,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956453,
+      30.40126
+     ],
+     "offsetArcsec": [
+      0.1,
+      -0.36
+     ]
+    },
+    "J": {
+     "frames": 13,
+     "requested": 16,
+     "failed": 0,
+     "dates": [
+      "2026-03-01",
+      "2026-03-09"
+     ],
+     "lambdaRange": [
+      1.0859,
+      1.427
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 285.95,
+     "noiseMilliJy": 0.373,
+     "snr": 766.6,
+     "emptyApertures": 161,
+     "peakMJySr": 112.1,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956273,
+      30.401204
+     ],
+     "offsetArcsec": [
+      -0.46,
+      -0.56
+     ]
+    },
+    "H": {
+     "frames": 11,
+     "requested": 20,
+     "failed": 0,
+     "dates": [
+      "2026-02-27",
+      "2026-03-05"
+     ],
+     "lambdaRange": [
+      1.427,
+      1.837
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 481.98,
+     "noiseMilliJy": 0.403,
+     "snr": 1196.6,
+     "emptyApertures": 161,
+     "peakMJySr": 191.3,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956273,
+      30.401203
+     ],
+     "offsetArcsec": [
+      -0.46,
+      -0.56
+     ]
+    },
+    "Ks": {
+     "frames": 10,
+     "requested": 12,
+     "failed": 0,
+     "dates": [
+      "2026-02-20",
+      "2026-02-27"
+     ],
+     "lambdaRange": [
+      1.9368,
+      2.3751
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 604.2,
+     "noiseMilliJy": 0.291,
+     "snr": 2078.1,
+     "emptyApertures": 161,
+     "peakMJySr": 244.4,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956348,
+      30.401206
+     ],
+     "offsetArcsec": [
+      -0.23,
+      -0.55
+     ]
+    },
+    "W1": {
+     "frames": 19,
+     "requested": 25,
+     "failed": 0,
+     "dates": [
+      "2026-03-04",
+      "2026-03-12"
+     ],
+     "lambdaRange": [
+      2.6703,
+      3.9807
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 1204,
+     "noiseMilliJy": 0.153,
+     "snr": 7865.7,
+     "emptyApertures": 161,
+     "peakMJySr": 465.9,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956532,
+      30.401254
+     ],
+     "offsetArcsec": [
+      0.35,
+      -0.38
+     ]
+    },
+    "W2": {
+     "frames": 33,
+     "requested": 35,
+     "failed": 0,
+     "dates": [
+      "2026-02-20",
+      "2026-03-09"
+     ],
+     "lambdaRange": [
+      3.9124,
+      5.0116
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 1956,
+     "noiseMilliJy": 0.131,
+     "snr": 14986.3,
+     "emptyApertures": 161,
+     "peakMJySr": 579.7,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956472,
+      30.401248
+     ],
+     "offsetArcsec": [
+      0.16,
+      -0.4
+     ]
+    }
+   }
+  },
+  {
+   "id": 2,
+   "label": "Sep 2026",
+   "start": "2026-09-02",
+   "end": "2026-09-16",
+   "visits": 106,
+   "bands": {
+    "D1": {
+     "frames": 18,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2026-09-02",
+      "2026-09-09"
+     ],
+     "lambdaRange": [
+      0.7537,
+      1.1041
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.3,
+     "megabytes": 18.4,
+     "ok": true,
+     "fluxMilliJy": 227.28,
+     "noiseMilliJy": 0.288,
+     "snr": 788,
+     "emptyApertures": 161,
+     "peakMJySr": 107.7,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956355,
+      30.401207
+     ],
+     "offsetArcsec": [
+      -0.2,
+      -0.55
+     ]
+    },
+    "D2": {
+     "frames": 18,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2026-09-10",
+      "2026-09-15"
+     ],
+     "lambdaRange": [
+      1.1217,
+      1.6462
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 16.2,
+     "ok": true,
+     "fluxMilliJy": 358.25,
+     "noiseMilliJy": 0.432,
+     "snr": 829.7,
+     "emptyApertures": 161,
+     "peakMJySr": 157.8,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956317,
+      30.401216
+     ],
+     "offsetArcsec": [
+      -0.32,
+      -0.52
+     ]
+    },
+    "D3": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-09-13",
+      "2026-09-16"
+     ],
+     "lambdaRange": [
+      1.6814,
+      2.3848
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 15.6,
+     "ok": true,
+     "fluxMilliJy": 541.11,
+     "noiseMilliJy": 0.325,
+     "snr": 1664.9,
+     "emptyApertures": 161,
+     "peakMJySr": 210.9,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956396,
+      30.401235
+     ],
+     "offsetArcsec": [
+      -0.08,
+      -0.45
+     ]
+    },
+    "D4": {
+     "frames": 18,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2026-09-02",
+      "2026-09-09"
+     ],
+     "lambdaRange": [
+      2.4521,
+      3.789
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 17.4,
+     "ok": true,
+     "fluxMilliJy": 881.33,
+     "noiseMilliJy": 0.204,
+     "snr": 4316.2,
+     "emptyApertures": 161,
+     "peakMJySr": 314.8,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956445,
+      30.401334
+     ],
+     "offsetArcsec": [
+      0.08,
+      -0.1
+     ]
+    },
+    "D5": {
+     "frames": 17,
+     "requested": 18,
+     "failed": 0,
+     "dates": [
+      "2026-09-10",
+      "2026-09-15"
+     ],
+     "lambdaRange": [
+      3.8477,
+      4.386
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1,
+     "megabytes": 17.2,
+     "ok": true,
+     "fluxMilliJy": 1165.3,
+     "noiseMilliJy": 0.136,
+     "snr": 8588.2,
+     "emptyApertures": 161,
+     "peakMJySr": 371.7,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956515,
+      30.401269
+     ],
+     "offsetArcsec": [
+      0.29,
+      -0.33
+     ]
+    },
+    "D6": {
+     "frames": 17,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-09-13",
+      "2026-09-16"
+     ],
+     "lambdaRange": [
+      4.4596,
+      4.9813
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 1.1,
+     "megabytes": 16.4,
+     "ok": true,
+     "fluxMilliJy": 1406.1,
+     "noiseMilliJy": 0.142,
+     "snr": 9880.7,
+     "emptyApertures": 161,
+     "peakMJySr": 452.9,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956555,
+      30.401256
+     ],
+     "offsetArcsec": [
+      0.42,
+      -0.38
+     ]
+    },
+    "J": {
+     "frames": 13,
+     "requested": 17,
+     "failed": 0,
+     "dates": [
+      "2026-09-02",
+      "2026-09-15"
+     ],
+     "lambdaRange": [
+      1.0785,
+      1.417
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 317.89,
+     "noiseMilliJy": 0.388,
+     "snr": 818.4,
+     "emptyApertures": 161,
+     "peakMJySr": 153.3,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956323,
+      30.401182
+     ],
+     "offsetArcsec": [
+      -0.3,
+      -0.64
+     ]
+    },
+    "H": {
+     "frames": 12,
+     "requested": 20,
+     "failed": 0,
+     "dates": [
+      "2026-09-10",
+      "2026-09-15"
+     ],
+     "lambdaRange": [
+      1.4511,
+      1.8426
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 454.21,
+     "noiseMilliJy": 0.422,
+     "snr": 1076.1,
+     "emptyApertures": 161,
+     "peakMJySr": 205.7,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956344,
+      30.401257
+     ],
+     "offsetArcsec": [
+      -0.23,
+      -0.37
+     ]
+    },
+    "Ks": {
+     "frames": 11,
+     "requested": 13,
+     "failed": 0,
+     "dates": [
+      "2026-09-13",
+      "2026-09-16"
+     ],
+     "lambdaRange": [
+      1.9292,
+      2.3848
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 556.33,
+     "noiseMilliJy": 0.287,
+     "snr": 1936.4,
+     "emptyApertures": 161,
+     "peakMJySr": 194.1,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956381,
+      30.401258
+     ],
+     "offsetArcsec": [
+      -0.12,
+      -0.37
+     ]
+    },
+    "W1": {
+     "frames": 20,
+     "requested": 25,
+     "failed": 0,
+     "dates": [
+      "2026-09-02",
+      "2026-09-12"
+     ],
+     "lambdaRange": [
+      2.6518,
+      3.9823
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 871,
+     "noiseMilliJy": 0.182,
+     "snr": 4786.7,
+     "emptyApertures": 161,
+     "peakMJySr": 303.4,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956466,
+      30.401337
+     ],
+     "offsetArcsec": [
+      0.14,
+      -0.08
+     ]
+    },
+    "W2": {
+     "frames": 33,
+     "requested": 35,
+     "failed": 0,
+     "dates": [
+      "2026-09-10",
+      "2026-09-16"
+     ],
+     "lambdaRange": [
+      3.9142,
+      4.9813
+     ],
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "seconds": 0.1,
+     "megabytes": 0,
+     "ok": true,
+     "fluxMilliJy": 1319.3,
+     "noiseMilliJy": 0.132,
+     "snr": 9993.3,
+     "emptyApertures": 161,
+     "peakMJySr": 417,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956536,
+      30.401277
+     ],
+     "offsetArcsec": [
+      0.36,
+      -0.3
+     ]
+    }
+   }
+  },
+  {
+   "id": "all",
+   "label": "all passes",
+   "bands": {
+    "D1": {
+     "frames": 52,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 183.25,
+     "noiseMilliJy": 0.291,
+     "snr": 630.1,
+     "emptyApertures": 161,
+     "peakMJySr": 84.72,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956314,
+      30.401192
+     ],
+     "offsetArcsec": [
+      -0.33,
+      -0.61
+     ]
+    },
+    "D2": {
+     "frames": 52,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 320.86,
+     "noiseMilliJy": 0.4,
+     "snr": 802.4,
+     "emptyApertures": 161,
+     "peakMJySr": 138,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956271,
+      30.401203
+     ],
+     "offsetArcsec": [
+      -0.46,
+      -0.56
+     ]
+    },
+    "D3": {
+     "frames": 51,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 550.26,
+     "noiseMilliJy": 0.328,
+     "snr": 1680,
+     "emptyApertures": 161,
+     "peakMJySr": 216.2,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956319,
+      30.401234
+     ],
+     "offsetArcsec": [
+      -0.31,
+      -0.45
+     ]
+    },
+    "D4": {
+     "frames": 52,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 1035.4,
+     "noiseMilliJy": 0.191,
+     "snr": 5422.8,
+     "emptyApertures": 161,
+     "peakMJySr": 370.4,
+     "apertureCovered": 1,
+     "centroid": [
+      76.95634,
+      30.401277
+     ],
+     "offsetArcsec": [
+      -0.25,
+      -0.3
+     ]
+    },
+    "D5": {
+     "frames": 51,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 1734.6,
+     "noiseMilliJy": 0.12,
+     "snr": 14469.4,
+     "emptyApertures": 161,
+     "peakMJySr": 550,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956424,
+      30.401278
+     ],
+     "offsetArcsec": [
+      0.01,
+      -0.29
+     ]
+    },
+    "D6": {
+     "frames": 51,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 1999.1,
+     "noiseMilliJy": 0.139,
+     "snr": 14395.9,
+     "emptyApertures": 161,
+     "peakMJySr": 594.6,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956448,
+      30.401277
+     ],
+     "offsetArcsec": [
+      0.09,
+      -0.3
+     ]
+    },
+    "J": {
+     "frames": 40,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 273.38,
+     "noiseMilliJy": 0.354,
+     "snr": 771.3,
+     "emptyApertures": 161,
+     "peakMJySr": 116.8,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956272,
+      30.401185
+     ],
+     "offsetArcsec": [
+      -0.46,
+      -0.63
+     ]
+    },
+    "H": {
+     "frames": 35,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 432.69,
+     "noiseMilliJy": 0.413,
+     "snr": 1048.9,
+     "emptyApertures": 161,
+     "peakMJySr": 186.1,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956286,
+      30.401235
+     ],
+     "offsetArcsec": [
+      -0.42,
+      -0.45
+     ]
+    },
+    "Ks": {
+     "frames": 31,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 578.42,
+     "noiseMilliJy": 0.304,
+     "snr": 1904.1,
+     "emptyApertures": 161,
+     "peakMJySr": 212.5,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956292,
+      30.40123
+     ],
+     "offsetArcsec": [
+      -0.4,
+      -0.47
+     ]
+    },
+    "W1": {
+     "frames": 59,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 1137,
+     "noiseMilliJy": 0.17,
+     "snr": 6672.8,
+     "emptyApertures": 161,
+     "peakMJySr": 404.4,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956346,
+      30.401288
+     ],
+     "offsetArcsec": [
+      -0.23,
+      -0.26
+     ]
+    },
+    "W2": {
+     "frames": 99,
+     "predicted": [
+      76.95642,
+      30.40136
+     ],
+     "ok": true,
+     "fluxMilliJy": 1892.9,
+     "noiseMilliJy": 0.124,
+     "snr": 15213.9,
+     "emptyApertures": 161,
+     "peakMJySr": 576.2,
+     "apertureCovered": 1,
+     "centroid": [
+      76.956442,
+      30.40128
+     ],
+     "offsetArcsec": [
+      0.07,
+      -0.29
+     ]
+    }
+   }
+  }
+ ],
+ "totalSeconds": 21,
+ "totalMegabytes": 297
+}
